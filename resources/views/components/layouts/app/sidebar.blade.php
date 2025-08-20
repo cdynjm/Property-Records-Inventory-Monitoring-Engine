@@ -13,7 +13,8 @@
 
             <flux:navlist variant="outline">
                 <flux:navlist.group :heading="__('Platform')" class="grid">
-                    <flux:navlist.item icon="home" :href="route('superadmin.dashboard')" :current="request()->routeIs('superadmin.dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
+                    <flux:navlist.item icon="home" class="mb-1" :href="route('superadmin.dashboard')" :current="request()->routeIs('superadmin.dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
+                     <flux:navlist.item icon="inbox" :href="route('superadmin.offices')" :current="request()->routeIs('superadmin.offices')" wire:navigate>{{ __('Offices') }}</flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
 

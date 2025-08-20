@@ -6,6 +6,7 @@ use App\Livewire\Settings\Profile;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\SuperAdmin\DashboardController;
+use App\Http\Controllers\SuperAdmin\OfficeController;
 
 Route::get('/', function () {
     return view('pages.welcome');
@@ -26,6 +27,7 @@ Route::middleware(['auth'])->group(function () {
         Route::prefix('superadmin')->group(function () {
 
             Route::get('dashboard', [DashboardController::class, 'index'])->name('superadmin.dashboard');
+            Route::get('offices', [OfficeController::class, 'index'])->name('superadmin.offices');
 
         });
 
