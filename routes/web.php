@@ -29,6 +29,8 @@ Route::middleware(['auth'])->group(function () {
             Route::get('dashboard', [DashboardController::class, 'index'])->name('superadmin.dashboard');
             Route::get('offices', [OfficeController::class, 'index'])->name('superadmin.offices');
 
+            Route::post('create-office', [OfficeController::class, 'createOffice'])->name('superadmin.create-office');
+            Route::delete('delete-office', [OfficeController::class, 'deleteOffice'])->name('superadmin.delete-office');
         });
 
     });

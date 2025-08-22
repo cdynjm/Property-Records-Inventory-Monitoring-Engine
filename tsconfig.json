@@ -7,5 +7,5 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["resources/ts/*.ts", "resources/ts/**/*.tsx"]
+  "include": ["resources/ts/*.ts", "resources/ts/**/*.tsx", "resources/ts/app.ts"]
 }
