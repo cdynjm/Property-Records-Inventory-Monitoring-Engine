@@ -1,7 +1,7 @@
 <div class="overflow-x-auto">
-    <table class="min-w-full text-sm border border-gray-300">
+    <table class="min-w-full text-sm">
         <thead class="bg-gray-100">
-            <tr>
+            <tr class="border-none">
                 {{ $head }}
             </tr>
         </thead>
