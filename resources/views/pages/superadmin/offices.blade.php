@@ -10,8 +10,8 @@
         <x-table>
             <x-slot:head>
                 <th class="px-4 py-2 text-[13px]">#</th>
-                <th class="px-4 py-2 text-[13px]">Office Name</th>
-                <th class="px-4 py-2 text-[13px]">Code</th>
+                <th class="px-4 py-2 text-[13px] text-start">Office Name</th>
+                <th class="px-4 py-2 text-[13px] text-start">Code</th>
                 <th class="px-4 py-2 text-[13px]">Actions</th>
             </x-slot:head>
 
@@ -36,7 +36,8 @@
 
             @if ($offices->isEmpty())
                 <x-table-row>
-                    <td colspan="4" class="border-b border-gray-100 px-4 py-2 text-center text-gray-500">No offices found.</td>
+                    <td colspan="4" class="border-b border-gray-100 px-4 py-2 text-center text-gray-500">No offices
+                        found.</td>
                 </x-table-row>
             @endif
         </x-table>
@@ -54,6 +55,8 @@
             <flux:input label="Office Code" placeholder="Office Code" class="mb-4" name="officeCode" required />
             <div class="flex">
                 <flux:spacer />
+                <flux:button type="button" variant="outline" class="me-3"
+                    x-on:click="$flux.modal('create-office').close()">Cancel</flux:button>
                 <flux:button type="submit" variant="primary" id="save-office-btn">Save changes</flux:button>
             </div>
         </form>
@@ -61,11 +64,14 @@
 
     <x-modal name="delete-office" class="w-auto md:m-auto mx-4">
         <x-slot name="header">
+            <flux:modal.close class="text-gray-500 hover:text-gray-700" />
             <flux:heading size="lg">Delete Office</flux:heading>
-            <flux:text class="mt-2">This can't be undone</flux:text>
+            <flux:text class="mt-2">Are you sure you want to delete this office?</flux:text>
         </x-slot>
         <div class="flex">
             <flux:spacer />
+            <flux:button type="button" variant="outline" class="me-3"
+                x-on:click="$flux.modal('delete-office').close()">Cancel</flux:button>
             <flux:button type="submit" variant="danger" id="delete-office-btn">Delete</flux:button>
         </div>
     </x-modal>
