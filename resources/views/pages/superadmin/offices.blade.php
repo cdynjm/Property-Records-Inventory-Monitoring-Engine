@@ -21,9 +21,16 @@
                     <td class="border-b border-gray-100 px-4 py-2">{{ $of->officeName }}</td>
                     <td class="border-b border-gray-100 px-4 py-2">{{ $of->officeCode }}</td>
                     <td class="border-b border-gray-100 px-4 py-2 text-center">
-                        <a href="javascript:;" id="edit-office">
-                            <iconify-icon icon="lets-icons:edit-duotone" width="24" height="24"></iconify-icon>
-                        </a>
+                        <flux:modal.trigger name="edit-office">
+                            <a href="javascript:;" id="edit-office"
+                            data-id="{{ $of->encrypted_id }}"
+                            data-name="{{ $of->officeName }}"
+                            data-code="{{ $of->officeCode }}"
+                            >
+                                <iconify-icon icon="lets-icons:edit-duotone" width="24"
+                                    height="24"></iconify-icon>
+                            </a>
+                        </flux:modal.trigger>
                         <flux:modal.trigger name="delete-office">
                             <a href="javascript:;" id="delete-office" data-id="{{ $of->encrypted_id }}">
                                 <iconify-icon icon="lets-icons:trash-duotone" width="24"
@@ -57,7 +64,26 @@
                 <flux:spacer />
                 <flux:button type="button" variant="outline" class="me-3"
                     x-on:click="$flux.modal('create-office').close()">Cancel</flux:button>
-                <flux:button type="submit" variant="primary" id="save-office-btn">Save changes</flux:button>
+                <flux:button type="submit" variant="primary" class="save-office-btn">Save changes</flux:button>
+            </div>
+        </form>
+    </x-modal>
+
+    <x-modal name="edit-office" class="w-auto md:m-auto mx-4">
+        <x-slot name="header">
+            <flux:heading size="lg">Edit Office</flux:heading>
+            <flux:text class="mt-2">Update office information</flux:text>
+        </x-slot>
+        <form action="" id="update-office">
+            <flux:input label="Office Name" placeholder="Office Name" class="mb-4" id="office-name" name="officeName"
+                required />
+            <flux:input label="Office Code" placeholder="Office Code" class="mb-4" id="office-code" name="officeCode"
+                required />
+            <div class="flex">
+                <flux:spacer />
+                <flux:button type="button" variant="outline" class="me-3"
+                    x-on:click="$flux.modal('edit-office').close()">Cancel</flux:button>
+                <flux:button type="submit" variant="primary" class="save-office-btn">Save changes</flux:button>
             </div>
         </form>
     </x-modal>

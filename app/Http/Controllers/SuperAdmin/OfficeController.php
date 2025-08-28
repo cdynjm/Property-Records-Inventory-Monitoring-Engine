@@ -45,6 +45,21 @@ class OfficeController extends Controller
         ], 200);
     }
 
+    public function updateOffice(Request $request)
+    {
+        
+        Office::where('id', $this->aes->decrypt($request->officeID))->update([
+            'officeName' => $request->officeName,
+            'officeCode' => $request->officeCode,
+        ]);
+
+        $request->session()->flash('success', 'Office updated successfully.');
+
+        return response()->json([
+            'message' => 'Office updated successfully.',
+        ], 200);
+    }
+
     public function deleteOffice(Request $request)
     {
         Office::where('id', $this->aes->decrypt($request->officeID))->delete();

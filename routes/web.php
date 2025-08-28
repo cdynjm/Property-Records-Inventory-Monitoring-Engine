@@ -30,6 +30,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('offices', [OfficeController::class, 'index'])->name('superadmin.offices');
 
             Route::post('create-office', [OfficeController::class, 'createOffice'])->name('superadmin.create-office');
+            Route::patch('update-office', [OfficeController::class, 'updateOffice'])->name('superadmin.update-office');
             Route::delete('delete-office', [OfficeController::class, 'deleteOffice'])->name('superadmin.delete-office');
         });
 
