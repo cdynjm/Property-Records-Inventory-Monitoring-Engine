@@ -11,6 +11,6 @@ class Office extends Model
 
     protected $table = 'offices';
     protected $fillable = [
-        'officeName', 'officeCode'
+        'users_id', 'officeName', 'officeCode'
     ];
 }

@@ -8,12 +8,11 @@
         <!-- Email Address -->
         <flux:input
             wire:model="email"
-            :label="__('Email address')"
-            type="email"
+            :label="__('Username')"
             required
             autofocus
             autocomplete="email"
-            placeholder="email@example.com"
+            placeholder="Username"
         />
 
         <!-- Password -->

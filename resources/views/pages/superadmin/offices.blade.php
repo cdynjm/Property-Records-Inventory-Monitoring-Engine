@@ -52,7 +52,7 @@
 
     </div>
 
-    <x-modal name="create-office" class="w-auto md:m-auto mx-4">
+    <x-modal name="create-office" class="w-auto md:m-auto mx-4 ">
         <x-slot name="header">
             <flux:heading size="lg">New Office</flux:heading>
             <flux:text class="mt-2">Create new office</flux:text>
@@ -60,6 +60,8 @@
         <form action="" id="create-office">
             <flux:input label="Office Name" placeholder="Office Name" class="mb-4" name="officeName" required />
             <flux:input label="Office Code" placeholder="Office Code" class="mb-4" name="officeCode" required />
+            <flux:input label="Username" placeholder="Username" class="mb-4" name="username" required />
+            <flux:input label="Password" type="password" placeholder="Password" class="mb-4" name="password" required />
             <div class="flex">
                 <flux:spacer />
                 <flux:button type="button" variant="outline" class="me-3"

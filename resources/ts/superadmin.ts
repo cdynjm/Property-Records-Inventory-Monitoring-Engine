@@ -1,5 +1,6 @@
 import $ from "jquery";
 import axios from "axios";
+import Swal from "sweetalert2";
 declare global {
     interface Window {
         Livewire: any;
@@ -7,9 +8,8 @@ declare global {
 }
 
 $(function () {
-
     let officeID: string | null = null;
-    
+
     $(document).on("submit", "#create-office", function (e) {
         e.preventDefault();
         const formData = new FormData(this as HTMLFormElement);
@@ -22,8 +22,13 @@ $(function () {
                 window.Livewire.navigate(window.location.pathname);
             })
             .catch((error) => {
-                console.error("Error:", error);
-                alert("There was an error saving the office.");
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Email is already taken!",
+                    confirmButtonColor: "#3a57e8",
+                    target: document.body
+                });
             })
             .finally(() => {
                 $btn.prop("disabled", false).text("Save changes");

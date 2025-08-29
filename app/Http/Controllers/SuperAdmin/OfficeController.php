@@ -5,9 +5,12 @@ namespace App\Http\Controllers\SuperAdmin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Session;
+use Hash;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Security\AESCipher;
 
 use App\Models\Office;
+use App\Models\User;
 
 class OfficeController extends Controller
 {
@@ -32,10 +35,28 @@ class OfficeController extends Controller
 
     public function createOffice(Request $request)
     {
-        
-        Office::create([
+        $validator = Validator::make($request->all(), [
+            'username' => 'required|unique:users,email',
+        ]);
+
+        if ($validator->fails()) {
+            
+            return response()->json([
+                'message' => 'Validation failed.',
+                'errors' => $validator->errors()
+            ], 500);
+        }
+
+        $office = Office::create([
             'officeName' => $request->officeName,
             'officeCode' => $request->officeCode,
+        ]);
+
+        User::create([
+            'name' => $request->officeName,
+            'email' => $request->username,
+            'password' => Hash::make($request->password),
+            'role' => 'office',
         ]);
 
         $request->session()->flash('success', 'Office created successfully.');
@@ -63,6 +84,7 @@ class OfficeController extends Controller
     public function deleteOffice(Request $request)
     {
         Office::where('id', $this->aes->decrypt($request->officeID))->delete();
+        User::where('offices_id', $this->aes->decrypt($request->officeID))->delete();
 
         $request->session()->flash('success', 'Office deleted successfully.');
 
