@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\SuperAdmin\DashboardController;
 use App\Http\Controllers\SuperAdmin\OfficeController;
+use App\Http\Controllers\SuperAdmin\UnitController;
 
 Route::get('/', function () {
     return view('pages.welcome');
@@ -27,11 +28,17 @@ Route::middleware(['auth'])->group(function () {
         Route::prefix('superadmin')->group(function () {
 
             Route::get('dashboard', [DashboardController::class, 'index'])->name('superadmin.dashboard');
-            Route::get('offices', [OfficeController::class, 'index'])->name('superadmin.offices');
 
+            Route::get('offices', [OfficeController::class, 'index'])->name('superadmin.offices');
             Route::post('create-office', [OfficeController::class, 'createOffice'])->name('superadmin.create-office');
             Route::patch('update-office', [OfficeController::class, 'updateOffice'])->name('superadmin.update-office');
             Route::delete('delete-office', [OfficeController::class, 'deleteOffice'])->name('superadmin.delete-office');
+
+            Route::get('units', [UnitController::class, 'index'])->name('superadmin.units');
+            Route::post('create-unit', [UnitController::class, 'createUnit'])->name('superadmin.create-unit');
+            Route::patch('update-unit', [UnitController::class, 'updateUnit'])->name('superadmin.update-unit');
+            Route::delete('delete-unit', [UnitController::class, 'deleteUnit'])->name('superadmin.delete-unit');
+
         });
 
     });

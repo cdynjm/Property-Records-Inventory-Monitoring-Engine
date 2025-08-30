@@ -9,6 +9,7 @@ declare global {
 //OFFICE FUNCTIONS:
 
 $(function () {
+
     let officeID: string | null = null;
 
     $(document).on("submit", "#create-office", function (e) {
@@ -118,8 +119,90 @@ $(function () {
     });
 });
 
-
+//UNIT FUNCTIONS:
 
 $(function () {
 
+    let unitID: string | null = null;
+
+    $(document).on("submit", "#create-unit", function (e) {
+        e.preventDefault();
+        const formData = new FormData(this as HTMLFormElement);
+        const $btn = $(".save-unit-btn");
+        $btn.prop("disabled", true).text("Saving...");
+
+        axios
+            .post("/superadmin/create-unit", formData)
+            .then((response) => {
+                window.Livewire.navigate(window.location.pathname);
+            })
+            .catch((error) => {
+                
+            })
+            .finally(() => {
+                $btn.prop("disabled", false).text("Save changes");
+            });
+    });
+
+    $(document).on("click", "#edit-unit", function (e) {
+        e.preventDefault();
+        unitID = $(this).data("id");
+        console.log(unitID);
+        const unitName = $(this).data("unit");
+        if (unitID) {
+            $("#unit-name").val(unitName);
+        }
+    });
+
+    $(document).on("submit", "#update-unit", function (e) {
+        e.preventDefault();
+
+        const formData = new FormData(this as HTMLFormElement);
+        formData.append("unitID", unitID || "");
+        formData.append("_method", "PATCH");
+
+        const $btn = $(".save-unit-btn");
+        $btn.prop("disabled", true).text("Saving...");
+
+        axios
+            .post("/superadmin/update-unit", formData)
+            .then((response) => {
+                window.Livewire.navigate(window.location.pathname);
+            })
+            .catch((error) => {
+               
+            })
+            .finally(() => {
+                $btn.prop("disabled", false).text("Save changes");
+            });
+    });
+
+    $(document).on("click", "#delete-unit", function (e) {
+        e.preventDefault();
+        unitID = $(this).data("id");
+    });
+
+    $(document).on("click", "#delete-unit-btn", function (e) {
+        e.preventDefault();
+        const $btn = $(this);
+        if (!unitID) {
+            alert("No unit selected to delete!");
+            return;
+        }
+
+        $btn.prop("disabled", true).text("Deleting...");
+
+        axios
+            .delete("/superadmin/delete-unit", { data: { unitID } })
+            .then((response) => {
+                window.Livewire.navigate(window.location.pathname);
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+                alert("There was an error deleting the unit.");
+            })
+            .finally(() => {
+                $btn.prop("disabled", false).text("Delete");
+            });
+    });
 });
