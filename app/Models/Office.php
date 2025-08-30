@@ -11,6 +11,12 @@ class Office extends Model
 
     protected $table = 'offices';
     protected $fillable = [
-        'users_id', 'officeName', 'officeCode'
+        'officeName', 'officeCode'
     ];
+
+    public function user()
+    {
+        return $this->hasOne(User::class, 'offices_id');
+    }
+
 }

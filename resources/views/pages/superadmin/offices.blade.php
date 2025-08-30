@@ -22,11 +22,12 @@
                     <td class="border-b border-gray-100 px-4 py-2">{{ $of->officeCode }}</td>
                     <td class="border-b border-gray-100 px-4 py-2 text-center">
                         <flux:modal.trigger name="edit-office">
-                            <a href="javascript:;" id="edit-office"
-                            data-id="{{ $of->encrypted_id }}"
-                            data-name="{{ $of->officeName }}"
-                            data-code="{{ $of->officeCode }}"
-                            >
+                            <a href="javascript:;" id="edit-office" 
+                                data-id="{{ $of->encrypted_id }}"
+                                data-name="{{ $of->officeName }}" 
+                                data-code="{{ $of->officeCode }}"
+                                data-username="{{ $of->user->email }}"
+                                >
                                 <iconify-icon icon="lets-icons:edit-duotone" width="24"
                                     height="24"></iconify-icon>
                             </a>
@@ -77,10 +78,11 @@
             <flux:text class="mt-2">Update office information</flux:text>
         </x-slot>
         <form action="" id="update-office">
-            <flux:input label="Office Name" placeholder="Office Name" class="mb-4" id="office-name" name="officeName"
-                required />
-            <flux:input label="Office Code" placeholder="Office Code" class="mb-4" id="office-code" name="officeCode"
-                required />
+            <flux:input label="Office Name" placeholder="Office Name" class="mb-4" id="office-name" name="officeName" required />
+            <flux:input label="Office Code" placeholder="Office Code" class="mb-4" id="office-code" name="officeCode" required />
+            <flux:input label="Username" placeholder="Username" class="mb-4" id="username" name="username" required />
+            <flux:input label="New Password" type="password" placeholder="Password" class="mb-4" name="password" required />
+
             <div class="flex">
                 <flux:spacer />
                 <flux:button type="button" variant="outline" class="me-3"

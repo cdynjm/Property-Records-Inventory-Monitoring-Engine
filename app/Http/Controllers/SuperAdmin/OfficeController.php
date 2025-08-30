@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Session;
 use Hash;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Security\AESCipher;
 
@@ -53,6 +54,7 @@ class OfficeController extends Controller
         ]);
 
         User::create([
+            'offices_id' => $office->id,
             'name' => $request->officeName,
             'email' => $request->username,
             'password' => Hash::make($request->password),
@@ -68,10 +70,32 @@ class OfficeController extends Controller
 
     public function updateOffice(Request $request)
     {
-        
-        Office::where('id', $this->aes->decrypt($request->officeID))->update([
+        $officeId = $this->aes->decrypt($request->officeID);
+
+        $currentUser = User::where('offices_id', $officeId)->first();
+
+        $validator = Validator::make($request->all(), [
+            'username' => [
+                'required',
+                Rule::unique('users', 'email')->ignore($currentUser->id),
+            ],
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'message' => 'Validation failed.',
+                'errors' => $validator->errors()
+            ], 500);
+        }
+
+        Office::where('id', $officeId)->update([
             'officeName' => $request->officeName,
             'officeCode' => $request->officeCode,
+        ]);
+
+        User::where('offices_id', $officeId)->update([
+            'name' => $request->officeName,
+            'email' => $request->username,
         ]);
 
         $request->session()->flash('success', 'Office updated successfully.');

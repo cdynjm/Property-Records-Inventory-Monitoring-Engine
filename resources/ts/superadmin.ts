@@ -22,13 +22,18 @@ $(function () {
                 window.Livewire.navigate(window.location.pathname);
             })
             .catch((error) => {
-                Swal.fire({
-                    icon: "error",
-                    title: "Oops...",
-                    text: "Email is already taken!",
-                    confirmButtonColor: "#3a57e8",
-                    target: document.body
-                });
+                const toast = document.getElementsByClassName("toast-error");
+
+                if (toast.length > 0) {
+                    const messageElem = toast[0].querySelector(
+                        ".toast-error-message"
+                    );
+                    if (messageElem) {
+                        messageElem.textContent = "Username is already taken";
+                    }
+                    $(toast[0]).fadeIn(100);
+                    setTimeout(() => $(toast[0]).fadeOut(300), 3000);
+                }
             })
             .finally(() => {
                 $btn.prop("disabled", false).text("Save changes");
@@ -40,9 +45,11 @@ $(function () {
         officeID = $(this).data("id");
         const officeName = $(this).data("name");
         const officeCode = $(this).data("code");
+        const username = $(this).data("username");
         if (officeID) {
             $("#office-name").val(officeName);
             $("#office-code").val(officeCode);
+            $("#username").val(username);
         }
     });
 
@@ -62,8 +69,18 @@ $(function () {
                 window.Livewire.navigate(window.location.pathname);
             })
             .catch((error) => {
-                console.error("Error:", error);
-                alert("There was an error saving the office.");
+                const toast = document.getElementsByClassName("toast-error");
+
+                if (toast.length > 0) {
+                    const messageElem = toast[1].querySelector(
+                        ".toast-error-message"
+                    );
+                    if (messageElem) {
+                        messageElem.textContent = "Username is already taken";
+                    }
+                    $(toast[1]).fadeIn(100);
+                    setTimeout(() => $(toast[1]).fadeOut(300), 3000);
+                }
             })
             .finally(() => {
                 $btn.prop("disabled", false).text("Save changes");

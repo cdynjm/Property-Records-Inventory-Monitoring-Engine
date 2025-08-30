@@ -5,7 +5,7 @@
                 <div>{{ $header }}</div>
             </div>
         @endisset
-
         {{ $slot }}
     </div>
+    <x-error-toast></x-error-toast>
 </flux:modal>

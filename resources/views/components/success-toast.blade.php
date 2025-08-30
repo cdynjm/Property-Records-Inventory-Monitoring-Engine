@@ -2,7 +2,7 @@
      x-show="show"
      x-transition
      id="toast-success"
-     class="fixed top-5 right-5 text-gray-500 bg-white px-4 py-3 rounded-lg shadow-lg flex items-center space-x-2 z-50">
+     class="fixed top-5 right-5 text-gray-500 bg-white px-4 py-3 rounded-lg shadow-lg flex items-center space-x-2 z-100">
     
     <div class="inline-flex items-center justify-center shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg">
         <iconify-icon icon="line-md:folder-check-twotone" width="24" height="24"></iconify-icon>
