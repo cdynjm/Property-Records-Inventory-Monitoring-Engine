@@ -81,7 +81,7 @@
             <flux:input label="Office Name" placeholder="Office Name" class="mb-4" id="office-name" name="officeName" required />
             <flux:input label="Office Code" placeholder="Office Code" class="mb-4" id="office-code" name="officeCode" required />
             <flux:input label="Username" placeholder="Username" class="mb-4" id="username" name="username" required />
-            <flux:input label="New Password" type="password" placeholder="Password" class="mb-4" name="password" required />
+            <flux:input label="New Password" type="password" placeholder="Password" class="mb-4" name="password" />
 
             <div class="flex">
                 <flux:spacer />

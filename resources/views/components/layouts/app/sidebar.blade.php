@@ -23,6 +23,9 @@
                     <flux:navlist.item icon="inbox" :href="route('superadmin.offices')"
                         :current="request()->routeIs('superadmin.offices')" wire:navigate>{{ __('Offices') }}
                     </flux:navlist.item>
+                    <flux:navlist.item icon="user-group" :href="route('superadmin.admin')"
+                        :current="request()->routeIs('superadmin.admin')" wire:navigate>{{ __('Admin Accounts') }}
+                    </flux:navlist.item>
                     <flux:navlist.item icon="clipboard-document-list" :href="route('superadmin.units')"
                         :current="request()->routeIs('superadmin.units')" wire:navigate>{{ __('Unit') }}
                     </flux:navlist.item>

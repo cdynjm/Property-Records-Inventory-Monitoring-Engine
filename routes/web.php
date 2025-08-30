@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\SuperAdmin\DashboardController;
 use App\Http\Controllers\SuperAdmin\OfficeController;
+use App\Http\Controllers\SuperAdmin\AdminAccountController;
 use App\Http\Controllers\SuperAdmin\UnitController;
 
 Route::get('/', function () {
@@ -33,6 +34,11 @@ Route::middleware(['auth'])->group(function () {
             Route::post('create-office', [OfficeController::class, 'createOffice'])->name('superadmin.create-office');
             Route::patch('update-office', [OfficeController::class, 'updateOffice'])->name('superadmin.update-office');
             Route::delete('delete-office', [OfficeController::class, 'deleteOffice'])->name('superadmin.delete-office');
+            
+            Route::get('admin-accounts', [AdminAccountController::class, 'index'])->name('superadmin.admin');
+            Route::post('create-admin', [AdminAccountController::class, 'createAdmin'])->name('superadmin.create-admin');
+            Route::patch('update-admin', [AdminAccountController::class, 'updateAdmin'])->name('superadmin.update-admin');
+            Route::delete('delete-admin', [AdminAccountController::class, 'deleteAdmin'])->name('superadmin.delete-admin');
 
             Route::get('units', [UnitController::class, 'index'])->name('superadmin.units');
             Route::post('create-unit', [UnitController::class, 'createUnit'])->name('superadmin.create-unit');

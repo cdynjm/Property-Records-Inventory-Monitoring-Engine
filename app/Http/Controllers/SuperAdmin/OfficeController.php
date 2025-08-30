@@ -98,6 +98,12 @@ class OfficeController extends Controller
             'email' => $request->username,
         ]);
 
+        if(!empty($request->password)) {
+            User::where('offices_id', $officeId)->update([
+                'password' => Hash::make($request->password),
+            ]);
+        }
+
         $request->session()->flash('success', 'Office updated successfully.');
 
         return response()->json([
