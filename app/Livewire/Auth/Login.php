@@ -43,7 +43,19 @@ class Login extends Component
         RateLimiter::clear($this->throttleKey());
         Session::regenerate();
 
-        $this->redirectIntended(default: route('superadmin.dashboard', absolute: false), navigate: true);
+        if(auth()->user()->role === 'superadmin') {
+            $this->redirectIntended(default: route('superadmin.dashboard', absolute: false), navigate: true);
+        } elseif(auth()->user()->role === 'admin') {
+            $this->redirectIntended(default: route('admin.dashboard', absolute: false), navigate: true);
+        }
+        elseif(auth()->user()->role === 'office') {
+            $this->redirectIntended(default: route('office.dashboard', absolute: false), navigate: true);
+        } else {
+            Auth::logout();
+            throw ValidationException::withMessages([
+                'email' => 'Your account does not have a valid role.',
+            ]);
+        }
     }
 
     /**

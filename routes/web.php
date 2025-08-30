@@ -5,10 +5,14 @@ use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\SuperAdmin\DashboardController;
+use App\Http\Controllers\SuperAdmin\DashboardController as SuperAdminDashboardController;
 use App\Http\Controllers\SuperAdmin\OfficeController;
 use App\Http\Controllers\SuperAdmin\AdminAccountController;
 use App\Http\Controllers\SuperAdmin\UnitController;
+
+use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+
+use App\Http\Controllers\Office\DashboardController as OfficeDashboardController;
 
 Route::get('/', function () {
     return view('pages.welcome');
@@ -28,7 +32,7 @@ Route::middleware(['auth'])->group(function () {
 
         Route::prefix('superadmin')->group(function () {
 
-            Route::get('dashboard', [DashboardController::class, 'index'])->name('superadmin.dashboard');
+            Route::get('dashboard', [SuperAdminDashboardController::class, 'index'])->name('superadmin.dashboard');
 
             Route::get('offices', [OfficeController::class, 'index'])->name('superadmin.offices');
             Route::post('create-office', [OfficeController::class, 'createOffice'])->name('superadmin.create-office');
@@ -52,7 +56,9 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['admin'])->group(function () {
         
         Route::prefix('admin')->group(function () {
-    
+            
+            Route::get('dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+
         });
 
     });
@@ -61,6 +67,8 @@ Route::middleware(['auth'])->group(function () {
         
         Route::prefix('office')->group(function () {
     
+            Route::get('dashboard', [OfficeDashboardController::class, 'index'])->name('office.dashboard');
+            
         });
 
     });

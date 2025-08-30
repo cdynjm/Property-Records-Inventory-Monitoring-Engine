@@ -35,6 +35,40 @@
             <flux:spacer />
         @endif
 
+        @if (auth()->user()->role === 'admin')
+            <a href="{{ route('admin.dashboard') }}" class="me-5 flex items-center space-x-2 rtl:space-x-reverse"
+                wire:navigate>
+                <x-app-logo />
+            </a>
+
+            <flux:navlist variant="outline">
+                <flux:navlist.group :heading="__('Platform')" class="grid">
+                    <flux:navlist.item icon="home" class="mb-1" :href="route('admin.dashboard')"
+                        :current="request()->routeIs('admin.dashboard')" wire:navigate>{{ __('Dashboard') }}
+                    </flux:navlist.item>
+                </flux:navlist.group>
+            </flux:navlist>
+
+            <flux:spacer />
+        @endif
+
+        @if (auth()->user()->role === 'office')
+            <a href="{{ route('office.dashboard') }}" class="me-5 flex items-center space-x-2 rtl:space-x-reverse"
+                wire:navigate>
+                <x-app-logo />
+            </a>
+
+            <flux:navlist variant="outline">
+                <flux:navlist.group :heading="__('Platform')" class="grid">
+                    <flux:navlist.item icon="home" class="mb-1" :href="route('office.dashboard')"
+                        :current="request()->routeIs('office.dashboard')" wire:navigate>{{ __('Dashboard') }}
+                    </flux:navlist.item>
+                </flux:navlist.group>
+            </flux:navlist>
+
+            <flux:spacer />
+        @endif
+
         <!-- Desktop User Menu -->
         <flux:dropdown class="hidden lg:block" position="bottom" align="start">
             <flux:profile :name="auth()->user()->name" :initials="auth()->user()->initials()"
