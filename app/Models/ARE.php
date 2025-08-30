@@ -11,7 +11,7 @@ class ARE extends Model
 
     protected $table = 'are';
     protected $fillable = [
-        'areOffice', 'areYear', 'areCode', 'areControlNumber',
+        'offices_id', 'areOffice', 'areYear', 'areCode', 'areControlNumber',
         'receivedFrom_id', 'receivedFromPosition', 'dateReceivedFrom',
         'receivedBy_id', 'receivedByPosition', 'dateReceivedBy',
         'furnishedBy', 'remarks'
@@ -25,6 +25,11 @@ class ARE extends Model
     public function receivedBy()
     {
         return $this->belongsTo(ReceivedBy::class, 'receivedBy_id');
+    }
+
+    public function office()
+    {
+        return $this->belongsTo(Office::class, 'offices_id');
     }
 
     public function information()

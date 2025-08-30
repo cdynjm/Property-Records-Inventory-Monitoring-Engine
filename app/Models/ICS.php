@@ -11,7 +11,7 @@ class ICS extends Model
 
     protected $table = 'ics';
     protected $fillable = [
-        'icsOffice', 'icsYear', 'icsCode', 'icsNumber',
+        'offices_id', 'icsOffice', 'icsYear', 'icsCode', 'icsNumber',
         'receivedBy_id', 'receivedByPosition', 'dateReceivedBy',
         'receivedFrom_id', 'receivedFromPosition', 'dateReceivedFrom',
         'furnishedBy', 'remarks'
@@ -25,6 +25,11 @@ class ICS extends Model
     public function receivedFrom()
     {
         return $this->belongsTo(ReceivedFrom::class, 'receivedFrom_id');
+    }
+
+    public function office()
+    {
+        return $this->belongsTo(Office::class, 'offices_id');
     }
 
     public function information()

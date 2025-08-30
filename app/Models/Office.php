@@ -19,4 +19,14 @@ class Office extends Model
         return $this->hasOne(User::class, 'offices_id');
     }
 
+    public function ics()
+    {
+        return $this->hasMany(ICS::class, 'offices_id');
+    }
+
+    public function are()
+    {
+        return $this->hasMany(ARE::class, 'offices_id');
+    }
+
 }

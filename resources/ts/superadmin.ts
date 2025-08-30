@@ -1,11 +1,12 @@
 import $ from "jquery";
 import axios from "axios";
-import Swal from "sweetalert2";
 declare global {
     interface Window {
         Livewire: any;
     }
 }
+
+//OFFICE FUNCTIONS:
 
 $(function () {
     let officeID: string | null = null;
@@ -115,4 +116,10 @@ $(function () {
                 $btn.prop("disabled", false).text("Delete");
             });
     });
+});
+
+
+
+$(function () {
+
 });
