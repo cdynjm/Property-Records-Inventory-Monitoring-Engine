@@ -1,5 +1,11 @@
 <x-layouts.app :title="__('Dashboard')">
-    <div class="flex h-full w-full flex-1 flex-col gap-4 rounded-xl">
+    <div class="flex min-h-screen flex-col">
         
+        <div class="flex-1">
+            
+        </div>
+
+       
+        <x-footer class="mt-auto" />
     </div>
 </x-layouts.app>
