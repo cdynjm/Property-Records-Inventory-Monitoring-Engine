@@ -5,7 +5,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full mx-auto mb-10">
                 
                 <!-- ARE Card -->
-                <a href="#"
+                <a wire:navigate href="{{ route('admin.are') }}"
                    class="flex flex-col items-center justify-center border-1 border-green-600 text-green-600 bg-white rounded-2xl shadow-md p-8 h-38 transition hover:bg-green-50">
                     <iconify-icon icon="mdi:clipboard-text" width="50" height="50" class="mb-3"></iconify-icon>
                     <h3 class="text-2xl font-bold mb-1">ARE</h3>
@@ -13,7 +13,7 @@
                 </a>
     
                 <!-- ICS Card -->
-                <a href="#"
+                <a wire:navigate href="{{ route('admin.ics') }}"
                    class="flex flex-col items-center justify-center border-1 border-blue-600 text-blue-600 bg-white rounded-2xl shadow-md p-8 h-38 transition hover:bg-blue-50">
                     <iconify-icon icon="mdi:archive" width="50" height="50" class="mb-3"></iconify-icon>
                     <h3 class="text-2xl font-bold mb-1">ICS</h3>

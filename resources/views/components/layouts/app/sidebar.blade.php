@@ -46,6 +46,15 @@
                     <flux:navlist.item icon="home" class="mb-1" :href="route('admin.dashboard')"
                         :current="request()->routeIs('admin.dashboard')" wire:navigate>{{ __('Dashboard') }}
                     </flux:navlist.item>
+                    <flux:navlist.item icon="clipboard-document-check" class="mb-1" :href="route('admin.are-records')"
+                        :current="request()->routeIs('admin.are-records')" wire:navigate>{{ __('ARE Records') }}
+                    </flux:navlist.item>
+                    <flux:navlist.item icon="clipboard-document" class="mb-1" :href="route('admin.ics-records')"
+                        :current="request()->routeIs('admin.ics-records')" wire:navigate>{{ __('ICS Records') }}
+                    </flux:navlist.item>
+                    <flux:navlist.item icon="briefcase" class="mb-1" :href="route('admin.office-records')"
+                        :current="request()->routeIs('admin.office-records')" wire:navigate>{{ __('Office Records') }}
+                    </flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
 
@@ -96,7 +105,8 @@
                 <flux:menu.separator />
 
                 <flux:menu.radio.group>
-                    <flux:menu.item :href="route('settings.profile')" icon="cog" wire:navigate>{{ __('Settings') }}
+                    <flux:menu.item :href="route('settings.profile')" icon="cog" wire:navigate>
+                        {{ __('Settings') }}
                     </flux:menu.item>
                 </flux:menu.radio.group>
 
@@ -150,18 +160,17 @@
                 <flux:menu.separator />
 
                 <flux:menu.radio.group>
-                    <flux:menu.item :href="route('settings.profile')" icon="cog" wire:navigate>{{ __('Settings') }}
+                    <flux:menu.item :href="route('settings.profile')" icon="cog" wire:navigate>
+                        {{ __('Settings') }}
                     </flux:menu.item>
                 </flux:menu.radio.group>
 
                 <flux:menu.separator />
 
-                <form method="POST" action="{{ route('logout') }}" class="w-full">
-                    @csrf
-                    <flux:menu.item as="button" type="submit" icon="arrow-right-start-on-rectangle" class="w-full">
-                        {{ __('Log Out') }}
-                    </flux:menu.item>
-                </form>
+                <flux:menu.item as="button" id="log-out" icon="arrow-right-start-on-rectangle" class="w-full">
+                    {{ __('Log Out') }}
+                </flux:menu.item>
+
             </flux:menu>
         </flux:dropdown>
     </flux:header>
