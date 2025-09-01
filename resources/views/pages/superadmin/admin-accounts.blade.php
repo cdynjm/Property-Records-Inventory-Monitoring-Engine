@@ -5,7 +5,7 @@
             <div class="flex items-center justify-between mb-4">
                 <flux:heading level="3">List of Admins</flux:heading>
                 <flux:modal.trigger name="create-admin">
-                    <flux:button variant="primary" size="sm" class="text-xs">New Admin</flux:button>
+                    <flux:button variant="primary" size="sm" class="text-xs">+ New Admin</flux:button>
                 </flux:modal.trigger>
             </div>
 

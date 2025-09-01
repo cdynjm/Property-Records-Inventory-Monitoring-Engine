@@ -4,7 +4,7 @@
             <div class="flex items-center justify-between mb-4">
                 <flux:heading level="3">List of Offices</flux:heading>
                 <flux:modal.trigger name="create-office">
-                    <flux:button variant="primary" size="sm" class="text-xs">New Office</flux:button>
+                    <flux:button variant="primary" size="sm" class="text-xs">+ New Office</flux:button>
                 </flux:modal.trigger>
             </div>
 

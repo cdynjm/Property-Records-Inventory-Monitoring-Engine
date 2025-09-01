@@ -1,5 +1,5 @@
 <div class="flex flex-col gap-6">
-    <x-auth-header :title="__('Provincial General Services Office')" :description="__('Inventory Management System')" />
+    <x-auth-header :title="__('Property Records')" :description="__('& Inventory Monitoring Engine')" />
 
     <!-- Session Status -->
     <x-auth-session-status class="text-center" :status="session('status')" />

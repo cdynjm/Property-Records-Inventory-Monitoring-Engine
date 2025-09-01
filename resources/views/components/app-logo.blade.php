@@ -2,6 +2,6 @@
     <x-app-logo-icon class="size-5 fill-current text-white dark:text-black" />
 </div>
 <div class="ms-1 grid flex-1 text-start text-[13px]">
-    <span class="mb-0.5 truncate leading-tight font-semibold">Provincial GSO</span>
-    <small>Inventory Management System</small>
+    <span class="mb-0.5 truncate leading-tight font-semibold">Property Records</span>
+    <small>& Inventory Monitoring Engine</small>
 </div>

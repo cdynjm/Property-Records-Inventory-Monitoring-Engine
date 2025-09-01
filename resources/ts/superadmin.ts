@@ -147,7 +147,6 @@ $(function () {
     $(document).on("click", "#edit-unit", function (e) {
         e.preventDefault();
         unitID = $(this).data("id");
-        console.log(unitID);
         const unitName = $(this).data("unit");
         if (unitID) {
             $("#unit-name").val(unitName);

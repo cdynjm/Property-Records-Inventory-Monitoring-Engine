@@ -9,8 +9,8 @@
 
     <!-- Text -->
     <div class="flex flex-col text-left">
-        <flux:heading size="sm">{{ $title }}</flux:heading>
-        <flux:subheading>{{ $description }}</flux:subheading>
+        <h5 class="font-bold text-[15px]">{{ $title }}</h5>
+        <small class="text-gray-500">{{ $description }}</small>
     </div>
     
 </div>

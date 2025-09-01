@@ -1,7 +1,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=0.85" />
 
-<title>PGSO ({{ $title ?? config('app.name') }})</title>
+<title>PRIME ({{ $title ?? "Log In" }})</title>
 
 <link rel="icon" href="{{ asset('/img/province-logo-official.png') }}" sizes="any">
 
