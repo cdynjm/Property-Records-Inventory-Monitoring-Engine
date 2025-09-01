@@ -1,8 +1,12 @@
 <div class="flex flex-col gap-6">
-    <x-auth-header :title="__('Log in to your account')" :description="__('Enter your email and password below to log in')" />
+    <x-auth-header :title="__('Provincial General Services Office')" :description="__('Inventory Management System')" />
 
     <!-- Session Status -->
     <x-auth-session-status class="text-center" :status="session('status')" />
+
+   <hr>
+
+    <small class="text-gray-600">Log in with your credentials to proceed</small>
 
     <form method="POST" wire:submit="login" class="flex flex-col gap-6">
         <!-- Email Address -->
@@ -35,10 +39,4 @@
             <flux:button variant="primary" type="submit" class="w-full">{{ __('Log in') }}</flux:button>
         </div>
     </form>
-
-    <div class="space-x-1 rtl:space-x-reverse text-center text-sm text-zinc-600 dark:text-zinc-400">
-        <span>{{ __('PGSO Inventory System | ') }}</span>
-        <flux:link :href="route('home')" wire:navigate>{{ __('Home') }}</flux:link>
-    </div>
-   
 </div>

@@ -5,6 +5,8 @@ use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\RedirectIfAuthenticated;
+
 use App\Http\Controllers\SuperAdmin\DashboardController as SuperAdminDashboardController;
 use App\Http\Controllers\SuperAdmin\OfficeController;
 use App\Http\Controllers\SuperAdmin\AdminAccountController;
@@ -14,13 +16,10 @@ use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 
 use App\Http\Controllers\Office\DashboardController as OfficeDashboardController;
 
-Route::get('/', function () {
-    return view('pages.welcome');
-})->name('home');
+Route::get('/', [RedirectIfAuthenticated::class, 'index'])->name('home');
 
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
-
     Route::get('settings/profile', Profile::class)->name('settings.profile');
     Route::get('settings/password', Password::class)->name('settings.password');
     Route::get('settings/appearance', Appearance::class)->name('settings.appearance');
