@@ -15,22 +15,42 @@
                 <x-app-logo />
             </a>
 
+            @php
+                $superadminNavItems = [
+                    [
+                        'icon' => 'home',
+                        'route' => 'superadmin.dashboard',
+                        'label' => __('Dashboard'),
+                    ],
+                    [
+                        'icon' => 'inbox',
+                        'route' => 'superadmin.offices',
+                        'label' => __('Offices'),
+                    ],
+                    [
+                        'icon' => 'user-group',
+                        'route' => 'superadmin.admin',
+                        'label' => __('Admin Accounts'),
+                    ],
+                    [
+                        'icon' => 'clipboard-document-list',
+                        'route' => 'superadmin.units',
+                        'label' => __('Unit'),
+                    ],
+                ];
+            @endphp
+
             <flux:navlist variant="outline">
                 <flux:navlist.group :heading="__('Platform')" class="grid">
-                    <flux:navlist.item icon="home" class="mb-1" :href="route('superadmin.dashboard')"
-                        :current="request()->routeIs('superadmin.dashboard')" wire:navigate>{{ __('Dashboard') }}
-                    </flux:navlist.item>
-                    <flux:navlist.item icon="inbox" :href="route('superadmin.offices')"
-                        :current="request()->routeIs('superadmin.offices')" wire:navigate>{{ __('Offices') }}
-                    </flux:navlist.item>
-                    <flux:navlist.item icon="user-group" :href="route('superadmin.admin')"
-                        :current="request()->routeIs('superadmin.admin')" wire:navigate>{{ __('Admin Accounts') }}
-                    </flux:navlist.item>
-                    <flux:navlist.item icon="clipboard-document-list" :href="route('superadmin.units')"
-                        :current="request()->routeIs('superadmin.units')" wire:navigate>{{ __('Unit') }}
-                    </flux:navlist.item>
+                    @foreach ($superadminNavItems as $item)
+                        <flux:navlist.item :icon="$item['icon']" class="mb-1" :href="route($item['route'])"
+                            :current="request()->routeIs($item['route'])" wire:navigate>
+                            {{ $item['label'] }}
+                        </flux:navlist.item>
+                    @endforeach
                 </flux:navlist.group>
             </flux:navlist>
+
 
             <flux:spacer />
         @endif
@@ -41,22 +61,52 @@
                 <x-app-logo />
             </a>
 
+            @php
+                $navItems = [
+                    [
+                        'icon' => 'home',
+                        'route' => 'admin.dashboard',
+                        'label' => __('Dashboard'),
+                    ],
+                    [
+                        'icon' => 'clipboard-document-check',
+                        'route' => 'admin.are-records',
+                        'label' => __('ARE Records'),
+                    ],
+                    [
+                        'icon' => 'clipboard-document',
+                        'route' => 'admin.ics-records',
+                        'label' => __('ICS Records'),
+                    ],
+                    [
+                        'icon' => 'briefcase',
+                        'route' => 'admin.office-records',
+                        'label' => __('Office Records'),
+                    ],
+                    [
+                        'icon' => 'identification',
+                        'route' => 'admin.issuers',
+                        'label' => __('Issuers'),
+                    ],
+                    [
+                        'icon' => 'user-circle',
+                        'route' => 'admin.receivers',
+                        'label' => __('Receivers'),
+                    ],
+                ];
+            @endphp
+
             <flux:navlist variant="outline">
                 <flux:navlist.group :heading="__('Platform')" class="grid">
-                    <flux:navlist.item icon="home" class="mb-1" :href="route('admin.dashboard')"
-                        :current="request()->routeIs('admin.dashboard')" wire:navigate>{{ __('Dashboard') }}
-                    </flux:navlist.item>
-                    <flux:navlist.item icon="clipboard-document-check" class="mb-1" :href="route('admin.are-records')"
-                        :current="request()->routeIs('admin.are-records')" wire:navigate>{{ __('ARE Records') }}
-                    </flux:navlist.item>
-                    <flux:navlist.item icon="clipboard-document" class="mb-1" :href="route('admin.ics-records')"
-                        :current="request()->routeIs('admin.ics-records')" wire:navigate>{{ __('ICS Records') }}
-                    </flux:navlist.item>
-                    <flux:navlist.item icon="briefcase" class="mb-1" :href="route('admin.office-records')"
-                        :current="request()->routeIs('admin.office-records')" wire:navigate>{{ __('Office Records') }}
-                    </flux:navlist.item>
+                    @foreach ($navItems as $item)
+                        <flux:navlist.item :icon="$item['icon']" class="mb-1" :href="route($item['route'])"
+                            :current="request()->routeIs($item['route'])" wire:navigate>
+                            {{ $item['label'] }}
+                        </flux:navlist.item>
+                    @endforeach
                 </flux:navlist.group>
             </flux:navlist>
+
 
             <flux:spacer />
         @endif
@@ -67,13 +117,27 @@
                 <x-app-logo />
             </a>
 
+            @php
+                $officeNavItems = [
+                    [
+                        'icon' => 'home',
+                        'route' => 'office.dashboard',
+                        'label' => __('Dashboard'),
+                    ],
+                ];
+            @endphp
+
             <flux:navlist variant="outline">
                 <flux:navlist.group :heading="__('Platform')" class="grid">
-                    <flux:navlist.item icon="home" class="mb-1" :href="route('office.dashboard')"
-                        :current="request()->routeIs('office.dashboard')" wire:navigate>{{ __('Dashboard') }}
-                    </flux:navlist.item>
+                    @foreach ($officeNavItems as $item)
+                        <flux:navlist.item :icon="$item['icon']" class="mb-1" :href="route($item['route'])"
+                            :current="request()->routeIs($item['route'])" wire:navigate>
+                            {{ $item['label'] }}
+                        </flux:navlist.item>
+                    @endforeach
                 </flux:navlist.group>
             </flux:navlist>
+
 
             <flux:spacer />
         @endif

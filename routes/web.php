@@ -18,6 +18,8 @@ use App\Http\Controllers\Admin\AREController;
 use App\Http\Controllers\Admin\ICSRecordsController;
 use App\Http\Controllers\Admin\ARERecordsController;
 use App\Http\Controllers\Admin\OfficeRecordsController;
+use App\Http\Controllers\Admin\IssuersController;
+use App\Http\Controllers\Admin\ReceiversController;
 
 use App\Http\Controllers\Office\DashboardController as OfficeDashboardController;
 
@@ -71,6 +73,10 @@ Route::middleware(['auth'])->group(function () {
             Route::get('are-records', [ARERecordsController::class, 'index'])->name('admin.are-records');
 
             Route::get('office-records', [OfficeRecordsController::class, 'index'])->name('admin.office-records');
+        
+            Route::get('issuers', [IssuersController::class, 'index'])->name('admin.issuers');
+            
+            Route::get('receivers', [ReceiversController::class, 'index'])->name('admin.receivers');
         });
 
     });
