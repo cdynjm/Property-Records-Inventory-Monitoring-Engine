@@ -2,11 +2,12 @@
     <div class="flex min-h-screen flex-col">
 
         <div class="flex-1">
-            <div class="flex items-center justify-between mb-4">
-                <flux:heading level="3">Inventory Custodian Slip</flux:heading>
+            <div class="flex items-center justify-center mb-4">
+                <iconify-icon icon="ic:twotone-inventory" class="me-2 text-gray-500" width="30" height="30"></iconify-icon>
+                <flux:heading level="1" class="text-[18px]">Inventory Custodian Slip</flux:heading>
             </div>
 
-            <div class="border w-full p-4 rounded-lg">
+            <div class="">
                 <form action="" id="create-ics-form" class="space-y-4">
                     <p class="font-bold text-[13px] mb-2">ICS NUMBER</p>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
