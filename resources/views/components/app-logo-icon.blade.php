@@ -1,1 +1,1 @@
-<img src="{{ asset('/img/province-logo-official.png') }}" alt="">
+<img src="{{ asset('/img/PRIME.png?new') }}" alt="">

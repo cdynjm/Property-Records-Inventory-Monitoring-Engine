@@ -36,8 +36,6 @@ class Profile extends Component
             'email' => [
                 'required',
                 'string',
-                'lowercase',
-                'email',
                 'max:255',
                 Rule::unique(User::class)->ignore($user->id),
             ],
