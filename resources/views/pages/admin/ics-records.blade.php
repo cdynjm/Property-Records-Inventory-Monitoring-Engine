@@ -42,7 +42,7 @@
                             class="border-b border-gray-100 px-4 py-2 whitespace-nowrap uppercase text-[12px]  {{ $ic->remarks == 'active' ? 'text-green-500' : 'text-red-500' }}">
                             {{ $ic->remarks }}</td>
                         <td class="border-b border-gray-100 px-4 py-2 text-center whitespace-nowrap">
-                            <a href="javascript:;" id="edit-ics">
+                            <a wire:navigate href="{{ route('admin.edit-ics', ['encrypted_id' => $ic->encrypted_id]) }}" id="edit-ics">
                                 <iconify-icon icon="lets-icons:edit-duotone" width="24"
                                     height="24"></iconify-icon>
                             </a>
