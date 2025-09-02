@@ -9,6 +9,9 @@ use App\Http\Controllers\Security\AESCipher;
 
 use App\Models\Office;
 use App\Models\Unit;
+use App\Models\ReceivedFrom;
+use App\Models\ICS;
+use App\Models\ICSInformation;
 
 class ICSController extends Controller
 {
@@ -31,9 +34,56 @@ class ICSController extends Controller
             return $unit;
         });
 
+        $receivedFrom = ReceivedFrom::get()->map(function ($rf) {
+            $rf->encrypted_id = $this->aes->encrypt($rf->id);
+            return $rf;
+        });
+
         return view('pages.admin.ics', [
             'offices' => $offices,
             'units' => $units,
+            'receivedFrom' => $receivedFrom,
         ]);
+    }
+
+    public function createICS(Request $request) 
+    {
+        $office = Office::where('id', $this->aes->decrypt($request->offices_id))->first();
+        $receivedFrom = ReceivedFrom::where('id', $this->aes->decrypt($request->receivedFrom_id))->first();
+
+        $ics = ICS::create([
+            'offices_id' => $office->id, 
+            'icsOffice' => $office->officeName, 
+            'icsYear' => $request->icsYear, 
+            'icsCode' => $request->icsCode, 
+            'icsNumber' => $office->officeName . '-' . $request->icsYear . '-' . $request->icsCode,
+            'receivedFrom_id' => $receivedFrom->id, 
+            'receivedFromPosition' => $receivedFrom->position, 
+            'dateReceivedFrom' => $request->dateReceivedFrom,
+            'furnishedBy' => $request->furnishedBy, 
+            'remarks' => 'active'
+        ]);
+
+        $rows = $request->input('rows');
+        
+        foreach ($rows as $row) {
+            ICSInformation::create([
+                'ics_id' => $ics->id,
+                'quantity' => $row['quantity'],
+                'unit' => $row['unit'], 
+                'officeCode' => $row['officeCode'],
+                'invItemNumber' => $office->officeName . '-' . $request->icsYear . '-' . $office->officeCode,
+                'dateAcquired' => $row['dateAcquired'],
+                'estUsefulLife' => $row['estUsefulLife'],
+                'unitCost' => $row['unitCost'],
+                'description' => $row['description'],
+            ]);
+        }
+
+        $request->session()->flash('success', 'ICS created successfully.');
+
+        return response()->json([
+            'message' => 'ICS created successfully.'
+        ], 200);
     }
 }

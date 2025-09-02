@@ -18,10 +18,10 @@
 
                 @foreach ($offices as $index => $of)
                     <x-table-row class="">
-                        <td class="border-b border-gray-100 px-4 py-2 text-center">{{ $index + 1 }}</td>
-                        <td class="border-b border-gray-100 px-4 py-2">{{ $of->officeName }}</td>
-                        <td class="border-b border-gray-100 px-4 py-2">{{ $of->officeCode }}</td>
-                        <td class="border-b border-gray-100 px-4 py-2 text-center">
+                        <td class="border-b border-gray-100 px-4 py-2 text-center whitespace-nowrap">{{ $index + 1 }}</td>
+                        <td class="border-b border-gray-100 px-4 py-2 whitespace-nowrap">{{ $of->officeName }}</td>
+                        <td class="border-b border-gray-100 px-4 py-2 whitespace-nowrap">{{ $of->officeCode }}</td>
+                        <td class="border-b border-gray-100 px-4 py-2 text-center whitespace-nowrap">
                             <flux:modal.trigger name="edit-office">
                                 <a href="javascript:;" id="edit-office" data-id="{{ $of->encrypted_id }}"
                                     data-name="{{ $of->officeName }}" data-code="{{ $of->officeCode }}"

@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Session;
 use App\Http\Controllers\Security\AESCipher;
 
+use App\Models\ICS;
+
 class ICSRecordsController extends Controller
 {
     protected AESCipher $aes;
@@ -18,6 +20,13 @@ class ICSRecordsController extends Controller
 
     public function index()
     {
-        return view('pages.admin.ics-records');
+        $ics = ICS::get()->map(function ($ics) {
+            $ics->encrypted_id = $this->aes->encrypt($ics->id);
+            return $ics;
+        });
+
+        return view('pages.admin.ics-records', [
+            'ics' => $ics,
+        ]);
     }
 }

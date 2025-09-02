@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Session;
 use App\Http\Controllers\Security\AESCipher;
 
+use App\Models\ReceivedFrom;
+
 class IssuersController extends Controller
 {
     protected AESCipher $aes;
@@ -18,6 +20,52 @@ class IssuersController extends Controller
 
     public function index()
     {
-        return view('pages.admin.issuers');
+        $receivedFrom = ReceivedFrom::get()->map(function ($rf) {
+            $rf->encrypted_id = $this->aes->encrypt($rf->id);
+            return $rf;
+        });
+        
+        return view('pages.admin.issuers', [
+            'receivedFrom' => $receivedFrom,
+        ]);
+    }
+
+    public function createIssuer(Request $request)
+    {
+        ReceivedFrom::create([
+            'name' => $request->name,
+            'position' => $request->position,
+        ]);
+
+        $request->session()->flash('success', 'Issuer created successfully.');
+
+        return response()->json([
+            'message' => 'Issuer created successfully.'
+        ], 200);
+    }
+
+    public function updateIssuer(Request $request)
+    {
+        ReceivedFrom::where('id', $this->aes->decrypt($request->issuerID))->update([
+            'name' => $request->name,
+            'position' => $request->position,
+        ]);
+
+        $request->session()->flash('success', 'Issuer updated successfully.');
+
+        return response()->json([
+            'message' => 'Issuer updated successfully.'
+        ], 200);
+    }
+
+    public function deleteIssuer(Request $request)
+    {
+        ReceivedFrom::where('id', $this->aes->decrypt($request->issuerID))->delete();
+
+        $request->session()->flash('success', 'Issuer deleted successfully.');
+
+        return response()->json([
+            'message' => 'Issuer deleted successfully.'
+        ], 200);
     }
 }

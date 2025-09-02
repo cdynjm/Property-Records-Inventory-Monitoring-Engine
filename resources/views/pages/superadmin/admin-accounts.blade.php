@@ -18,9 +18,9 @@
 
                 @foreach ($admins as $index => $ad)
                 <x-table-row class="">
-                    <td class="border-b border-gray-100 px-4 py-2 text-center">{{ $index + 1 }}</td>
-                    <td class="border-b border-gray-100 px-4 py-2">{{ $ad->name }}</td>
-                    <td class="border-b border-gray-100 px-4 py-2 text-center">
+                    <td class="border-b border-gray-100 px-4 py-2 text-center whitespace-nowrap">{{ $index + 1 }}</td>
+                    <td class="border-b border-gray-100 px-4 py-2 whitespace-nowrap">{{ $ad->name }}</td>
+                    <td class="border-b border-gray-100 px-4 py-2 text-center whitespace-nowrap">
                         <flux:modal.trigger name="edit-admin">
                             <a href="javascript:;" id="edit-admin" data-id="{{ $ad->encrypted_id }}"
                                 data-name="{{ $ad->name }}" data-username="{{ $ad->email }}">

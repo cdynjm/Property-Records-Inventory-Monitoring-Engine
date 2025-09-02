@@ -65,6 +65,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 
             Route::get('ics', [ICSController::class, 'index'])->name('admin.ics');
+            Route::post('create-ics', [ICSController::class, 'createICS'])->name('admin.create-ics');
 
             Route::get('are', [AREController::class, 'index'])->name('admin.are');
 
@@ -75,6 +76,9 @@ Route::middleware(['auth'])->group(function () {
             Route::get('office-records', [OfficeRecordsController::class, 'index'])->name('admin.office-records');
         
             Route::get('issuers', [IssuersController::class, 'index'])->name('admin.issuers');
+            Route::post('create-issuer', [IssuersController::class, 'createIssuer'])->name('admin.create-issuer');
+            Route::patch('update-issuer', [IssuersController::class, 'updateIssuer'])->name('admin.update-issuer');
+            Route::delete('delete-issuer', [IssuersController::class, 'deleteIssuer'])->name('admin.delete-issuer');
             
             Route::get('receivers', [ReceiversController::class, 'index'])->name('admin.receivers');
         });
