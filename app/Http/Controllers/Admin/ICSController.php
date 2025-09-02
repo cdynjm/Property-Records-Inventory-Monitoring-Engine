@@ -126,6 +126,7 @@ class ICSController extends Controller
         $searchTerm = $request->input('search');
 
         $receivedBy = ReceivedBy::where('name', 'LIKE', '%' . $searchTerm . '%')
+            ->limit(10)
             ->get()
             ->map(function ($rf) {
                 $rf->encrypted_id = $this->aes->encrypt($rf->id);

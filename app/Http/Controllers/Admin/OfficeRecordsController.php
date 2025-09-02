@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Session;
 use App\Http\Controllers\Security\AESCipher;
 
+use App\Models\Office;
+
 class OfficeRecordsController extends Controller
 {
     protected AESCipher $aes;
@@ -18,6 +20,13 @@ class OfficeRecordsController extends Controller
 
     public function index()
     {
-        return view('pages.admin.office-records');
+        $offices = Office::get()->map(function ($office) {
+            $office->encrypted_id = $this->aes->encrypt($office->id);
+            return $office;
+        });
+
+        return view('pages.admin.office-records', [
+            'offices' => $offices
+        ]);
     }
 }

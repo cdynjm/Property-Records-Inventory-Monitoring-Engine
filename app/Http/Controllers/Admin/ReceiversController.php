@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Session;
 use App\Http\Controllers\Security\AESCipher;
 
+use App\Models\ReceivedBy;
+
 class ReceiversController extends Controller
 {
     protected AESCipher $aes;
@@ -18,6 +20,13 @@ class ReceiversController extends Controller
 
     public function index()
     {
-        return view('pages.admin.receivers');
+        $receivedBy = ReceivedBy::get()->map(function ($rb) {
+            $rb->encrypted_id = $this->aes->encrypt($rb->id);
+            return $rb;
+        });
+        
+        return view('pages.admin.receivers', [
+            'receivedBy' => $receivedBy,
+        ]);
     }
 }

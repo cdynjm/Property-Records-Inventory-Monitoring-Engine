@@ -19,10 +19,15 @@
 
                 @foreach ($receivedFrom as $index => $rf)
                     <x-table-row class="">
-                        <td class="border-b border-gray-100 px-4 py-2 text-center whitespace-nowrap">{{ $index + 1 }}</td>
+                        <td class="border-b border-gray-100 px-4 py-2 text-center whitespace-nowrap">{{ $index + 1 }}
+                        </td>
                         <td class="border-b border-gray-100 px-4 py-2 whitespace-nowrap">{{ $rf->name }}</td>
                         <td class="border-b border-gray-100 px-4 py-2 whitespace-nowrap">{{ $rf->position }}</td>
                         <td class="border-b border-gray-100 px-4 py-2 text-center whitespace-nowrap">
+                            <a wire:navigate href="javascript:;">
+                                <iconify-icon icon="lets-icons:view-duotone" width="24"
+                                    height="24"></iconify-icon>
+                            </a>
                             <flux:modal.trigger name="edit-issuer">
                                 <a href="javascript:;" id="edit-issuer" data-id="{{ $rf->encrypted_id }}"
                                     data-name="{{ $rf->name }}" data-position="{{ $rf->position }}">
@@ -77,7 +82,8 @@
         </x-slot>
         <form action="" id="update-issuer">
             <flux:input label="Name" placeholder="Name" class="mb-4" id="issuer-name" name="name" required />
-            <flux:input label="Position" placeholder="Position" class="mb-4" id="issuer-position" name="position" required />
+            <flux:input label="Position" placeholder="Position" class="mb-4" id="issuer-position" name="position"
+                required />
 
             <div class="flex">
                 <flux:spacer />
