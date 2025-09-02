@@ -11,6 +11,7 @@
 
             <div class="border border-gray-200 rounded-lg p-5 shadow-sm bg-zinc-50 mb-10">
                 <form action="" id="update-ics-form" class="space-y-4">
+                    <flux:input class="mb-0" name="icsID" autocomplete="off" type="hidden" value="{{ $ics->encrypted_id }}" />
                     <p class="font-bold text-[13px] mb-2">ICS NUMBER</p>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
 
@@ -176,6 +177,38 @@
                                 value="{{ $ics->dateReceivedFrom }}" required />
                         </div>
                     </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+
+                        <div class="flex flex-col relative">
+                            <label class="mb-1 text-sm font-medium text-gray-700">
+                                Received By
+                            </label>
+
+                            <flux:input class="mb-0" id="received-by" name="receivedBy" autocomplete="off" />
+                            <flux:input class="mb-0" id="received-by-id" name="receivedBy_id" autocomplete="off" type="hidden" />
+                            <div id="receivedByResults"
+                                class="absolute top-full mt-1 w-full bg-white border border-gray-300 rounded-md shadow-lg z-10 hidden">
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col">
+                            <label class="mb-1 text-sm font-medium text-gray-700">
+                                Position/Office
+                            </label>
+                            <flux:input class="mb-0" name="receivedByPosition" id="received-by-position" />
+                        </div>
+
+
+                        <div class="flex flex-col">
+                            <label class="mb-1 text-sm font-medium text-gray-700">
+                                Date
+                            </label>
+                            <flux:input class="mb-0" type="date" name="dateReceivedBy" />
+                        </div>
+                    </div>
+
+
 
                     <p class="font-bold text-[13px] mb-2">OTHERS</p>
 

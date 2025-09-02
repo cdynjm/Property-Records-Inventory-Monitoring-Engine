@@ -14,7 +14,7 @@
     
                 <!-- ICS Card -->
                 <a wire:navigate href="{{ route('admin.ics') }}"
-                   class="flex flex-col items-center justify-center border-1 border-blue-600 text-blue-600 bg-white rounded-2xl shadow-md p-8 h-38 transition hover:bg-blue-50">
+                   class="flex flex-col items-center justify-center border-1 border-blue-500 text-blue-500 bg-white rounded-2xl shadow-md p-8 h-38 transition hover:bg-blue-50">
                     <iconify-icon icon="mdi:archive" width="50" height="50" class="mb-3"></iconify-icon>
                     <h3 class="text-2xl font-bold mb-1">ICS</h3>
                     <p class="text-sm text-center">Inventory Custodian Slip</p>

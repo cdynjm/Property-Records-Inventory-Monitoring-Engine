@@ -9,7 +9,6 @@ declare global {
 //ISSUER FUNCTIONS:
 
 $(function () {
-
     let issuerID: string | null = null;
 
     $(document).on("submit", "#create-issuer", function (e) {
@@ -121,16 +120,16 @@ $(function () {
 
 $(function () {
     $(document).on("change", "#received-from", function (e) {
-        let position = $(this).find(':selected').data('position') || '';
-        $('#received-from-position').val(position);
+        let position = $(this).find(":selected").data("position") || "";
+        $("#received-from-position").val(position);
     });
-})
+});
 
 //ICS FUNCTIONS:
 
 $(function () {
     $(document).on("submit", "#create-ics-form", function (e) {
-       e.preventDefault();
+        e.preventDefault();
         const formData = new FormData(this as HTMLFormElement);
         const $btn = $(".save-ics-btn");
         $btn.prop("disabled", true).text("Saving...");
@@ -157,5 +156,106 @@ $(function () {
             .finally(() => {
                 $btn.prop("disabled", false).text("Save changes");
             });
+    });
+
+    $(document).on("submit", "#update-ics-form", function (e) {
+        e.preventDefault();
+        const formData = new FormData(this as HTMLFormElement);
+        formData.append("_method", "PATCH");
+        const $btn = $(".save-ics-btn");
+        $btn.prop("disabled", true).text("Saving...");
+
+        axios
+            .post("/admin/update-ics", formData)
+            .then((response) => {
+                window.Livewire.navigate(window.location.pathname);
+            })
+            .catch((error) => {
+                const toast = document.getElementsByClassName("toast-error");
+
+                if (toast.length > 0) {
+                    const messageElem = toast[0].querySelector(
+                        ".toast-error-message"
+                    );
+                    if (messageElem) {
+                        messageElem.textContent = "Error in saving ICS";
+                    }
+                    $(toast[0]).fadeIn(100);
+                    setTimeout(() => $(toast[0]).fadeOut(300), 3000);
+                }
+            })
+            .finally(() => {
+                $btn.prop("disabled", false).text("Save changes");
+            });
+    });
+});
+
+//SEARCH RECEIVED BY FUNCTIONS:
+
+$(function () {
+    $(document).on("input", "#received-by", function () {
+        const query = $(this).val();
+
+        const $results = $("#receivedByResults");
+        $results.empty().show();
+        $results.append(
+            `<div class="p-2 text-gray-500 italic">Searching...</div>`
+        );
+
+        if (query.length < 3) {
+            $("#receivedByResults").empty().hide();
+            $("#received-by-id").val("");
+            $("#received-by-position").val("");
+            return;
+        }
+
+        axios
+            .get("/admin/ics-search-received-by", { params: { search: query } })
+            .then((response) => {
+                const data = response.data;
+                $results.empty();
+
+                if (data.length === 0) {
+                    $results.hide();
+                } else {
+                    data.forEach((item: any) => {
+                        $results.append(`
+                        <div class="p-2 cursor-pointer hover:bg-gray-100 w-full" 
+                             data-id="${item.encrypted_id}" 
+                             data-name="${item.name}"
+                             data-position="${item.position || ""}">
+                            ${item.name}
+                        </div>
+                    `);
+                    });
+                    $results.show();
+                }
+            })
+            .catch((error) => {
+                console.error("Search error:", error);
+            });
+    });
+
+    $(document).on("click", "#receivedByResults div", function () {
+        const name = $(this).data("name");
+        const id = $(this).data("id");
+        const position = $(this).data("position");
+
+        $("#received-by").val(name);
+        $("#received-by-id").val(id);
+
+        if (position) {
+            $("#received-by-position").val(position);
+        } else {
+            $("#received-by-position").val("");
+        }
+
+        $("#receivedByResults").hide();
+    });
+
+    $(document).on("click", function (e) {
+        if (!$(e.target).closest("#received-by, #receivedByResults").length) {
+            $("#receivedByResults").hide();
+        }
     });
 });

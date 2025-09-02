@@ -14,7 +14,6 @@ use App\Http\Controllers\SuperAdmin\UnitController;
 
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\ICSController;
-use App\Http\Controllers\Admin\EditICSController;
 use App\Http\Controllers\Admin\AREController;
 use App\Http\Controllers\Admin\ICSRecordsController;
 use App\Http\Controllers\Admin\ARERecordsController;
@@ -66,9 +65,10 @@ Route::middleware(['auth'])->group(function () {
             Route::get('dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 
             Route::get('ics', [ICSController::class, 'index'])->name('admin.ics');
+            Route::get('edit-ics/{encrypted_id}', [ICSController::class, 'editICS'])->name('admin.edit-ics');
+            Route::get('ics-search-received-by', [ICSController::class, 'searchReceivedBy'])->name('admin.ics-search-received-by');
             Route::post('create-ics', [ICSController::class, 'createICS'])->name('admin.create-ics');
-
-            Route::get('edit-ics/{encrypted_id}', [EditICSController::class, 'index'])->name('admin.edit-ics');
+            Route::patch('update-ics', [ICSController::class, 'updateICS'])->name('admin.update-ics');
 
             Route::get('are', [AREController::class, 'index'])->name('admin.are');
 
