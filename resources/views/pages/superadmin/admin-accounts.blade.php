@@ -56,7 +56,7 @@
         <form action="" id="create-admin">
             <flux:input label="Name" placeholder="Name" class="mb-4" name="name" required />
             <flux:input label="Username" placeholder="Username" class="mb-4" name="username" required />
-            <flux:input label="Password" type="password" placeholder="Password" class="mb-4" name="password" required />
+            <flux:input label="Password" type="password" placeholder="Password" class="mb-4" name="password" viewable required />
             <div class="flex">
                 <flux:spacer />
                 <flux:button type="button" variant="outline" class="me-3"
@@ -74,7 +74,7 @@
         <form action="" id="update-admin">
             <flux:input label="Name" placeholder="Name" class="mb-4" id="admin-name" name="name" required />
             <flux:input label="Username" placeholder="Username" class="mb-4" id="username" name="username" required />
-            <flux:input label="New Password" type="password" placeholder="Password" class="mb-4" name="password" />
+            <flux:input label="New Password" type="password" placeholder="Password" class="mb-4" name="password" viewable />
 
             <div class="flex">
                 <flux:spacer />

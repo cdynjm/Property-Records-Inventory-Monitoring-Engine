@@ -17,3 +17,5 @@
         </div>
     </div>
 </div>
+
+<x-footer class="mt-auto" />

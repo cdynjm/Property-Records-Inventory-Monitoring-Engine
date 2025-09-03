@@ -1,5 +1,4 @@
-<footer class="bg-white">
-
+<footer class="mt-20">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <!-- Left Logo -->
         <div class="flex justify-center md:justify-center">

@@ -3,13 +3,16 @@
 
         <div class="flex-1">
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-3">
-                <flux:heading level="3">List of ICS Records</flux:heading>
+                <flux:heading level="1">List of ICS Records</flux:heading>
 
-                <div class="flex w-full sm:w-96 gap-2">
-                    <flux:input placeholder="Search..." class="flex-1" />
-                    <flux:button variant="primary" type="button">
+                <div class="flex w-full sm:w-100 gap-2">
+                    <flux:input placeholder="Search..." size="sm" class="flex-1" />
+                    <flux:button variant="primary" type="button" size="sm">
                         <iconify-icon icon="lets-icons:search-duotone" width="20" height="20"></iconify-icon>
                     </flux:button>
+                    <a wire:navigate href="{{ route('admin.ics') }}">
+                        <flux:button variant="primary" color="sky" size="sm" type="button"> + ICS</flux:button>
+                    </a>
                 </div>
             </div>
 
