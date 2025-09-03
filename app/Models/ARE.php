@@ -13,7 +13,7 @@ class ARE extends Model
     protected $fillable = [
         'offices_id', 'areOffice', 'areYear', 'areCode', 'areControlNumber',
         'receivedFrom_id', 'receivedFromPosition', 'dateReceivedFrom',
-        'receivedBy_id', 'receivedByPosition', 'dateReceivedBy',
+        'receivedBy_id', 'receivedBy', 'receivedByPosition', 'dateReceivedBy',
         'furnishedBy', 'remarks'
     ];
 

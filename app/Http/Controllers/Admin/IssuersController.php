@@ -33,7 +33,7 @@ class IssuersController extends Controller
     public function createIssuer(Request $request)
     {
         ReceivedFrom::create([
-            'name' => $request->name,
+            'name' => strtoupper($request->name),
             'position' => $request->position,
         ]);
 
@@ -47,7 +47,7 @@ class IssuersController extends Controller
     public function updateIssuer(Request $request)
     {
         ReceivedFrom::where('id', $this->aes->decrypt($request->issuerID))->update([
-            'name' => $request->name,
+            'name' => strtoupper($request->name),
             'position' => $request->position,
         ]);
 

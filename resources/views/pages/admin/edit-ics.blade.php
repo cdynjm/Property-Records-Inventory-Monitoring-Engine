@@ -11,7 +11,8 @@
 
             <div class="border border-gray-200 rounded-lg p-5 shadow-sm bg-zinc-50 mb-10">
                 <form action="" id="update-ics-form" class="space-y-4">
-                    <flux:input class="mb-0" name="icsID" autocomplete="off" type="hidden" value="{{ $ics->encrypted_id }}" />
+                    <flux:input class="mb-0" name="icsID" autocomplete="off" type="hidden"
+                        value="{{ $ics->encrypted_id }}" />
                     <p class="font-bold text-[13px] mb-2">ICS NUMBER</p>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
 
@@ -48,31 +49,33 @@
 
                     <p class="font-bold text-[13px] mb-2">TABLE</p>
 
-
-
                     <div x-data="{
                         rows: [
                             @foreach ($ics->information as $icsInfo)
                             {
+                                id: '{{ $icsInfo->id }}',
                                 quantity: '{{ $icsInfo->quantity }}',
                                 unit: '{{ $icsInfo->unit }}',
                                 officeCode: '{{ $icsInfo->officeCode }}',
                                 dateAcquired: '{{ $icsInfo->dateAcquired }}',
                                 estUsefulLife: '{{ $icsInfo->estUsefulLife }}',
                                 unitCost: '{{ $icsInfo->unitCost }}',
-                                description: '{{ $icsInfo->description }}'
+                                description: `{{ $icsInfo->description }}`
                             }@if (!$loop->last),@endif @endforeach
                         ]
                     }" class="">
 
                         <template x-for="(row, index) in rows" :key="index">
                             <div class="rows">
+                                <flux:input type="hidden" x-model="row.id" x-bind:name="'rows[' + index + '][id]'" />
                                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4 mb-3">
 
                                     <div class="flex flex-col">
                                         <label class="mb-1 text-sm font-medium text-gray-700">Quantity</label>
                                         <flux:input class="mb-0" type="number" min="0" x-model="row.quantity"
                                             x-bind:name="'rows[' + index + '][quantity]'" />
+
+
                                     </div>
 
                                     <div class="flex flex-col">
@@ -113,7 +116,7 @@
                                 <div class="grid grid-cols-1 gap-4 mb-3">
                                     <div class="flex flex-col">
                                         <label class="mb-1 text-sm font-medium text-gray-700">Description</label>
-                                        <flux:textarea class="mb-0" x-model="row.description"
+                                        <flux:textarea class="mb-0" x-text="row.description"
                                             x-bind:name="'rows[' + index + '][description]'" />
                                     </div>
                                 </div>
@@ -185,8 +188,10 @@
                                 Received By
                             </label>
 
-                            <flux:input class="mb-0" id="received-by" name="receivedBy" autocomplete="off" />
-                            <flux:input class="mb-0" id="received-by-id" name="receivedBy_id" autocomplete="off" type="hidden" />
+                            <flux:input class="mb-0" id="received-by" name="receivedBy" autocomplete="off"
+                                value="{{ $ics->receivedBy }}" />
+                            <flux:input class="mb-0" id="received-by-id" name="receivedBy_id" autocomplete="off"
+                                type="hidden" value="{{ $ics->encrypted_receivedBy_id }}" />
                             <div id="receivedByResults"
                                 class="absolute top-full mt-1 w-full bg-white border border-gray-300 rounded-md shadow-lg z-10 hidden">
                             </div>
@@ -196,7 +201,8 @@
                             <label class="mb-1 text-sm font-medium text-gray-700">
                                 Position/Office
                             </label>
-                            <flux:input class="mb-0" name="receivedByPosition" id="received-by-position" />
+                            <flux:input class="mb-0" name="receivedByPosition" id="received-by-position"
+                                value="{{ $ics->receivedByPosition }}" />
                         </div>
 
 
@@ -204,7 +210,8 @@
                             <label class="mb-1 text-sm font-medium text-gray-700">
                                 Date
                             </label>
-                            <flux:input class="mb-0" type="date" name="dateReceivedBy" />
+                            <flux:input class="mb-0" type="date" name="dateReceivedBy"
+                                value="{{ $ics->dateReceivedBy }}" />
                         </div>
                     </div>
 
@@ -221,7 +228,16 @@
                         </div>
                     </div>
 
-                    <flux:button type="submit" variant="primary" class="save-ics-btn">Save changes</flux:button>
+                    <div class="flex items-center gap-4">
+                        <flux:button type="submit" variant="primary" class="save-ics-btn">Save changes</flux:button>
+                        <flux:button type="button" variant="outline">
+                            <a href="{{ route('admin.ics-form', ['encrypted_id' => $ics->encrypted_id]) }}"
+                                id="print-ics">
+                                <iconify-icon icon="lets-icons:print-duotone" width="24"
+                                    height="24"></iconify-icon>
+                            </a>
+                        </flux:button>
+                    </div>
                 </form>
             </div>
 

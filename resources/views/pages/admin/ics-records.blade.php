@@ -34,10 +34,18 @@
                                 @endforeach
                             </ol>
                         </td>
-                        <td class="border-b border-gray-100 px-4 py-2 whitespace-nowrap">{{ $ic->receivedFrom->name }}
+                        <td class="border-b border-gray-100 px-4 py-2 whitespace-nowrap">
+                            <div>
+                                {{ $ic->receivedFrom->name }}
+                            </div>
+                            <p class="text-[13px]">{{ date('M d, Y', strtotime($ic->dateReceivedFrom)) }}</p>
                         </td>
                         <td class="border-b border-gray-100 px-4 py-2 whitespace-nowrap">
-                            {{ $ic->receivedBy->name ?? '-' }}</td>
+                            <div>
+                            {{ $ic->receivedBy != null ? $ic->receivedBy : '-' }}
+                            </div>
+                             <p class="text-[13px] {{ $ic->dateReceivedBy == null ? 'invisible' : '' }}">{{ date('M d, Y', strtotime($ic->dateReceivedBy)) }}</p>
+                        </td>
                         <td
                             class="border-b border-gray-100 px-4 py-2 whitespace-nowrap uppercase text-[12px]  {{ $ic->remarks == 'active' ? 'text-green-500' : 'text-red-500' }}">
                             {{ $ic->remarks }}</td>
@@ -52,7 +60,7 @@
                                     height="24"></iconify-icon>
                             </a>
 
-                            <a href="javascript:;" id="print-ics">
+                            <a href="{{ route('admin.ics-form', ['encrypted_id' => $ic->encrypted_id]) }}" id="print-ics">
                                 <iconify-icon icon="lets-icons:print-duotone" width="24" height="24"></iconify-icon>
                             </a>
                         </td>

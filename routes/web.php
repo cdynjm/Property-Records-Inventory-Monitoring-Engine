@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\ARERecordsController;
 use App\Http\Controllers\Admin\OfficeRecordsController;
 use App\Http\Controllers\Admin\IssuersController;
 use App\Http\Controllers\Admin\ReceiversController;
+use App\Http\Controllers\Admin\Forms\ICSFormController;
 
 use App\Http\Controllers\Office\DashboardController as OfficeDashboardController;
 
@@ -73,6 +74,8 @@ Route::middleware(['auth'])->group(function () {
             Route::get('are', [AREController::class, 'index'])->name('admin.are');
 
             Route::get('ics-records', [ICSRecordsController::class, 'index'])->name('admin.ics-records');
+
+            Route::get('ics-form/{encrypted_id}', [ICSFormController::class, 'index'])->name('admin.ics-form');
 
             Route::get('are-records', [ARERecordsController::class, 'index'])->name('admin.are-records');
 

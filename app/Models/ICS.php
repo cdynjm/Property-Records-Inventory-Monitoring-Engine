@@ -12,7 +12,7 @@ class ICS extends Model
     protected $table = 'ics';
     protected $fillable = [
         'offices_id', 'icsOffice', 'icsYear', 'icsCode', 'icsNumber',
-        'receivedBy_id', 'receivedByPosition', 'dateReceivedBy',
+        'receivedBy_id','receivedBy', 'receivedByPosition', 'dateReceivedBy',
         'receivedFrom_id', 'receivedFromPosition', 'dateReceivedFrom',
         'furnishedBy', 'remarks'
     ];

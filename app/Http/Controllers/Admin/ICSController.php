@@ -96,6 +96,7 @@ class ICSController extends Controller
             $ics->encrypted_id = $this->aes->encrypt($ics->id);
             $ics->encrypted_offices_id = $this->aes->encrypt($ics->offices_id);
             $ics->encrypted_receivedFrom_id = $this->aes->encrypt($ics->receivedFrom_id);
+            $ics->encrypted_receivedBy_id = $ics->receivedBy_id != null ? $this->aes->encrypt($ics->receivedBy_id) : '';
         }
 
         $offices = Office::get()->map(function ($office) {
@@ -138,6 +139,84 @@ class ICSController extends Controller
 
     public function updateICS(Request $request)
     {
-        
+        $office = Office::where('id', $this->aes->decrypt($request->offices_id))->first();
+        $receivedFrom = ReceivedFrom::where('id', $this->aes->decrypt($request->receivedFrom_id))->first();
+
+        $icsId = $this->aes->decrypt($request->icsID);
+
+        $data = [
+            'offices_id' => $office->id,
+            'icsOffice'  => $office->officeName,
+            'icsYear' => $request->icsYear,
+            'icsCode' => $request->icsCode,
+            'icsNumber' => $office->officeName . '-' . $request->icsYear . '-' . $request->icsCode,
+            'receivedBy' => strtoupper($request->receivedBy),
+            'receivedByPosition' => $request->receivedByPosition,
+            'dateReceivedBy' => $request->dateReceivedBy,
+            'receivedFrom_id' => $receivedFrom->id,
+            'receivedFromPosition' => $receivedFrom->position,
+            'dateReceivedFrom' => $request->dateReceivedFrom,
+            'furnishedBy' => $request->furnishedBy,
+        ];
+
+        if (!empty($request->receivedBy_id)) {
+            $data['receivedBy_id'] = $this->aes->decrypt($request->receivedBy_id);
+        } else {
+            if(!empty($request->receivedBy)) {
+                $receivedBy = ReceivedBy::create([
+                    'name'     => strtoupper($request->receivedBy),
+                    'position' => $request->receivedByPosition,
+                ]);
+
+                $data['receivedBy_id'] = $receivedBy->id;
+            } else {
+                $data['receivedBy_id'] = null;
+            }
+        }
+
+        ICS::where('id', $icsId)->update($data);
+
+        $rows = $request->input('rows', []);
+        $submittedIds = collect($rows)->pluck('id')->filter()->toArray();
+
+        ICSInformation::where('ics_id', $icsId)
+            ->whereNotIn('id', $submittedIds)
+            ->delete();
+
+        foreach ($rows as $row) {
+            if (!empty($row['id'])) {
+               
+                ICSInformation::where('id', $row['id'])->update([
+                    'quantity' => $row['quantity'],
+                    'unit' => $row['unit'], 
+                    'officeCode' => $row['officeCode'],
+                    'invItemNumber' => $office->officeName . '-' . $request->icsYear . '-' . $office->officeCode,
+                    'dateAcquired' => $row['dateAcquired'],
+                    'estUsefulLife' => $row['estUsefulLife'],
+                    'unitCost' => $row['unitCost'],
+                    'description' => $row['description'],
+                ]);
+            } else {
+                
+                ICSInformation::create([
+                    'ics_id' => $icsId,
+                    'quantity' => $row['quantity'],
+                    'unit' => $row['unit'], 
+                    'officeCode' => $row['officeCode'],
+                    'invItemNumber' => $office->officeName . '-' . $request->icsYear . '-' . $office->officeCode,
+                    'dateAcquired' => $row['dateAcquired'],
+                    'estUsefulLife' => $row['estUsefulLife'],
+                    'unitCost' => $row['unitCost'],
+                    'description' => $row['description'],
+                ]);
+            }
+        }
+
+        $request->session()->flash('success', 'ICS updated successfully.');
+
+        return response()->json([
+            'message' => 'ICS updated successfully.'
+        ], 200);
+
     }
 }
