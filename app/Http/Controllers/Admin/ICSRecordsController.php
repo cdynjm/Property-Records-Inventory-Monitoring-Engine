@@ -20,7 +20,7 @@ class ICSRecordsController extends Controller
 
     public function index()
     {
-        $ics = ICS::get()->map(function ($ics) {
+        $ics = ICS::orderBy('updated_at', 'desc')->paginate(10) ->through(function ($ics) {
             $ics->encrypted_id = $this->aes->encrypt($ics->id);
             return $ics;
         });

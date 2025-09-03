@@ -18,3 +18,16 @@ $(function () {
             .catch((error) => {});
     });
 });
+
+document.addEventListener("click", function (e) {
+    const target = e.target as Element | null;
+    if (!target) return;
+    const link = target.closest(".livewire-nav-link");
+    if (link) {
+        e.preventDefault();
+        const url = link.getAttribute("data-url");
+        if (url) {
+            window.Livewire.navigate(url);
+        }
+    }
+});
