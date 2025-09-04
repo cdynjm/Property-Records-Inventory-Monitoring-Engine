@@ -16,7 +16,6 @@
                 </div>
             </div>
 
-
             <x-table>
                 <x-slot:head>
                     <th class="px-4 py-2 text-[13px]">#</th>
@@ -79,7 +78,7 @@
                                     height="24"></iconify-icon>
                             </a>
 
-                            <a href="{{ route('admin.ics-form', ['encrypted_id' => $ic->encrypted_id]) }}"
+                            <a wire:navigate href="{{ route('admin.ics-print', ['encrypted_id' => $ic->encrypted_id]) }}"
                                 id="print-ics">
                                 <iconify-icon icon="lets-icons:print-duotone" width="24"
                                     height="24"></iconify-icon>

@@ -10,6 +10,11 @@
     <link rel="icon" href="{{ asset('/img/PRIME.png') }}" sizes="any">
 
     <style>
+        .page-form {
+            max-width: 100%; 
+            min-width: 800px;
+            overflow-x: auto;
+        }
         .header {
             text-align: center;
         }
@@ -57,12 +62,12 @@
     <div class="no-print" style="margin-bottom: 20px; display: flex; gap: 10px;">
         <button onclick="history.back()"
             style="background-color: #f1f1f1; border: 1px solid #ccc; padding: 8px 16px; border-radius: 5px; cursor: pointer; font-size: 12px;">
-            🔙 Back
+            Back
         </button>
 
         <button onclick="window.print()"
             style="background-color: #54aa7a; color: white; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer; font-size: 12px;">
-            🖨️ Print Form
+            Print Form
         </button>
     </div>
 

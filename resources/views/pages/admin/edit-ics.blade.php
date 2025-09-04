@@ -230,8 +230,8 @@
 
                     <div class="flex items-center gap-4">
                         <flux:button type="submit" variant="primary" class="save-ics-btn">Save changes</flux:button>
-                        <a href="{{ route('admin.ics-form', ['encrypted_id' => $ics->encrypted_id]) }}" id="print-ics">
-                            <flux:button type="button" variant="outline">
+                        <a wire:navigate href="{{ route('admin.ics-print', ['encrypted_id' => $ics->encrypted_id]) }}" id="print-ics">
+                            <flux:button type="button" variant="primary" color="sky">
                                 <iconify-icon icon="lets-icons:print-duotone" width="24" height="24"></iconify-icon>
                             </flux:button>
                         </a>
