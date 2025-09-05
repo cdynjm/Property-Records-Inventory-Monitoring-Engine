@@ -27,7 +27,7 @@
                             <label class="mb-1 text-sm font-medium text-gray-700">
                                 Year
                             </label>
-                            <flux:input class="mb-0" name="icsYear" value="{{ date('y') }}" readonly />
+                            <flux:input class="mb-0" name="icsYear" />
                         </div>
 
                         <div class="flex flex-col">
@@ -70,7 +70,7 @@
 
                                     <div class="flex flex-col">
                                         <label class="mb-1 text-sm font-medium text-gray-700">Date Acquired</label>
-                                        <flux:input class="mb-0" type="date"
+                                        <flux:input class="mb-0" type="date" max="{{ now()->toDateString() }}"
                                             x-bind:name="'rows[' + index + '][dateAcquired]'" />
                                     </div>
 
@@ -137,7 +137,7 @@
                             <label class="mb-1 text-sm font-medium text-gray-700">
                                 Date
                             </label>
-                            <flux:input class="mb-0" type="date" name="dateReceivedFrom" required />
+                            <flux:input class="mb-0" type="date" name="dateReceivedFrom" max="{{ now()->toDateString() }}" required />
                         </div>
                     </div>
 

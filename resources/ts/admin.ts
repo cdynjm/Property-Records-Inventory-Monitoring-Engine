@@ -301,7 +301,7 @@ $(function () {
         $btn.prop("disabled", true);
 
         axios
-            .post("/admin/ics-clear")
+            .post("/admin/ics-search-clear")
             .then((response) => {
                 window.Livewire.navigate(window.location.pathname);
             })
@@ -314,6 +314,67 @@ $(function () {
                     );
                     if (messageElem) {
                         messageElem.textContent = "Error in clearing ICS";
+                    }
+                    $(toast[0]).fadeIn(100);
+                    setTimeout(() => $(toast[0]).fadeOut(300), 3000);
+                }
+            })
+            .finally(() => {
+                $btn.prop("disabled", false);
+            });
+    });
+
+    $(document).on("click", "#search-year", function (e) {
+        e.preventDefault();
+        const year = $('#search-ics-year').val();
+        const formData = new FormData();
+        formData.append('year', year as string)
+        const $btn = $(this);
+        $btn.prop("disabled", true);
+
+        axios
+            .post("/admin/ics-year", formData)
+            .then((response) => {
+                window.Livewire.navigate(window.location.pathname);
+            })
+            .catch((error) => {
+                const toast = document.getElementsByClassName("toast-error");
+
+                if (toast.length > 0) {
+                    const messageElem = toast[0].querySelector(
+                        ".toast-error-message"
+                    );
+                    if (messageElem) {
+                        messageElem.textContent = "Error in searching year";
+                    }
+                    $(toast[0]).fadeIn(100);
+                    setTimeout(() => $(toast[0]).fadeOut(300), 3000);
+                }
+            })
+            .finally(() => {
+                $btn.prop("disabled", false);
+            });
+    });
+
+    $(document).on("click", "#clear-ics-year", function (e) {
+        e.preventDefault();
+        const $btn = $(this);
+        $btn.prop("disabled", true);
+
+        axios
+            .post("/admin/ics-year-clear")
+            .then((response) => {
+                window.Livewire.navigate(window.location.pathname);
+            })
+            .catch((error) => {
+                const toast = document.getElementsByClassName("toast-error");
+
+                if (toast.length > 0) {
+                    const messageElem = toast[0].querySelector(
+                        ".toast-error-message"
+                    );
+                    if (messageElem) {
+                        messageElem.textContent = "Error in clearing year";
                     }
                     $(toast[0]).fadeIn(100);
                     setTimeout(() => $(toast[0]).fadeOut(300), 3000);

@@ -2,25 +2,53 @@
     <div class="flex min-h-screen flex-col">
 
         <div class="flex-1">
-            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-3">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4 gap-3">
                 <flux:heading level="1">List of ICS Records</flux:heading>
 
-                <div class="flex items-center w-full sm:w-100 gap-2">
-                    @if(session('search'))
-                    <a href="javascript:;" class="me-1 text-red-600 flex items-center gap-1" id="clear-ics-keyword">
-                        <iconify-icon icon="mdi:clear" width="18" height="18"></iconify-icon>
-                        <span class="text-[11px]">Clear</span>
-                    </a>
-                    @endif
-                    <flux:input placeholder="Search..." id="search-ics-keyword" size="sm" value="{{ session('search') }}" class="flex-1" />
-                    <flux:button variant="primary" type="button" size="sm" id="search-ics-records">
-                        <iconify-icon icon="lets-icons:search-duotone" width="20" height="20"></iconify-icon>
-                    </flux:button>
-                    <a wire:navigate href="{{ route('admin.ics') }}">
-                        <flux:button variant="primary" color="sky" size="sm" type="button"> + ICS</flux:button>
-                    </a>
+                <div class="flex flex-col md:flex-row md:items-center gap-3 w-full md:w-auto">
+                    {{-- Search Bar --}}
+                    <div class="flex items-center w-full md:w-80 gap-2">
+                        @if (session('search'))
+                            <a href="javascript:;" class="me-1 text-red-600 flex items-center gap-1"
+                                id="clear-ics-keyword">
+                                <iconify-icon icon="mdi:clear" width="18" height="18"></iconify-icon>
+                                <span class="text-[11px]">Clear</span>
+                            </a>
+                        @endif
+
+                        <flux:input placeholder="Search..." id="search-ics-keyword" size="sm"
+                            value="{{ session('search') }}" class="flex-1 rounded-r-none" />
+                        <flux:button variant="primary" type="button" size="sm" id="search-ics-records">
+                            <iconify-icon icon="lets-icons:search-duotone" width="20" height="20"></iconify-icon>
+                        </flux:button>
+                    </div>
+
+                    {{-- Year Filter --}}
+                    <div class="flex items-center w-full md:w-80 gap-2">
+                        @if (session('year') != now()->year)
+                            <a href="javascript:;" class="me-1 text-red-600 flex items-center gap-1"
+                                id="clear-ics-year">
+                                <iconify-icon icon="mdi:clear" width="18" height="18"></iconify-icon>
+                                <span class="text-[11px]">Clear</span>
+                            </a>
+                        @endif
+                        <flux:select id="search-ics-year" size="sm">
+                            <option value="">Select Year</option>
+                            @for ($year = now()->year; $year >= 2000; $year--)
+                                <option value="{{ $year }}"
+                                    {{ session('year', now()->year) == $year ? 'selected' : '' }}>
+                                    {{ $year }}
+                                </option>
+                            @endfor
+                        </flux:select>
+                        <flux:button variant="primary" type="button" size="sm" id="search-year">
+                            <iconify-icon icon="lets-icons:search-duotone" width="20" height="20"></iconify-icon>
+                        </flux:button>
+                    </div>
                 </div>
             </div>
+
+
 
             <x-table>
                 <x-slot:head>
@@ -84,7 +112,8 @@
                                     height="24"></iconify-icon>
                             </a>
 
-                            <a wire:navigate href="{{ route('admin.ics-print', ['encrypted_id' => $ic->encrypted_id]) }}"
+                            <a wire:navigate
+                                href="{{ route('admin.ics-print', ['encrypted_id' => $ic->encrypted_id]) }}"
                                 id="print-ics">
                                 <iconify-icon icon="lets-icons:print-duotone" width="24"
                                     height="24"></iconify-icon>

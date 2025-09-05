@@ -76,7 +76,9 @@ Route::middleware(['auth'])->group(function () {
 
             Route::get('ics-records', [ICSRecordsController::class, 'index'])->name('admin.ics-records');
             Route::post('ics-search', [ICSRecordsController::class, 'icsSearch'])->name('admin.ics-search');
-             Route::post('ics-clear', [ICSRecordsController::class, 'icsClear'])->name('admin.ics-clear');
+            Route::post('ics-search-clear', [ICSRecordsController::class, 'icsSearchClear'])->name('admin.ics-search-clear');
+            Route::post('ics-year', [ICSRecordsController::class, 'icsYear'])->name('admin.ics-year');
+            Route::post('ics-year-clear', [ICSRecordsController::class, 'icsYearClear'])->name('admin.ics-year-clear');
 
             Route::get('ics-form/{encrypted_id}', [ICSFormController::class, 'index'])->name('admin.ics-form');
             Route::get('ics-print/{encrypted_id}', [ICSPrintController::class, 'index'])->name('admin.ics-print');

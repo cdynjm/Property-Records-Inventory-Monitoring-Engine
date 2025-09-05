@@ -33,7 +33,7 @@
                             <label class="mb-1 text-sm font-medium text-gray-700">
                                 Year
                             </label>
-                            <flux:input class="mb-0" name="icsYear" value="{{ $ics->icsYear }}" readonly />
+                            <flux:input class="mb-0" name="icsYear" value="{{ $ics->icsYear }}" />
                         </div>
 
                         <div class="flex flex-col">
@@ -96,7 +96,7 @@
 
                                     <div class="flex flex-col">
                                         <label class="mb-1 text-sm font-medium text-gray-700">Date Acquired</label>
-                                        <flux:input class="mb-0" type="date" x-model="row.dateAcquired"
+                                        <flux:input class="mb-0" type="date" x-model="row.dateAcquired" max="{{ now()->toDateString() }}"
                                             x-bind:name="'rows[' + index + '][dateAcquired]'" />
                                     </div>
 
@@ -176,7 +176,7 @@
                             <label class="mb-1 text-sm font-medium text-gray-700">
                                 Date
                             </label>
-                            <flux:input class="mb-0" type="date" name="dateReceivedFrom"
+                            <flux:input class="mb-0" type="date" name="dateReceivedFrom" max="{{ now()->toDateString() }}"
                                 value="{{ $ics->dateReceivedFrom }}" required />
                         </div>
                     </div>
@@ -210,7 +210,7 @@
                             <label class="mb-1 text-sm font-medium text-gray-700">
                                 Date
                             </label>
-                            <flux:input class="mb-0" type="date" name="dateReceivedBy"
+                            <flux:input class="mb-0" type="date" name="dateReceivedBy" max="{{ now()->toDateString() }}"
                                 value="{{ $ics->dateReceivedBy }}" />
                         </div>
                     </div>
@@ -231,8 +231,9 @@
                     <div class="flex items-center gap-4">
                         <flux:button type="submit" variant="primary" class="save-ics-btn">Save changes</flux:button>
                         <a wire:navigate href="{{ route('admin.ics-print', ['encrypted_id' => $ics->encrypted_id]) }}" id="print-ics">
-                            <flux:button type="button" variant="primary" color="sky">
+                            <flux:button type="button" variant="ghost">
                                 <iconify-icon icon="lets-icons:print-duotone" width="24" height="24"></iconify-icon>
+                                Print
                             </flux:button>
                         </a>
                     </div>
