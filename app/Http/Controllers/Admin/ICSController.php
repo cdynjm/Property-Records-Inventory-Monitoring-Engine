@@ -25,7 +25,7 @@ class ICSController extends Controller
 
     public function index()
     {
-        $offices = Office::get()->map(function ($office) {
+        $offices = Office::orderBy('officeName', 'asc')->get()->map(function ($office) {
             $office->encrypted_id = $this->aes->encrypt($office->id);
             return $office;
         });
@@ -99,7 +99,7 @@ class ICSController extends Controller
             $ics->encrypted_receivedBy_id = $ics->receivedBy_id != null ? $this->aes->encrypt($ics->receivedBy_id) : '';
         }
 
-        $offices = Office::get()->map(function ($office) {
+        $offices = Office::orderBy('officeName', 'asc')->get()->map(function ($office) {
             $office->encrypted_id = $this->aes->encrypt($office->id);
             return $office;
         });
@@ -161,6 +161,12 @@ class ICSController extends Controller
 
         if (!empty($request->receivedBy_id)) {
             $data['receivedBy_id'] = $this->aes->decrypt($request->receivedBy_id);
+        
+            ReceivedBy::where('id', $data['receivedBy_id'])->update([
+                'name'     => strtoupper($request->receivedBy),
+                'position' => $request->receivedByPosition,
+            ]);
+
         } else {
             if(!empty($request->receivedBy)) {
                 $receivedBy = ReceivedBy::create([
