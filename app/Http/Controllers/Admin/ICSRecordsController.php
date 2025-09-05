@@ -20,7 +20,8 @@ class ICSRecordsController extends Controller
 
     public function index()
     {
-        $ics = ICS::orderBy('updated_at', 'desc')->paginate(10) ->through(function ($ics) {
+        $ics = ICS::where('icsNumber', 'like', '%'.session('search').'%')
+        ->orderBy('updated_at', 'desc')->paginate(10) ->through(function ($ics) {
             $ics->encrypted_id = $this->aes->encrypt($ics->id);
             return $ics;
         });
@@ -28,5 +29,23 @@ class ICSRecordsController extends Controller
         return view('pages.admin.ics-records', [
             'ics' => $ics,
         ]);
+    }
+
+    public function icsSearch(Request $request)
+    {
+        $request->session()->put('search', $request->search);
+
+        return response()->json([
+            'message' => 'success'
+        ], 200);
+    }
+
+    public function icsClear(Request $request)
+    {
+        $request->session()->put('search', '');
+
+        return response()->json([
+            'message' => 'success'
+        ], 200);
     }
 }

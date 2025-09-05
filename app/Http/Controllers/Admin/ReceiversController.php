@@ -20,7 +20,7 @@ class ReceiversController extends Controller
 
     public function index()
     {
-        $receivedBy = ReceivedBy::get()->map(function ($rb) {
+        $receivedBy = ReceivedBy::orderBy('name', 'asc')->paginate(10) ->through(function ($rb) {
             $rb->encrypted_id = $this->aes->encrypt($rb->id);
             return $rb;
         });

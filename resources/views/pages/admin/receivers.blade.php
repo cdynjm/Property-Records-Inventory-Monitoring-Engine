@@ -37,6 +37,10 @@
                     </x-table-row>
                 @endif
             </x-table>
+
+            <div class="mt-8">
+                {{ $receivedBy->links('vendor.pagination.custom-pagination') }}
+            </div>
         </div>
 
         <x-footer class="mt-auto" />

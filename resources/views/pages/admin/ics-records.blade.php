@@ -5,9 +5,15 @@
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-3">
                 <flux:heading level="1">List of ICS Records</flux:heading>
 
-                <div class="flex w-full sm:w-100 gap-2">
-                    <flux:input placeholder="Search..." size="sm" class="flex-1" />
-                    <flux:button variant="primary" type="button" size="sm">
+                <div class="flex items-center w-full sm:w-100 gap-2">
+                    @if(session('search'))
+                    <a href="javascript:;" class="me-1 text-red-600 flex items-center gap-1" id="clear-ics-keyword">
+                        <iconify-icon icon="mdi:clear" width="18" height="18"></iconify-icon>
+                        <span class="text-[11px]">Clear</span>
+                    </a>
+                    @endif
+                    <flux:input placeholder="Search..." id="search-ics-keyword" size="sm" value="{{ session('search') }}" class="flex-1" />
+                    <flux:button variant="primary" type="button" size="sm" id="search-ics-records">
                         <iconify-icon icon="lets-icons:search-duotone" width="20" height="20"></iconify-icon>
                     </flux:button>
                     <a wire:navigate href="{{ route('admin.ics') }}">
@@ -89,7 +95,7 @@
 
                 @if ($ics->isEmpty())
                     <x-table-row>
-                        <td colspan="4" class="border-b border-gray-100 px-4 py-2 text-center text-gray-500">No ICS
+                        <td colspan="10" class="border-b border-gray-100 px-4 py-2 text-center text-gray-500">No ICS
                             found.</td>
                     </x-table-row>
                 @endif

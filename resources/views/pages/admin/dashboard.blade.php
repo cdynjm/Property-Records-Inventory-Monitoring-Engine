@@ -1,49 +1,101 @@
 <x-layouts.app :title="__('Dashboard')">
     <div class="flex min-h-screen flex-col">
-        
+
         <div class="flex-1">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full mx-auto mb-10">
-                
-                <!-- ARE Card -->
-                <a wire:navigate href="{{ route('admin.are') }}"
-                   class="flex flex-col items-center justify-center border-1 border-green-600 text-green-600 bg-white rounded-2xl shadow-md p-8 h-38 transition hover:bg-green-50">
-                    <iconify-icon icon="mdi:clipboard-text" width="50" height="50" class="mb-3"></iconify-icon>
-                    <h3 class="text-2xl font-bold mb-1">ARE</h3>
-                    <p class="text-sm text-center">Acknowledgement Receipt for Equipment</p>
-                </a>
-    
-                <!-- ICS Card -->
-                <a wire:navigate href="{{ route('admin.ics') }}"
-                   class="flex flex-col items-center justify-center border-1 border-blue-500 text-blue-500 bg-white rounded-2xl shadow-md p-8 h-38 transition hover:bg-blue-50">
-                    <iconify-icon icon="mdi:archive" width="50" height="50" class="mb-3"></iconify-icon>
-                    <h3 class="text-2xl font-bold mb-1">ICS</h3>
-                    <p class="text-sm text-center">Inventory Custodian Slip</p>
-                </a>
 
+                <!-- Stat Card -->
+                <div class="bg-white shadow-sm rounded-xl p-4 sm:p-6 border border-gray-100">
+                    <div class="flex items-start justify-between gap-4">
+                        <div class="flex items-center gap-4">
+                            <!-- icon -->
+                            <div class="flex-shrink-0 w-12 h-12 rounded-lg bg-blue-50 flex items-center justify-center">
+                                <!-- replace with your icon -->
+                                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M11 17a4 4 0 100-8 4 4 0 000 8zM21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2v-7">
+                                    </path>
+                                </svg>
+                            </div>
+
+                            <!-- stat text -->
+                            <div>
+                                <p class="text-xs font-semibold text-gray-500">Total ARE</p>
+                                <p class="text-2xl font-bold text-gray-900">0</p>
+                            </div>
+                        </div>
+
+                        <!-- delta -->
+                        <div class="flex flex-col items-end">
+                            <span
+                                class="mb-2 inline-flex items-center text-sm font-medium text-green-600 bg-green-50 px-2 py-1 rounded">
+                                <a wire:navigate href="{{ route('admin.are') }}" class="flex items-center gap-2">
+                                    <iconify-icon icon="solar:document-bold-duotone" width="24" height="24"></iconify-icon>
+                                    Generate ARE
+                                </a>
+                            </span>
+                            <span class="text-xs text-gray-400 mt-1">Year 2025</span>
+                        </div>
+                    </div>
+
+                    <!-- optional sparkline (SVG) -->
+                    <div class="mt-4">
+                        <svg class="w-full h-8" viewBox="0 0 100 20" preserveAspectRatio="none" aria-hidden="true">
+                            <polyline fill="none" stroke="#3b82f6" stroke-width="2"
+                                points="0,16 20,12 40,8 60,10 80,6 100,4"></polyline>
+                        </svg>
+                    </div>
+                    <small class="text-sm mb-0 text-gray-600 text-start">Acknowledgement Receipt for Equipment</small>
+                </div>
+
+                <!-- Stat Card -->
+                <div class="bg-white shadow-sm rounded-xl p-4 sm:p-6 border border-gray-100">
+                    <div class="flex items-start justify-between gap-4">
+                        <div class="flex items-center gap-4">
+                            <!-- icon -->
+                            <div class="flex-shrink-0 w-12 h-12 rounded-lg bg-blue-50 flex items-center justify-center">
+                                <!-- replace with your icon -->
+                                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M11 17a4 4 0 100-8 4 4 0 000 8zM21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2v-7">
+                                    </path>
+                                </svg>
+                            </div>
+
+                            <!-- stat text -->
+                            <div>
+                                <p class="text-xs font-semibold text-gray-500">Total ICS</p>
+                                <p class="text-2xl font-bold text-gray-900">0</p>
+                            </div>
+                        </div>
+
+                        <!-- delta -->
+                        <div class="flex flex-col items-end">
+                            <span
+                                class="mb-2 inline-flex items-center text-sm font-medium text-green-600 bg-green-50 px-2 py-1 rounded">
+                                <a wire:navigate href="{{ route('admin.ics') }}" class="flex items-center gap-2">
+                                    <iconify-icon icon="solar:document-bold-duotone" width="24" height="24"></iconify-icon>
+                                    Generate ICS
+                                </a>
+                            </span>
+                            <span class="text-xs text-gray-400 mt-1">Year 2025</span>
+                        </div>
+                    </div>
+
+                    <!-- optional sparkline (SVG) -->
+                    <div class="mt-4">
+                        <svg class="w-full h-8" viewBox="0 0 100 20" preserveAspectRatio="none" aria-hidden="true">
+                            <polyline fill="none" stroke="#3b82f6" stroke-width="2"
+                                points="0,16 20,12 40,8 60,10 80,6 100,4"></polyline>
+                        </svg>
+                    </div>
+                    <small class="text-sm mb-0 text-gray-600 text-start">Inventory Custodian Slip</small>
+                </div>
             </div>
 
-            <div class="flex items-center justify-between mb-4">
-                <flux:heading level="3">Recent Activity</flux:heading>
-            </div>
 
-            <x-table>
-                <x-slot:head>
-                    <th class="px-4 py-2 text-[13px]">#</th>
-                    <th class="px-4 py-2 text-[13px] text-start">Office Name</th>
-                    <th class="px-4 py-2 text-[13px] text-start">Code</th>
-                    <th class="px-4 py-2 text-[13px]">Actions</th>
-                </x-slot:head>
-
-              
-                    <x-table-row class="">
-                        <td class="border-b border-gray-100 px-4 py-2 text-center"></td>
-                        <td class="border-b border-gray-100 px-4 py-2"></td>
-                        <td class="border-b border-gray-100 px-4 py-2"></td>
-                        <td class="border-b border-gray-100 px-4 py-2 text-center">
-                            
-                        </td>
-                    </x-table-row>
-            </x-table>
         </div>
 
         <x-footer class="mt-auto" />
