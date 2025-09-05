@@ -6,22 +6,7 @@
                 <flux:heading level="1">List of ICS Records</flux:heading>
 
                 <div class="flex flex-col md:flex-row md:items-center gap-3 w-full md:w-auto">
-                    {{-- Search Bar --}}
-                    <div class="flex items-center w-full md:w-80 gap-2">
-                        @if (session('search'))
-                            <a href="javascript:;" class="me-1 text-red-600 flex items-center gap-1"
-                                id="clear-ics-keyword">
-                                <iconify-icon icon="mdi:clear" width="18" height="18"></iconify-icon>
-                                <span class="text-[11px]">Clear</span>
-                            </a>
-                        @endif
-
-                        <flux:input placeholder="Search..." id="search-ics-keyword" size="sm"
-                            value="{{ session('search') }}" class="flex-1 rounded-r-none" />
-                        <flux:button variant="primary" type="button" size="sm" id="search-ics-records">
-                            <iconify-icon icon="lets-icons:search-duotone" width="20" height="20"></iconify-icon>
-                        </flux:button>
-                    </div>
+                    
 
                     {{-- Year Filter --}}
                     <div class="flex items-center w-full md:w-80 gap-2">
@@ -42,6 +27,23 @@
                             @endfor
                         </flux:select>
                         <flux:button variant="primary" type="button" size="sm" id="search-year">
+                            <iconify-icon icon="lets-icons:search-duotone" width="20" height="20"></iconify-icon>
+                        </flux:button>
+                    </div>
+
+                    {{-- Search Bar --}}
+                    <div class="flex items-center w-full md:w-80 gap-2">
+                        @if (session('search'))
+                            <a href="javascript:;" class="me-1 text-red-600 flex items-center gap-1"
+                                id="clear-ics-keyword">
+                                <iconify-icon icon="mdi:clear" width="18" height="18"></iconify-icon>
+                                <span class="text-[11px]">Clear</span>
+                            </a>
+                        @endif
+
+                        <flux:input placeholder="Search..." id="search-ics-keyword" size="sm"
+                            value="{{ session('search') }}" class="flex-1 rounded-r-none" />
+                        <flux:button variant="primary" type="button" size="sm" id="search-ics-records">
                             <iconify-icon icon="lets-icons:search-duotone" width="20" height="20"></iconify-icon>
                         </flux:button>
                     </div>
