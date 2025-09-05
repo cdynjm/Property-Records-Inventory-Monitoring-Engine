@@ -42,6 +42,7 @@ class Login extends Component
 
         RateLimiter::clear($this->throttleKey());
         Session::regenerate();
+        session()->put('year', now()->year);
 
         if(auth()->user()->role === 'superadmin') {
             $this->redirectIntended(default: route('superadmin.dashboard', absolute: false), navigate: true);

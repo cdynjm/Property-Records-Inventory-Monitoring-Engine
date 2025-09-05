@@ -21,7 +21,7 @@ class ICSRecordsController extends Controller
 
     public function index()
     {
-        $year = session('year') ?? Carbon::now()->year;
+        $year = session('year');
         $search = session('search');
 
         $ics = ICS::where('icsNumber', 'like', '%'.$search.'%')
