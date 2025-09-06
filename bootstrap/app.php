@@ -20,6 +20,11 @@ return Application::configure(basePath: dirname(__DIR__))
             'office' => Office::class,
         ]);
     })
+    ->withMiddleware(function (Middleware $middleware) {
+        $middleware->web([
+          \App\Http\Middleware\MinifyHtmlMiddleware::class,
+        ]);
+    })
     ->withExceptions(function (Exceptions $exceptions) {
         //
     })->create();
