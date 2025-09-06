@@ -171,7 +171,7 @@
 
                         </td>
                         <td colspan="5">
-                            <div style="font-style: italic">Received From:</div>
+                            <div style="font-style: italic">Received from:</div>
                             <div style="text-align: center; margin-top: 20px;">
 
                                 <h4 style="margin: 0;">{{ $ics->receivedFrom->name }}</h4>
