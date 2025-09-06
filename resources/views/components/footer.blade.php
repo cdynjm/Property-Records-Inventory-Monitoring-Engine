@@ -1,14 +1,14 @@
 <footer class="mt-20">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <!-- Left Logo -->
-        <div class="flex justify-center md:justify-center">
-            <img class="mt-2" src="{{ asset('/img/help-desk.png') }}" alt="Help Desk" class="mt-2" width="40%"
-                draggable="false">
+        <div class="flex justify-center md:justify-end">
+            <img src="{{ asset('/img/help-desk.png') }}" alt="Help Desk"  class="mt-2 w-[250px]"
+                draggable="false" />
         </div>
 
         <!-- Right Contact -->
         <div class="text-center md:text-left mt-0 md:mt-12">
-            <h6 class="mb-1 mt-4 text-gray-800 flex items-center justify-center md:justify-start text-[15px]">
+            <h6 class="mb-1 mt-0 md:mt-4 text-gray-800 flex items-center justify-center md:justify-start text-[15px]">
                 Need technical assistance? Chat
                 <iconify-icon icon="marketeq:chat-4" width="27" height="27" class="ml-1"></iconify-icon>
             </h6>
@@ -34,7 +34,7 @@
     <!-- Bottom row -->
     <div class="grid grid-cols-1 md:grid-cols-12 gap-6 mt-6">
         <!-- App Name & Social -->
-        <div class="md:col-span-5 text-center md:text-left">
+        <div class="md:col-span-5 text-center md:text-right">
             <h4 class="mb-0 text-lg font-semibold">
                 <a href="#" target="_blank" class="hover:underline">{{ env('APP_NAME') }}</a>
             </h4>
@@ -43,7 +43,7 @@
             </div>
 
             <span class="text-sm">Online portals</span>
-            <div class="flex justify-center md:justify-start gap-2 my-3">
+            <div class="flex justify-center md:justify-end gap-2 my-3">
                 <a href="https://www.facebook.com/southernleytestateu" target="_blank"
                     class="bg-blue-500 text-white p-1 pb-0 rounded">
                     <iconify-icon icon="akar-icons:facebook-fill" width="18" height="18"></iconify-icon>
