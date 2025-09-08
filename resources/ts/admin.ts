@@ -263,16 +263,16 @@ $(function () {
 //SEARCH ICS RECORDS FUNCTIONS:
 
 $(function () {
-    $(document).on("click", "#search-ics-records", function (e) {
+    $(document).on("click", "#search-records", function (e) {
         e.preventDefault();
-        const search = $('#search-ics-keyword').val();
+        const search = $('#search-keyword').val();
         const formData = new FormData();
         formData.append('search', search as string)
         const $btn = $(this);
         $btn.prop("disabled", true);
 
         axios
-            .post("/admin/ics-search", formData)
+            .post("/admin/search", formData)
             .then((response) => {
                 window.Livewire.navigate(window.location.pathname);
             })
@@ -284,7 +284,7 @@ $(function () {
                         ".toast-error-message"
                     );
                     if (messageElem) {
-                        messageElem.textContent = "Error in searching ICS";
+                        messageElem.textContent = "Error in searching";
                     }
                     $(toast[0]).fadeIn(100);
                     setTimeout(() => $(toast[0]).fadeOut(300), 3000);
@@ -295,13 +295,13 @@ $(function () {
             });
     });
 
-    $(document).on("click", "#clear-ics-keyword", function (e) {
+    $(document).on("click", "#clear-keyword", function (e) {
         e.preventDefault();
         const $btn = $(this);
         $btn.prop("disabled", true);
 
         axios
-            .post("/admin/ics-search-clear")
+            .post("/admin/search-clear")
             .then((response) => {
                 window.Livewire.navigate(window.location.pathname);
             })
@@ -313,7 +313,7 @@ $(function () {
                         ".toast-error-message"
                     );
                     if (messageElem) {
-                        messageElem.textContent = "Error in clearing ICS";
+                        messageElem.textContent = "Error in clearing";
                     }
                     $(toast[0]).fadeIn(100);
                     setTimeout(() => $(toast[0]).fadeOut(300), 3000);
@@ -324,16 +324,16 @@ $(function () {
             });
     });
 
-    $(document).on("click", "#search-year", function (e) {
+    $(document).on("click", "#search-year-records", function (e) {
         e.preventDefault();
-        const year = $('#search-ics-year').val();
+        const year = $('#search-year').val();
         const formData = new FormData();
         formData.append('year', year as string)
         const $btn = $(this);
         $btn.prop("disabled", true);
 
         axios
-            .post("/admin/ics-year", formData)
+            .post("/admin/year", formData)
             .then((response) => {
                 window.Livewire.navigate(window.location.pathname);
             })
@@ -345,7 +345,7 @@ $(function () {
                         ".toast-error-message"
                     );
                     if (messageElem) {
-                        messageElem.textContent = "Error in searching year";
+                        messageElem.textContent = "Error in searching";
                     }
                     $(toast[0]).fadeIn(100);
                     setTimeout(() => $(toast[0]).fadeOut(300), 3000);
@@ -356,13 +356,13 @@ $(function () {
             });
     });
 
-    $(document).on("click", "#clear-ics-year", function (e) {
+    $(document).on("click", "#clear-year", function (e) {
         e.preventDefault();
         const $btn = $(this);
         $btn.prop("disabled", true);
 
         axios
-            .post("/admin/ics-year-clear")
+            .post("/admin/year-clear")
             .then((response) => {
                 window.Livewire.navigate(window.location.pathname);
             })
@@ -374,7 +374,7 @@ $(function () {
                         ".toast-error-message"
                     );
                     if (messageElem) {
-                        messageElem.textContent = "Error in clearing year";
+                        messageElem.textContent = "Error in clearing";
                     }
                     $(toast[0]).fadeIn(100);
                     setTimeout(() => $(toast[0]).fadeOut(300), 3000);

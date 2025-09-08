@@ -22,6 +22,7 @@ use App\Http\Controllers\Admin\IssuersController;
 use App\Http\Controllers\Admin\ReceiversController;
 use App\Http\Controllers\Admin\Forms\ICSFormController;
 use App\Http\Controllers\Admin\ICSPrintController;
+use App\Http\Controllers\Admin\SearchController;
 
 use App\Http\Controllers\Office\DashboardController as OfficeDashboardController;
 
@@ -75,10 +76,6 @@ Route::middleware(['auth'])->group(function () {
             Route::get('are', [AREController::class, 'index'])->name('admin.are');
 
             Route::get('ics-records', [ICSRecordsController::class, 'index'])->name('admin.ics-records');
-            Route::post('ics-search', [ICSRecordsController::class, 'icsSearch'])->name('admin.ics-search');
-            Route::post('ics-search-clear', [ICSRecordsController::class, 'icsSearchClear'])->name('admin.ics-search-clear');
-            Route::post('ics-year', [ICSRecordsController::class, 'icsYear'])->name('admin.ics-year');
-            Route::post('ics-year-clear', [ICSRecordsController::class, 'icsYearClear'])->name('admin.ics-year-clear');
 
             Route::get('ics-form/{encrypted_id}', [ICSFormController::class, 'index'])->name('admin.ics-form');
             Route::get('ics-print/{encrypted_id}', [ICSPrintController::class, 'index'])->name('admin.ics-print');
@@ -86,6 +83,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('are-records', [ARERecordsController::class, 'index'])->name('admin.are-records');
 
             Route::get('office-records', [OfficeRecordsController::class, 'index'])->name('admin.office-records');
+            Route::get('office-records/{encrypted_id}', [OfficeRecordsController::class, 'officeProperyInventoryRecords'])->name('admin.office-property-inventory-records');
         
             Route::get('issuers', [IssuersController::class, 'index'])->name('admin.issuers');
             Route::post('create-issuer', [IssuersController::class, 'createIssuer'])->name('admin.create-issuer');
@@ -93,6 +91,11 @@ Route::middleware(['auth'])->group(function () {
             Route::delete('delete-issuer', [IssuersController::class, 'deleteIssuer'])->name('admin.delete-issuer');
             
             Route::get('receivers', [ReceiversController::class, 'index'])->name('admin.receivers');
+
+            Route::post('search', [SearchController::class, 'search'])->name('admin.search');
+            Route::post('search-clear', [SearchController::class, 'searchClear'])->name('admin.search-clear');
+            Route::post('year', [SearchController::class, 'year'])->name('admin.year');
+            Route::post('year-clear', [SearchController::class, 'yearClear'])->name('admin.year-clear');
         });
 
     });

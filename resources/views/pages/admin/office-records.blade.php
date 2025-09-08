@@ -17,10 +17,14 @@
                 @foreach ($offices as $index => $of)
                     <x-table-row class="">
                         <td class="border-b border-gray-100 px-4 py-2 text-center whitespace-nowrap">{{ $index + 1 }}</td>
-                        <td class="border-b border-gray-100 px-4 py-2 whitespace-nowrap">{{ $of->officeName }}</td>
+                        <td class="border-b border-gray-100 px-4 py-2 whitespace-nowrap">
+                            <a wire:navigate href="{{ route('admin.office-property-inventory-records', ['encrypted_id' => $of->encrypted_id]) }}">
+                                {{ $of->officeName }}
+                            </a>
+                        </td>
                         <td class="border-b border-gray-100 px-4 py-2 whitespace-nowrap">{{ $of->officeCode }}</td>
                         <td class="border-b border-gray-100 px-4 py-2 text-center whitespace-nowrap">
-                             <a wire:navigate href="javascript:;">
+                             <a wire:navigate href="{{ route('admin.office-property-inventory-records', ['encrypted_id' => $of->encrypted_id]) }}">
                                 <iconify-icon icon="lets-icons:view-duotone" width="24"
                                     height="24"></iconify-icon>
                             </a>

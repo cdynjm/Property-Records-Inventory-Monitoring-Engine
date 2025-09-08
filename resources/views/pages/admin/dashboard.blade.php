@@ -2,8 +2,32 @@
     <div class="flex min-h-screen flex-col">
 
         <div class="flex-1">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full mx-auto mb-10">
 
+            <div class="flex flex-col md:flex-row md:items-center gap-3 w-full md:w-auto mb-5">
+
+                <div class="flex items-center w-full md:w-80 gap-2">
+                    @if (session('year') != now()->year)
+                        <a href="javascript:;" class="me-1 text-red-600 flex items-center gap-1" id="clear-year">
+                            <iconify-icon icon="mdi:clear" width="18" height="18"></iconify-icon>
+                            <span class="text-[11px]">Clear</span>
+                        </a>
+                    @endif
+                    <flux:select id="search-year" size="sm">
+                        <option value="">Select Year</option>
+                        @for ($year = now()->year; $year >= 2000; $year--)
+                            <option value="{{ $year }}"
+                                {{ session('year', now()->year) == $year ? 'selected' : '' }}>
+                                {{ $year }}
+                            </option>
+                        @endfor
+                    </flux:select>
+                    <flux:button variant="primary" type="button" size="sm" id="search-year-records">
+                        <iconify-icon icon="lets-icons:search-duotone" width="20" height="20"></iconify-icon>
+                    </flux:button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full mx-auto mb-10">
                 <!-- Stat Card -->
                 <div class="bg-white shadow-sm rounded-xl p-4 sm:p-6 border border-gray-100">
                     <div class="flex items-start justify-between gap-4">
@@ -11,8 +35,8 @@
                             <!-- icon -->
                             <div class="flex-shrink-0 w-12 h-12 rounded-lg bg-blue-50 flex items-center justify-center">
                                 <!-- replace with your icon -->
-                                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M11 17a4 4 0 100-8 4 4 0 000 8zM21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2v-7">
                                     </path>
@@ -31,11 +55,12 @@
                             <span
                                 class="mb-2 inline-flex items-center text-sm font-medium text-green-600 bg-green-50 px-2 py-1 rounded">
                                 <a wire:navigate href="{{ route('admin.are') }}" class="flex items-center gap-2">
-                                    <iconify-icon icon="solar:document-bold-duotone" width="24" height="24"></iconify-icon>
+                                    <iconify-icon icon="solar:document-bold-duotone" width="24"
+                                        height="24"></iconify-icon>
                                     Generate ARE
                                 </a>
                             </span>
-                            <span class="text-xs text-gray-400 mt-1">Year 2025</span>
+                            <span class="text-xs text-gray-400 mt-1">Year {{ session('year') }}</span>
                         </div>
                     </div>
 
@@ -76,11 +101,12 @@
                             <span
                                 class="mb-2 inline-flex items-center text-sm font-medium text-green-600 bg-green-50 px-2 py-1 rounded">
                                 <a wire:navigate href="{{ route('admin.ics') }}" class="flex items-center gap-2">
-                                    <iconify-icon icon="solar:document-bold-duotone" width="24" height="24"></iconify-icon>
+                                    <iconify-icon icon="solar:document-bold-duotone" width="24"
+                                        height="24"></iconify-icon>
                                     Generate ICS
                                 </a>
                             </span>
-                            <span class="text-xs text-gray-400 mt-1">Year 2025</span>
+                            <span class="text-xs text-gray-400 mt-1">Year {{ session('year') }}</span>
                         </div>
                     </div>
 

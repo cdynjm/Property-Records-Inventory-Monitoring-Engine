@@ -11,7 +11,9 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $ics = ICS::count();
+        $year = session('year');
+
+        $ics = ICS::where('dateReceivedFrom', 'like', '%'.$year.'%')->count();
         return view('pages.admin.dashboard', ['ics' => $ics]);
     }
 }
