@@ -1,4 +1,5 @@
 import "iconify-icon";
+
 import "./admin";
 import "./office";
 import "./superadmin";
@@ -36,18 +37,18 @@ document.addEventListener("livewire:navigated", () => {
     setTimeout(() => {
         const loader = document.getElementById("skeleton-loader");
         if (loader) {
-            loader.style.opacity = "0";
+            loader.style.opacity as string;
             loader.style.transition = "opacity 0.5s ease";
-            setTimeout(() => loader.remove(), 250); // remove from DOM
+            setTimeout(() => loader.remove(), 250);
         }
-    }, 250); // delay before fade out
+    }, 250); 
 });
 
 window.addEventListener("load", () => {
     setTimeout(() => {
         const loader = document.getElementById("skeleton-loader");
         if (loader) {
-            loader.style.opacity = "0";
+            loader.style.opacity as string;
             loader.style.transition = "opacity 0.5s ease";
             setTimeout(() => loader.remove(), 250);
         }

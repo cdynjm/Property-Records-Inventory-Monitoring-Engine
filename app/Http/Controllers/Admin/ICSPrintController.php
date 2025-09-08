@@ -25,6 +25,11 @@ class ICSPrintController extends Controller
 
     public function index(Request $request)
     {
-        return view('pages.admin.ics-print', ['encrypted_id' => $request->encrypted_id]);
+        $icsID = $this->aes->decrypt($request->encrypted_id);
+        $ics = ICS::where('id', $icsID)->select('icsNumber')->first();
+        return view('pages.admin.ics-print', [
+            'encrypted_id' => $request->encrypted_id,
+            'ics' => $ics
+        ]);
     }
 }
