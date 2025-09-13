@@ -23,6 +23,7 @@ use App\Http\Controllers\Admin\ReceiversController;
 use App\Http\Controllers\Admin\Forms\ICSFormController;
 use App\Http\Controllers\Admin\ICSPrintController;
 use App\Http\Controllers\Admin\SearchController;
+use App\Http\Controllers\Admin\AccountsCodeController;
 
 use App\Http\Controllers\Office\DashboardController as OfficeDashboardController;
 
@@ -56,6 +57,7 @@ Route::middleware(['auth'])->group(function () {
             Route::post('create-unit', [UnitController::class, 'createUnit'])->name('superadmin.create-unit');
             Route::patch('update-unit', [UnitController::class, 'updateUnit'])->name('superadmin.update-unit');
             Route::delete('delete-unit', [UnitController::class, 'deleteUnit'])->name('superadmin.delete-unit');
+            
 
         });
 
@@ -96,6 +98,8 @@ Route::middleware(['auth'])->group(function () {
             Route::post('search-clear', [SearchController::class, 'searchClear'])->name('admin.search-clear');
             Route::post('year', [SearchController::class, 'year'])->name('admin.year');
             Route::post('year-clear', [SearchController::class, 'yearClear'])->name('admin.year-clear');
+
+            Route::get('accounts-code', [AccountsCodeController::class, 'index'])->name('admin.accounts-code');
         });
 
     });

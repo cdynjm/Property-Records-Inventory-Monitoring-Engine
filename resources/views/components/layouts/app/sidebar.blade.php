@@ -23,7 +23,7 @@
                         'label' => __('Dashboard'),
                     ],
                     [
-                        'icon' => 'inbox',
+                        'icon' => 'briefcase',
                         'route' => 'superadmin.offices',
                         'label' => __('Offices'),
                     ],
@@ -92,6 +92,11 @@
                         'icon' => 'user-circle',
                         'route' => 'admin.receivers',
                         'label' => __('Receivers'),
+                    ],
+                    [
+                        'icon' => 'document-text',
+                        'route' => 'admin.accounts-code',
+                        'label' => __('Accounts Code'),
                     ],
                 ];
             @endphp
