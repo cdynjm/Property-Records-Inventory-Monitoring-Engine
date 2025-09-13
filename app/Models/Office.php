@@ -16,17 +16,17 @@ class Office extends Model
 
     public function user()
     {
-        return $this->hasOne(User::class, 'offices_id');
+        return $this->hasOne(User::class, 'offices_id')->withTrashed();
     }
 
     public function ics()
     {
-        return $this->hasMany(ICS::class, 'offices_id');
+        return $this->hasMany(ICS::class, 'offices_id')->withTrashed();
     }
 
     public function are()
     {
-        return $this->hasMany(ARE::class, 'offices_id');
+        return $this->hasMany(ARE::class, 'offices_id')->withTrashed();
     }
 
 }

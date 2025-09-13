@@ -17,6 +17,6 @@ class ICSInformation extends Model
 
     public function ics()
     {
-        return $this->belongsTo(ICS::class, 'ics_id');
+        return $this->belongsTo(ICS::class, 'ics_id')->withTrashed();
     }
 }

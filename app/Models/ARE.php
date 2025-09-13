@@ -19,21 +19,21 @@ class ARE extends Model
 
     public function receivedFrom()
     {
-        return $this->belongsTo(ReceivedFrom::class, 'receivedFrom_id');
+        return $this->belongsTo(ReceivedFrom::class, 'receivedFrom_id')->withTrashed();
     }
 
     public function receivedBy()
     {
-        return $this->belongsTo(ReceivedBy::class, 'receivedBy_id');
+        return $this->belongsTo(ReceivedBy::class, 'receivedBy_id')->withTrashed();
     }
 
     public function office()
     {
-        return $this->belongsTo(Office::class, 'offices_id');
+        return $this->belongsTo(Office::class, 'offices_id')->withTrashed();
     }
 
     public function information()
     {
-        return $this->hasMany(AREInformation::class, 'are_id');
+        return $this->hasMany(AREInformation::class, 'are_id')->withTrashed();
     }
 }

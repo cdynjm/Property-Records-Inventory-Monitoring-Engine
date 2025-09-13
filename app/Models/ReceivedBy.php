@@ -14,11 +14,11 @@ class ReceivedBy extends Model
 
     public function ics()
     {
-        return $this->hasMany(ICS::class, 'receivedBy_id');
+        return $this->hasMany(ICS::class, 'receivedBy_id')->withTrashed();
     }
 
     public function are()
     {
-        return $this->hasMany(ARE::class, 'receivedBy_id');
+        return $this->hasMany(ARE::class, 'receivedBy_id')->withTrashed();
     }
 }

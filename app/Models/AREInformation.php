@@ -19,6 +19,6 @@ class AREInformation extends Model
 
     public function are()
     {
-        return $this->belongsTo(ARE::class, 'are_id');
+        return $this->belongsTo(ARE::class, 'are_id')->withTrashed();
     }
 }
