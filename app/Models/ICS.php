@@ -19,21 +19,21 @@ class ICS extends Model
 
     public function receivedBy()
     {
-        return $this->belongsTo(ReceivedBy::class, 'receivedBy_id')->withTrashed();
+        return $this->belongsTo(ReceivedBy::class, 'receivedBy_id');
     }
 
     public function receivedFrom()
     {
-        return $this->belongsTo(ReceivedFrom::class, 'receivedFrom_id')->withTrashed();
+        return $this->belongsTo(ReceivedFrom::class, 'receivedFrom_id');
     }
 
     public function office()
     {
-        return $this->belongsTo(Office::class, 'offices_id')->withTrashed();
+        return $this->belongsTo(Office::class, 'offices_id');
     }
 
     public function information()
     {
-        return $this->hasMany(ICSInformation::class, 'ics_id')->withTrashed();
+        return $this->hasMany(ICSInformation::class, 'ics_id');
     }
 }
