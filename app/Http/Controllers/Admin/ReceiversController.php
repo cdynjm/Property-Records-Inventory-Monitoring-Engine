@@ -8,6 +8,7 @@ use Session;
 use App\Http\Controllers\Security\AESCipher;
 
 use App\Models\ReceivedBy;
+use App\Models\ICS;
 
 class ReceiversController extends Controller
 {
@@ -27,6 +28,28 @@ class ReceiversController extends Controller
         
         return view('pages.admin.receivers', [
             'receivedBy' => $receivedBy,
+        ]);
+    }
+
+    public function receiversProperyInventoryRecords(Request $request)
+    {
+        $year = session('year');
+        $search = session('search');
+        $receivedByID = $this->aes->decrypt($request->encrypted_id);
+
+        $ics = ICS::where('receivedBy_id', $receivedByID)
+        ->where('icsNumber', 'like', '%'.$search.'%')
+        ->where('dateReceivedFrom', 'like', '%'.$year.'%')
+        ->orderBy('updated_at', 'desc')->paginate(10)->through(function ($ics) {
+            $ics->encrypted_id = $this->aes->encrypt($ics->id);
+            return $ics;
+        });
+
+        $receiver = ReceivedBy::where('id', $receivedByID)->first();
+
+        return view('pages.admin.receivers-property-inventory-records', [
+            'ics' => $ics,
+            'receiver' => $receiver
         ]);
     }
 }

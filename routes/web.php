@@ -88,11 +88,13 @@ Route::middleware(['auth'])->group(function () {
             Route::get('office-records/{encrypted_id}', [OfficeRecordsController::class, 'officeProperyInventoryRecords'])->name('admin.office-property-inventory-records');
         
             Route::get('issuers', [IssuersController::class, 'index'])->name('admin.issuers');
+            Route::get('issuers/{encrypted_id}', [IssuersController::class, 'issuersProperyInventoryRecords'])->name('admin.issuers-property-inventory-records');
             Route::post('create-issuer', [IssuersController::class, 'createIssuer'])->name('admin.create-issuer');
             Route::patch('update-issuer', [IssuersController::class, 'updateIssuer'])->name('admin.update-issuer');
             Route::delete('delete-issuer', [IssuersController::class, 'deleteIssuer'])->name('admin.delete-issuer');
             
             Route::get('receivers', [ReceiversController::class, 'index'])->name('admin.receivers');
+            Route::get('receivers/{encrypted_id}', [ReceiversController::class, 'receiversProperyInventoryRecords'])->name('admin.receivers-property-inventory-records');
 
             Route::post('search', [SearchController::class, 'search'])->name('admin.search');
             Route::post('search-clear', [SearchController::class, 'searchClear'])->name('admin.search-clear');

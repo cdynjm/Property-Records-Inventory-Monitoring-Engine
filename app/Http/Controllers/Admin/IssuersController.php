@@ -8,6 +8,7 @@ use Session;
 use App\Http\Controllers\Security\AESCipher;
 
 use App\Models\ReceivedFrom;
+use App\Models\ICS;
 
 class IssuersController extends Controller
 {
@@ -67,5 +68,27 @@ class IssuersController extends Controller
         return response()->json([
             'message' => 'Issuer deleted successfully.'
         ], 200);
+    }
+
+    public function issuersProperyInventoryRecords(Request $request)
+    {
+        $year = session('year');
+        $search = session('search');
+        $receivedFromID = $this->aes->decrypt($request->encrypted_id);
+
+        $ics = ICS::where('receivedFrom_id', $receivedFromID)
+        ->where('icsNumber', 'like', '%'.$search.'%')
+        ->where('dateReceivedFrom', 'like', '%'.$year.'%')
+        ->orderBy('updated_at', 'desc')->paginate(10)->through(function ($ics) {
+            $ics->encrypted_id = $this->aes->encrypt($ics->id);
+            return $ics;
+        });
+
+        $issuer = ReceivedFrom::where('id', $receivedFromID)->first();
+
+        return view('pages.admin.issuers-property-inventory-records', [
+            'ics' => $ics,
+            'issuer' => $issuer
+        ]);
     }
 }

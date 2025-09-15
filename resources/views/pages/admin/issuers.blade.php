@@ -21,10 +21,16 @@
                     <x-table-row class="">
                         <td class="border-b border-gray-100 px-4 py-2 text-center whitespace-nowrap">{{ $index + 1 }}
                         </td>
-                        <td class="border-b border-gray-100 px-4 py-2 whitespace-nowrap">{{ $rf->name }}</td>
+                        <td class="border-b border-gray-100 px-4 py-2 whitespace-nowrap">
+                            <a wire:navigate
+                                href="{{ route('admin.issuers-property-inventory-records', ['encrypted_id' => $rf->encrypted_id]) }}">
+                                {{ $rf->name }}
+                            </a>
+                        </td>
                         <td class="border-b border-gray-100 px-4 py-2 whitespace-nowrap">{{ $rf->position }}</td>
                         <td class="border-b border-gray-100 px-4 py-2 text-center whitespace-nowrap">
-                            <a wire:navigate href="javascript:;">
+                            <a wire:navigate
+                                href="{{ route('admin.issuers-property-inventory-records', ['encrypted_id' => $rf->encrypted_id]) }}">
                                 <iconify-icon icon="lets-icons:view-duotone" width="24"
                                     height="24"></iconify-icon>
                             </a>
