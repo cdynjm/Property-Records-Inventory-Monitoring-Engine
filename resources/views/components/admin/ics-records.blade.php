@@ -13,7 +13,8 @@
             <td class="border-b border-gray-100 px-4 py-2 text-center whitespace-nowrap">{{ $index + 1 }}
             </td>
             <td class="border-b border-black-100 px-4 py-2">
-                <p class="whitespace-nowrap font-bold mb-2 flex items-center gap-2">
+                <a wire:navigate href="{{ route('admin.edit-ics', ['encrypted_id' => $ic->encrypted_id]) }}" id="edit-ics">
+                    <p class="whitespace-nowrap font-bold mb-2 flex items-center gap-2">
                     <iconify-icon icon="fluent-color:document-text-28" width="22" height="22"></iconify-icon>
                     {{ $ic->icsNumber }}
                 </p>
@@ -29,6 +30,7 @@
                         </li>
                     @endforeach
                 </ol>
+                </a>
             </td>
             <td class="border-b border-gray-100 px-4 py-2 whitespace-nowrap">
                 <div>

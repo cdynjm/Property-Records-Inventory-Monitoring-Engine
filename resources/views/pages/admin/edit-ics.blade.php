@@ -2,14 +2,13 @@
     <div class="flex min-h-screen flex-col">
 
         <div class="flex-1">
-            <div class="flex items-center justify-center mb-4">
-                <iconify-icon icon="ic:twotone-inventory" class="me-2 text-gray-500" width="25" height="25">
-                </iconify-icon>
-                <flux:heading level="1" class="text-[15px]">Inventory Custodian Slip <span
-                        class="text-blue-500">(Edit)</span></flux:heading>
+            <div class="flex items-center justify-center mb-4 gap-2">
+               <img src="{{ asset('/img/document.png') }}" alt="" class="w-8 h-auto" draggable="false">
+                <flux:heading level="1" class="text-[15px]">Inventory Custodian Slip <span class="text-blue-500">(Edit)</span></flux:heading>
             </div>
 
-            <div class="border border-gray-200 rounded-lg p-5 shadow-sm bg-zinc-50 mb-10">
+            <div class="border border-gray-200 rounded-lg p-5 mb-10">
+                <div class="w-full p-2 bg-gray-100 mb-4 rounded-md"></div>
                 <form action="" id="update-ics-form" class="space-y-4">
                     <flux:input class="mb-0" name="icsID" autocomplete="off" type="hidden"
                         value="{{ $ics->encrypted_id }}" />
@@ -238,6 +237,7 @@
                         </a>
                     </div>
                 </form>
+                <div class="w-full p-2 bg-gray-100 mt-4 rounded-md"></div>
             </div>
 
         </div>

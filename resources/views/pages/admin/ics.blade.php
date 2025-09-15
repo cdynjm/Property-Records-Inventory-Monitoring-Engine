@@ -7,7 +7,8 @@
                 <flux:heading level="1" class="text-[15px]">Inventory Custodian Slip</flux:heading>
             </div>
 
-            <div class="border border-gray-200 rounded-lg p-5 shadow-sm bg-zinc-50 mb-10">
+            <div class="border border-gray-200 rounded-lg p-5 mb-10">
+                <div class="w-full p-2 bg-gray-100 mb-4 rounded-md"></div>
                 <form action="" id="create-ics-form" class="space-y-4">
                     <p class="font-bold text-[13px] mb-2">ICS NUMBER</p>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
@@ -154,6 +155,7 @@
 
                     <flux:button type="submit" variant="primary" class="save-ics-btn">Save changes</flux:button>
                 </form>
+                <div class="w-full p-2 bg-gray-100 mt-4 rounded-md"></div>
             </div>
 
         </div>
