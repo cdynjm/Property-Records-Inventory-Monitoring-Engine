@@ -385,3 +385,68 @@ $(function () {
             });
     });
 });
+
+//SEARCH RECEIVER FUNCTIONS;
+
+$(function () {
+    $(document).on("click", "#search-receiver-records", function (e) {
+        e.preventDefault();
+        const search = $('#search-receiver').val();
+        const formData = new FormData();
+        formData.append('search', search as string)
+        const $btn = $(this);
+        $btn.prop("disabled", true);
+
+        axios
+            .post("/admin/search-receiver", formData)
+            .then((response) => {
+                window.Livewire.navigate(window.location.pathname);
+            })
+            .catch((error) => {
+                const toast = document.getElementsByClassName("toast-error");
+
+                if (toast.length > 0) {
+                    const messageElem = toast[0].querySelector(
+                        ".toast-error-message"
+                    );
+                    if (messageElem) {
+                        messageElem.textContent = "Error in searching";
+                    }
+                    $(toast[0]).fadeIn(100);
+                    setTimeout(() => $(toast[0]).fadeOut(300), 3000);
+                }
+            })
+            .finally(() => {
+                $btn.prop("disabled", false);
+            });
+    });
+
+    $(document).on("click", "#clear-receiver", function (e) {
+        e.preventDefault();
+        const $btn = $(this);
+        $btn.prop("disabled", true);
+
+        axios
+            .post("/admin/clear-receiver")
+            .then((response) => {
+                window.Livewire.navigate(window.location.pathname);
+            })
+            .catch((error) => {
+                const toast = document.getElementsByClassName("toast-error");
+
+                if (toast.length > 0) {
+                    const messageElem = toast[0].querySelector(
+                        ".toast-error-message"
+                    );
+                    if (messageElem) {
+                        messageElem.textContent = "Error in clearing";
+                    }
+                    $(toast[0]).fadeIn(100);
+                    setTimeout(() => $(toast[0]).fadeOut(300), 3000);
+                }
+            })
+            .finally(() => {
+                $btn.prop("disabled", false);
+            });
+    });
+});

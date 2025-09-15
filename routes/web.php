@@ -100,6 +100,8 @@ Route::middleware(['auth'])->group(function () {
             Route::post('search-clear', [SearchController::class, 'searchClear'])->name('admin.search-clear');
             Route::post('year', [SearchController::class, 'year'])->name('admin.year');
             Route::post('year-clear', [SearchController::class, 'yearClear'])->name('admin.year-clear');
+            Route::post('search-receiver', [SearchController::class, 'searchReceiver'])->name('admin.search-receiver');
+            Route::post('clear-receiver', [SearchController::class, 'clearReceiver'])->name('admin.search-receiver');
 
             Route::get('accounts-code', [AccountsCodeController::class, 'index'])->name('admin.accounts-code');
         });

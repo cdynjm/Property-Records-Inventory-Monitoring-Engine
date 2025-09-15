@@ -26,6 +26,15 @@ class SearchController extends Controller
         ], 200);
     }
 
+    public function searchReceiver(Request $request)
+    {
+        $request->session()->put('search-receiver', $request->search);
+
+        return response()->json([
+            'message' => 'success'
+        ], 200);
+    }
+
     public function searchClear(Request $request)
     {
         $request->session()->put('search', '');
@@ -43,4 +52,15 @@ class SearchController extends Controller
             'message' => 'success'
         ], 200);
     }
+
+    public function clearReceiver(Request $request)
+    {
+        $request->session()->put('search-receiver', '');
+
+        return response()->json([
+            'message' => 'success'
+        ], 200);
+    }
+
+
 }

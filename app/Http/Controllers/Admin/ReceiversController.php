@@ -21,7 +21,10 @@ class ReceiversController extends Controller
 
     public function index()
     {
-        $receivedBy = ReceivedBy::orderBy('name', 'asc')->paginate(10) ->through(function ($rb) {
+         $search = session('search-receiver');
+
+        $receivedBy = ReceivedBy::where('name', 'like', '%'.$search.'%')
+            ->orderBy('name', 'asc')->paginate(10) ->through(function ($rb) {
             $rb->encrypted_id = $this->aes->encrypt($rb->id);
             return $rb;
         });

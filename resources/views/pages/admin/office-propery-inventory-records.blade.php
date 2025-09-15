@@ -3,7 +3,13 @@
 
         <div class="flex-1">
             <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4 gap-3">
-                <h6 class="font-bold">{{ $office->officeName }}</h6>
+                <div class="flex items-center gap-2">
+                    <img src="{{ asset('/img/office-chair.png') }}" alt="" class="w-8 h-auto" draggable="false">
+                   <div>
+                     <h6 class="font-bold">{{ $office->officeName }}</h6>
+                     
+                   </div>
+                </div>
                 <x-filter-information />
             </div>
 
