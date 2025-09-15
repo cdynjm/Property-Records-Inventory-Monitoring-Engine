@@ -21,6 +21,10 @@ class MinifyHtmlMiddleware
         if ($response->headers->get('Content-Type') === 'text/html; charset=UTF-8') {
             $content = $response->getContent();
 
+            if ($request->is('settings/*') || $request->is('settings')) {
+                return $response;
+            }
+
             // Minify HTML and inline JavaScript
             $minified = $this->minifyHtmlAndJs($content);
 
