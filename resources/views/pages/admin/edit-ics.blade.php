@@ -8,7 +8,6 @@
             </div>
 
             <div class="border border-gray-200 rounded-lg p-5 mb-10">
-                <div class="w-full p-2 bg-gray-100 mb-4 rounded-md"></div>
                 <form action="" id="update-ics-form" class="space-y-4">
                     <flux:input class="mb-0" name="icsID" autocomplete="off" type="hidden"
                         value="{{ $ics->encrypted_id }}" />
@@ -237,7 +236,6 @@
                         </a>
                     </div>
                 </form>
-                <div class="w-full p-2 bg-gray-100 mt-4 rounded-md"></div>
             </div>
 
         </div>
