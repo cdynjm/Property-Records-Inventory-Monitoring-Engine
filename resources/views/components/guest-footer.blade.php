@@ -11,15 +11,15 @@
                 <small class="text-[12px]">Property Records & Inventory Monitoring Engine</small>
             </div>
             <div class="flex justify-center md:justify-end gap-2 my-3">
-                <a href="https://www.facebook.com/southernleytestateu" target="_blank"
+                <a href="https://www.facebook.com/ProvincialGovernmentofSouthernLeyte" target="_blank"
                     class="bg-blue-500 text-white p-1 pb-0 rounded">
                     <iconify-icon icon="akar-icons:facebook-fill" width="18" height="18"></iconify-icon>
                 </a>
-                <a href="https://youtube.com/c/SouthernLeyteStateUniversity" target="_blank"
+                <a href="#" target="_blank"
                     class="bg-red-500 text-white p-1 pb-0 rounded">
                     <iconify-icon icon="flowbite:youtube-solid" width="18" height="18"></iconify-icon>
                 </a>
-                <a href="https://www.southernleytestateu.edu.ph/index.php/en/" target="_blank"
+                <a href="https://southernleyte.gov.ph/" target="_blank"
                     class="bg-green-500 text-white p-1 pb-0 rounded">
                     <iconify-icon icon="streamline:web-solid" width="18" height="18"></iconify-icon>
                 </a>
@@ -36,11 +36,11 @@
         <div class="md:col-span-2 text-center md:text-left">
             <h5 class="mb-2 font-semibold">Quicklinks</h5>
             <ul>
-                <li><a target="_blank" href="https://southernleyte.gov.ph"
+                <li><a target="_blank" href="https://southernleyte.gov.ph/"
                         class="block pb-1 text-xs hover:underline">Province of Southern Leyte</a></li>
-                <li><a target="_blank" href="https://southernleyte.gov.ph"
+                <li><a target="_blank" href="https://southernleyte.gov.ph/pgso/"
                         class="block pb-1 text-xs hover:underline">Provincial General Services Office</a></li>
-                <li><a target="_blank" href="https://www.facebook.com/slsuccsit"
+                <li><a target="_blank" href="https://jemcdyn.vercel.app/"
                         class="block pb-1 text-xs hover:underline">JEM CDYN, Dev.</a></li>
                 <li>
                     <hr class="my-2">

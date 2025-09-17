@@ -32,7 +32,7 @@
 
                 <hr class="my-2 w-full">
 
-                <a href="/messenger/120"
+                <a href="https://www.facebook.com/jemuel.cadayona.94" target="_blank"
                     class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded uppercase text-[11px] inline-block mt-2">
                     Click to Chat
                 </a>
