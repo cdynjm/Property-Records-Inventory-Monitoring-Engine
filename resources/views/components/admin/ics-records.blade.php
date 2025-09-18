@@ -73,3 +73,4 @@
         </x-table-row>
     @endif
 </x-table>
+
