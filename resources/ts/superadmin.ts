@@ -20,8 +20,8 @@ $(function () {
 
         axios
             .post("/superadmin/create-office", formData)
-            .then((response) => {
-                window.Livewire.navigate(window.location.pathname);
+            .then((response: any) => {
+                window.Livewire.navigate(window.location.pathname) as any;
             })
             .catch((error) => {
                 const toast = document.getElementsByClassName("toast-error");
@@ -67,8 +67,8 @@ $(function () {
 
         axios
             .post("/superadmin/update-office", formData)
-            .then((response) => {
-                window.Livewire.navigate(window.location.pathname);
+            .then((response: any) => {
+                window.Livewire.navigate(window.location.pathname) as any;
             })
             .catch((error) => {
                 const toast = document.getElementsByClassName("toast-error");
@@ -106,8 +106,8 @@ $(function () {
 
         axios
             .delete("/superadmin/delete-office", { data: { officeID } })
-            .then((response) => {
-                window.Livewire.navigate(window.location.pathname);
+            .then((response: any) => {
+                window.Livewire.navigate(window.location.pathname) as any;
             })
             .catch((error) => {
                 console.error("Error:", error);
@@ -133,8 +133,8 @@ $(function () {
 
         axios
             .post("/superadmin/create-unit", formData)
-            .then((response) => {
-                window.Livewire.navigate(window.location.pathname);
+            .then((response: any) => {
+                window.Livewire.navigate(window.location.pathname) as any;
             })
             .catch((error) => {
                 
@@ -165,8 +165,8 @@ $(function () {
 
         axios
             .post("/superadmin/update-unit", formData)
-            .then((response) => {
-                window.Livewire.navigate(window.location.pathname);
+            .then((response: any) => {
+                window.Livewire.navigate(window.location.pathname) as any;
             })
             .catch((error) => {
                
@@ -193,8 +193,8 @@ $(function () {
 
         axios
             .delete("/superadmin/delete-unit", { data: { unitID } })
-            .then((response) => {
-                window.Livewire.navigate(window.location.pathname);
+            .then((response: any) => {
+                window.Livewire.navigate(window.location.pathname) as any;
             })
             .catch((error) => {
                 console.error("Error:", error);
@@ -220,8 +220,8 @@ $(function () {
 
         axios
             .post("/superadmin/create-admin", formData)
-            .then((response) => {
-                window.Livewire.navigate(window.location.pathname);
+            .then((response: any) => {
+                window.Livewire.navigate(window.location.pathname) as any;
             })
             .catch((error) => {
                 const toast = document.getElementsByClassName("toast-error");
@@ -265,8 +265,8 @@ $(function () {
 
         axios
             .post("/superadmin/update-admin", formData)
-            .then((response) => {
-                window.Livewire.navigate(window.location.pathname);
+            .then((response: any) => {
+                window.Livewire.navigate(window.location.pathname) as any;
             })
             .catch((error) => {
                 const toast = document.getElementsByClassName("toast-error");
@@ -304,8 +304,8 @@ $(function () {
 
         axios
             .delete("/superadmin/delete-admin", { data: { adminID } })
-            .then((response) => {
-                window.Livewire.navigate(window.location.pathname);
+            .then((response: any) => {
+                window.Livewire.navigate(window.location.pathname) as any;
             })
             .catch((error) => {
                 console.error("Error:", error);

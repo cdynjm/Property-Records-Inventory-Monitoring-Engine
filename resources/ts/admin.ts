@@ -19,8 +19,8 @@ $(function () {
 
         axios
             .post("/admin/create-issuer", formData)
-            .then((response) => {
-                window.Livewire.navigate(window.location.pathname);
+            .then((response: any) => {
+                window.Livewire.navigate(window.location.pathname) as any;
             })
             .catch((error) => {
                 const toast = document.getElementsByClassName("toast-error");
@@ -64,8 +64,8 @@ $(function () {
 
         axios
             .post("/admin/update-issuer", formData)
-            .then((response) => {
-                window.Livewire.navigate(window.location.pathname);
+            .then((response: any) => {
+                window.Livewire.navigate(window.location.pathname) as any;
             })
             .catch((error) => {
                 const toast = document.getElementsByClassName("toast-error");
@@ -103,8 +103,8 @@ $(function () {
 
         axios
             .delete("/admin/delete-issuer", { data: { issuerID } })
-            .then((response) => {
-                window.Livewire.navigate(window.location.pathname);
+            .then((response: any) => {
+                window.Livewire.navigate(window.location.pathname) as any;
             })
             .catch((error) => {
                 console.error("Error:", error);
@@ -136,8 +136,8 @@ $(function () {
 
         axios
             .post("/admin/create-ics", formData)
-            .then((response) => {
-                window.Livewire.navigate(window.location.pathname);
+            .then((response: any) => {
+                window.Livewire.navigate(window.location.pathname) as any;
             })
             .catch((error) => {
                 const toast = document.getElementsByClassName("toast-error");
@@ -167,8 +167,8 @@ $(function () {
 
         axios
             .post("/admin/update-ics", formData)
-            .then((response) => {
-                window.Livewire.navigate(window.location.pathname);
+            .then((response: any) => {
+                window.Livewire.navigate(window.location.pathname) as any;
             })
             .catch((error) => {
                 const toast = document.getElementsByClassName("toast-error");
@@ -211,7 +211,7 @@ $(function () {
 
         axios
             .get("/admin/ics-search-received-by", { params: { search: query } })
-            .then((response) => {
+            .then((response: any) => {
                 const data = response.data;
                 $results.empty();
 
@@ -273,8 +273,8 @@ $(function () {
 
         axios
             .post("/admin/search", formData)
-            .then((response) => {
-                window.Livewire.navigate(window.location.pathname);
+            .then((response: any) => {
+                window.Livewire.navigate(window.location.pathname) as any;
             })
             .catch((error) => {
                 const toast = document.getElementsByClassName("toast-error");
@@ -302,8 +302,8 @@ $(function () {
 
         axios
             .post("/admin/search-clear")
-            .then((response) => {
-                window.Livewire.navigate(window.location.pathname);
+            .then((response: any) => {
+                window.Livewire.navigate(window.location.pathname) as any;
             })
             .catch((error) => {
                 const toast = document.getElementsByClassName("toast-error");
@@ -334,8 +334,8 @@ $(function () {
 
         axios
             .post("/admin/year", formData)
-            .then((response) => {
-                window.Livewire.navigate(window.location.pathname);
+            .then((response: any) => {
+                window.Livewire.navigate(window.location.pathname) as any;
             })
             .catch((error) => {
                 const toast = document.getElementsByClassName("toast-error");
@@ -363,8 +363,8 @@ $(function () {
 
         axios
             .post("/admin/year-clear")
-            .then((response) => {
-                window.Livewire.navigate(window.location.pathname);
+            .then((response: any) => {
+                window.Livewire.navigate(window.location.pathname) as any;
             })
             .catch((error) => {
                 const toast = document.getElementsByClassName("toast-error");
@@ -399,8 +399,8 @@ $(function () {
 
         axios
             .post("/admin/search-receiver", formData)
-            .then((response) => {
-                window.Livewire.navigate(window.location.pathname);
+            .then((response: any) => {
+                window.Livewire.navigate(window.location.pathname) as any;
             })
             .catch((error) => {
                 const toast = document.getElementsByClassName("toast-error");
@@ -428,8 +428,8 @@ $(function () {
 
         axios
             .post("/admin/clear-receiver")
-            .then((response) => {
-                window.Livewire.navigate(window.location.pathname);
+            .then((response: any) => {
+                window.Livewire.navigate(window.location.pathname) as any;
             })
             .catch((error) => {
                 const toast = document.getElementsByClassName("toast-error");
