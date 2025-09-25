@@ -12,7 +12,7 @@ class AREInformation extends Model
     protected $table = 'are_information';
     protected $fillable = [
         'are_id', 'quantity', 'unit', 'description',
-        'propertyYear', 'propertyCode', 'propertySubCode',
+        'account_codes_id', 'propertyYear', 'propertyCode', 'propertySubCode',
         'properyCount', 'propertyOffice', 'propertyNumber',
         'unitCost', 'totalValue', 'dateAcquired'
     ];
@@ -20,5 +20,10 @@ class AREInformation extends Model
     public function are()
     {
         return $this->belongsTo(ARE::class, 'are_id');
+    }
+
+    public function accountCode()
+    {
+        return $this->belongsTo(AccountCode::class, 'account_codes_id');
     }
 }

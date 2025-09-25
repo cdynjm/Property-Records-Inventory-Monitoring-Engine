@@ -450,3 +450,118 @@ $(function () {
             });
     });
 });
+
+//ARE FUNCTIONS:
+
+$(function () {
+
+    let accountID: string | null = null;
+
+    $(document).on("submit", "#create-account", function (e) {
+        e.preventDefault();
+        const formData = new FormData(this as HTMLFormElement);
+        const $btn = $(".save-account-btn");
+        $btn.prop("disabled", true).text("Saving...");
+
+        axios
+            .post("/admin/create-accounts-code", formData)
+            .then((response: any) => {
+                window.Livewire.navigate(window.location.pathname) as any;
+            })
+            .catch((error) => {
+                const toast = document.getElementsByClassName("toast-error");
+
+                if (toast.length > 0) {
+                    const messageElem = toast[0].querySelector(
+                        ".toast-error-message"
+                    );
+                    if (messageElem) {
+                        messageElem.textContent = "Error in saving Account Code";
+                    }
+                    $(toast[0]).fadeIn(100);
+                    setTimeout(() => $(toast[0]).fadeOut(300), 3000);
+                }
+            })
+            .finally(() => {
+                $btn.prop("disabled", false).text("Save changes");
+            });
+    });
+
+    $(document).on("click", "#edit-account", function (e) {
+        e.preventDefault();
+        accountID = $(this).data("id");
+        const propertyCode = $(this).data("property-code");
+        const propertySubCode = $(this).data("property-sub-code");
+        const description = $(this).data("description");
+
+        console.log(accountID)
+        console.log(propertyCode)
+        if (accountID) {
+            $("#property-code").val(propertyCode);
+            $("#property-sub-code").val(propertySubCode);
+            $("#description").val(description);
+        }
+    });
+
+    $(document).on("submit", "#update-account", function (e) {
+        e.preventDefault();
+        const formData = new FormData(this as HTMLFormElement);
+        formData.append("accountID", accountID || "");
+        formData.append("_method", "PATCH");
+
+        const $btn = $(".save-account-btn");
+        $btn.prop("disabled", true).text("Saving...");
+
+        axios
+            .post("/admin/update-accounts-code", formData)
+            .then((response: any) => {
+                window.Livewire.navigate(window.location.pathname) as any;
+            })
+            .catch((error) => {
+                const toast = document.getElementsByClassName("toast-error");
+
+                if (toast.length > 0) {
+                    const messageElem = toast[0].querySelector(
+                        ".toast-error-message"
+                    );
+                    if (messageElem) {
+                        messageElem.textContent = "Error in saving Account Code";
+                    }
+                    $(toast[0]).fadeIn(100);
+                    setTimeout(() => $(toast[0]).fadeOut(300), 3000);
+                }
+            })
+            .finally(() => {
+                $btn.prop("disabled", false).text("Save changes");
+            });
+    });
+
+    $(document).on("click", "#delete-account", function (e) {
+        e.preventDefault();
+        accountID = $(this).data("id");
+    });
+
+    $(document).on("click", "#delete-account-btn", function (e) {
+        e.preventDefault();
+        const $btn = $(this);
+        if (!accountID) {
+            alert("No account selected to delete!");
+            return;
+        }
+
+        $btn.prop("disabled", true).text("Deleting...");
+
+        axios
+            .delete("/admin/delete-accounts-code", { data: { accountID } })
+            .then((response: any) => {
+                window.Livewire.navigate(window.location.pathname) as any;
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+                alert("There was an error deleting the account.");
+            })
+            .finally(() => {
+                $btn.prop("disabled", false).text("Delete");
+            });
+    });
+});

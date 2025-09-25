@@ -104,6 +104,10 @@ Route::middleware(['auth'])->group(function () {
             Route::post('clear-receiver', [SearchController::class, 'clearReceiver'])->name('admin.search-receiver');
 
             Route::get('accounts-code', [AccountsCodeController::class, 'index'])->name('admin.accounts-code');
+            Route::post('create-accounts-code', [AccountsCodeController::class, 'createAccountsCode'])->name('admin.create-accounts-code');
+            Route::patch('update-accounts-code', [AccountsCodeController::class, 'updateAccountsCode'])->name('admin.update-accounts-code');
+            Route::delete('delete-accounts-code', [AccountsCodeController::class, 'deleteAccountsCode'])->name('admin.delete-accounts-code');
+
         });
 
     });

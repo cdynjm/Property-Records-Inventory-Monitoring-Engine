@@ -11,20 +11,54 @@
             <x-table>
                 <x-slot:head>
                     <th class="px-4 py-2 text-[13px]">#</th>
-                    <th class="px-4 py-2 text-[13px] text-start">PPE</th>
-                    <th class="px-4 py-2 text-[13px] text-start">Revised Code</th>
-                    <th class="px-4 py-2 text-[13px] text-start">NGAS Code</th>
+                    <th class="px-4 py-2 text-[13px] text-start">Description</th>
+                    <th class="px-4 py-2 text-[13px] text-start whitespace-nowrap">PPE sub-major account group</th>
+                    <th class="px-4 py-2 text-[13px] text-start whitespace-nowrap">General Ledger Account</th>
                     <th class="px-4 py-2 text-[13px]">Actions</th>
                 </x-slot:head>
 
-                
+                @foreach ($accountsCode as $index => $ac)
+                    <x-table-row class="">
+                        <td class="border-b border-gray-100 px-4 py-2 text-center whitespace-nowrap">{{ $index + 1 }}</td>
+                        <td class="border-b border-gray-100 px-4 py-2 whitespace-nowrap">
+                            <a wire:navigate href="#">
+                                {{ $ac->description }}
+                            </a>
+                        </td>
+                        <td class="border-b border-gray-100 px-4 py-2 whitespace-nowrap">{{ $ac->propertyCode }}</td>
+                        <td class="border-b border-gray-100 px-4 py-2 whitespace-nowrap">{{ $ac->propertySubCode }}</td>
+                        <td class="border-b border-gray-100 px-4 py-2 text-center whitespace-nowrap">
+                             <a wire:navigate href="#">
+                                <iconify-icon icon="lets-icons:view-duotone" width="24"
+                                    height="24"></iconify-icon>
+                            </a>
+                            <flux:modal.trigger name="edit-account">
+                                <a href="javascript:;" id="edit-account" data-id="{{ $ac->encrypted_id }}"
+                                    data-property-code="{{ $ac->propertyCode }}" data-property-sub-code="{{ $ac->propertySubCode }}"
+                                    data-description="{{ $ac->description }}"
+                                    >
+                                    <iconify-icon icon="lets-icons:edit-duotone" width="24"
+                                        height="24"></iconify-icon>
+                                </a>
+                            </flux:modal.trigger>
+                            <flux:modal.trigger name="delete-account">
+                                <a href="javascript:;" id="delete-account" data-id="{{ $ac->encrypted_id }}">
+                                    <iconify-icon icon="lets-icons:trash-duotone" width="24"
+                                        height="24"></iconify-icon>
+                                </a>
+                            </flux:modal.trigger>
+                        </td>
+                    </x-table-row>
+                @endforeach
 
                 
+                @if($accountsCode->isEmpty())
                     <x-table-row>
-                        <td colspan="10" class="border-b border-gray-100 px-4 py-2 text-center text-gray-500">No accounts code
+                        <td colspan="5" class="border-b border-gray-100 px-4 py-2 text-center text-gray-500">No
+                            accounts
                             found.</td>
                     </x-table-row>
-               
+               @endif
             </x-table>
         </div>
         <x-footer class="mt-auto" />
@@ -36,7 +70,10 @@
             <flux:text class="mt-2">Create new account code</flux:text>
         </x-slot>
         <form action="" id="create-account">
-            <flux:input label="Unit Name" placeholder="Unit Name" class="mb-4" name="unitName" required />
+            <flux:input label="PPE sub-major account group" placeholder="PPE sub-major account group" class="mb-4" name="propertyCode" required />
+            <flux:input label="General Ledger Account" placeholder="General Ledger Account" class="mb-4" name="propertySubCode" required />
+            <flux:textarea label="Description" placeholder="Description" class="mb-4" name="description" required />
+
             <div class="flex">
                 <flux:spacer />
                 <flux:button type="button" variant="outline" class="me-3"
@@ -51,9 +88,10 @@
             <flux:heading size="lg">Edit Account</flux:heading>
             <flux:text class="mt-2">Update account code</flux:text>
         </x-slot>
-        <form action="" id="update-accoun">
-            <flux:input label="Unit Name" placeholder="Unit Name" class="mb-4" id="unit-name" name="unitName"
-                required />
+        <form action="" id="update-account">
+            <flux:input label="PPE sub-major account group" placeholder="PPE sub-major account group" class="mb-4" id="property-code" name="propertyCode" required />
+            <flux:input label="General Ledger Account" placeholder="General Ledger Account" class="mb-4" id="property-sub-code" name="propertySubCode" required />
+            <flux:textarea label="Description" placeholder="Description" class="mb-4" id="description" name="description" required />
             <div class="flex">
                 <flux:spacer />
                 <flux:button type="button" variant="outline" class="me-3"
