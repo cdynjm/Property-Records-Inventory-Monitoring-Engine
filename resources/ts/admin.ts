@@ -210,7 +210,7 @@ $(function () {
         }
 
         axios
-            .get("/admin/ics-search-received-by", { params: { search: query } })
+            .get("/admin/search-received-by", { params: { search: query } })
             .then((response: any) => {
                 const data = response.data;
                 $results.empty();

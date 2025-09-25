@@ -165,5 +165,5 @@
         <x-success-toast>
             {{ Session::get('success') }}
         </x-success-toast>
-    @endif
+     @endif
 </x-layouts.app>

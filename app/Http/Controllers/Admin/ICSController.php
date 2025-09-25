@@ -122,21 +122,6 @@ class ICSController extends Controller
         ]);
     }
 
-    public function searchReceivedBy(Request $request)
-    {
-        $searchTerm = $request->input('search');
-
-        $receivedBy = ReceivedBy::where('name', 'LIKE', '%' . $searchTerm . '%')
-            ->limit(10)
-            ->get()
-            ->map(function ($rf) {
-                $rf->encrypted_id = $this->aes->encrypt($rf->id);
-                return $rf;
-            });
-
-        return response()->json($receivedBy);
-    }
-
     public function updateICS(Request $request)
     {
         $office = Office::where('id', $this->aes->decrypt($request->offices_id))->first();

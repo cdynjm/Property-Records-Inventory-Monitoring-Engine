@@ -24,6 +24,7 @@ use App\Http\Controllers\Admin\Forms\ICSFormController;
 use App\Http\Controllers\Admin\ICSPrintController;
 use App\Http\Controllers\Admin\SearchController;
 use App\Http\Controllers\Admin\AccountsCodeController;
+use App\Http\Controllers\Admin\PersonnelController;
 
 use App\Http\Controllers\Office\DashboardController as OfficeDashboardController;
 
@@ -71,7 +72,6 @@ Route::middleware(['auth'])->group(function () {
 
             Route::get('ics', [ICSController::class, 'index'])->name('admin.ics');
             Route::get('edit-ics/{encrypted_id}', [ICSController::class, 'editICS'])->name('admin.edit-ics');
-            Route::get('ics-search-received-by', [ICSController::class, 'searchReceivedBy'])->name('admin.ics-search-received-by');
             Route::post('create-ics', [ICSController::class, 'createICS'])->name('admin.create-ics');
             Route::patch('update-ics', [ICSController::class, 'updateICS'])->name('admin.update-ics');
 
@@ -108,6 +108,7 @@ Route::middleware(['auth'])->group(function () {
             Route::patch('update-accounts-code', [AccountsCodeController::class, 'updateAccountsCode'])->name('admin.update-accounts-code');
             Route::delete('delete-accounts-code', [AccountsCodeController::class, 'deleteAccountsCode'])->name('admin.delete-accounts-code');
 
+            Route::get('search-received-by', [PersonnelController::class, 'searchReceivedBy'])->name('admin.search-received-by');
         });
 
     });
