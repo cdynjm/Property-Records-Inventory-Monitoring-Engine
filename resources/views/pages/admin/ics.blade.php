@@ -27,8 +27,7 @@
                             <label class="mb-1 text-sm font-medium text-gray-700">
                                 Year
                             </label>
-                            <flux:select name="icsYear" required class="mb-0">
-                                <option value="">Select Year</option>
+                            <flux:select name="icsYear" required class="mb-0" placeholder="Select Year...">
                                 @php
                                     $currentYear = date('y');
                                     $years = [];
