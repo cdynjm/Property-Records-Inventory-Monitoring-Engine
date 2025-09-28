@@ -12,8 +12,8 @@
                 <x-slot:head>
                     <th class="px-4 py-2 text-[13px]">#</th>
                     <th class="px-4 py-2 text-[13px] text-start">Description</th>
-                    <th class="px-4 py-2 text-[13px] text-start whitespace-nowrap">PPE sub-major account group</th>
-                    <th class="px-4 py-2 text-[13px] text-start whitespace-nowrap">General Ledger Account</th>
+                    <th class="px-4 py-2 text-[13px] text-center whitespace-nowrap">PPE sub-major account group</th>
+                    <th class="px-4 py-2 text-[13px] text-center whitespace-nowrap">General Ledger Account</th>
                     <th class="px-4 py-2 text-[13px]">Actions</th>
                 </x-slot:head>
 
@@ -25,8 +25,8 @@
                                 {{ $ac->description }}
                             </a>
                         </td>
-                        <td class="border-b border-gray-100 px-4 py-2 whitespace-nowrap">{{ $ac->propertyCode }}</td>
-                        <td class="border-b border-gray-100 px-4 py-2 whitespace-nowrap">{{ $ac->propertySubCode }}</td>
+                        <td class="border-b border-gray-100 text-center px-4 py-2 whitespace-nowrap">{{ $ac->propertyCode }}</td>
+                        <td class="border-b border-gray-100 text-center px-4 py-2 whitespace-nowrap">{{ $ac->propertySubCode }}</td>
                         <td class="border-b border-gray-100 px-4 py-2 text-center whitespace-nowrap">
                              <a wire:navigate href="#">
                                 <iconify-icon icon="lets-icons:view-duotone" width="24"
