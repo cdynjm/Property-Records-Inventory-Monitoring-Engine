@@ -31,7 +31,23 @@
                             <label class="mb-1 text-sm font-medium text-gray-700">
                                 Year
                             </label>
-                            <flux:input class="mb-0" name="icsYear" value="{{ $ics->icsYear }}" />
+                            <flux:select name="icsYear" required class="mb-0">
+                                <option value="">Select Year</option>
+                                @php
+                                    $currentYear = date('y');
+                                    $years = [];
+                                    for ($year = $currentYear; $year >= 0; $year--) {
+                                        $years[] = str_pad($year, 2, '0', STR_PAD_LEFT);
+                                    }
+                                    for ($year = 99; $year >= 90; $year--) {
+                                        $years[] = (string) $year;
+                                    }
+                                @endphp
+
+                                @foreach ($years as $year)
+                                    <option value="{{ $year }}" @selected($ics->icsYear == $year)>{{ $year }}</option>
+                                @endforeach
+                            </flux:select>
                         </div>
 
                         <div class="flex flex-col">

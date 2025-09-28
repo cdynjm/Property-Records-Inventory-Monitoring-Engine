@@ -27,7 +27,23 @@
                             <label class="mb-1 text-sm font-medium text-gray-700">
                                 Year
                             </label>
-                            <flux:input class="mb-0" name="icsYear" />
+                            <flux:select name="icsYear" required class="mb-0">
+                                <option value="">Select Year</option>
+                                @php
+                                    $currentYear = date('y');
+                                    $years = [];
+                                    for ($year = $currentYear; $year >= 0; $year--) {
+                                        $years[] = str_pad($year, 2, '0', STR_PAD_LEFT);
+                                    }
+                                    for ($year = 99; $year >= 90; $year--) {
+                                        $years[] = (string) $year;
+                                    }
+                                @endphp
+
+                                @foreach ($years as $year)
+                                    <option value="{{ $year }}">{{ $year }}</option>
+                                @endforeach
+                            </flux:select>
                         </div>
 
                         <div class="flex flex-col">
@@ -98,12 +114,14 @@
                                     <button type="button"
                                         class="p-1 pb-0 text-sm bg-red-500 text-white rounded-lg hover:bg-red-600"
                                         x-show="rows.length > 1" x-on:click="rows.splice(index, 1)">
-                                        <iconify-icon icon="pajamas:remove" width="16" height="16"></iconify-icon>
+                                        <iconify-icon icon="pajamas:remove" width="16"
+                                            height="16"></iconify-icon>
                                     </button>
                                     <button type="button"
                                         class="p-1 pb-0 text-sm bg-green-500 text-white rounded-lg hover:bg-green-600"
                                         x-on:click="rows.push(Date.now() + index)">
-                                        <iconify-icon icon="basil:add-outline" width="24" height="24"></iconify-icon>
+                                        <iconify-icon icon="basil:add-outline" width="24"
+                                            height="24"></iconify-icon>
                                     </button>
                                 </div>
                             </div>
@@ -119,9 +137,11 @@
                             <label class="mb-1 text-sm font-medium text-gray-700">
                                 Received From
                             </label>
-                            <flux:select variant="default" name="receivedFrom_id" id="received-from" placeholder="Choose Personnel..." required>
+                            <flux:select variant="default" name="receivedFrom_id" id="received-from"
+                                placeholder="Choose Personnel..." required>
                                 @foreach ($receivedFrom as $rf)
-                                    <option value="{{ $rf->encrypted_id }}" data-position="{{ $rf->position }}">{{ $rf->name }}</option>
+                                    <option value="{{ $rf->encrypted_id }}" data-position="{{ $rf->position }}">
+                                        {{ $rf->name }}</option>
                                 @endforeach
                             </flux:select>
                         </div>
@@ -130,14 +150,16 @@
                             <label class="mb-1 text-sm font-medium text-gray-700">
                                 Position/Office
                             </label>
-                            <flux:input class="mb-0" name="receivedFromPosition" id="received-from-position" readonly />
+                            <flux:input class="mb-0" name="receivedFromPosition" id="received-from-position"
+                                readonly />
                         </div>
 
                         <div class="flex flex-col">
                             <label class="mb-1 text-sm font-medium text-gray-700">
                                 Date
                             </label>
-                            <flux:input class="mb-0" type="date" name="dateReceivedFrom" max="{{ now()->toDateString() }}" required />
+                            <flux:input class="mb-0" type="date" name="dateReceivedFrom"
+                                max="{{ now()->toDateString() }}" required />
                         </div>
                     </div>
 
@@ -161,9 +183,9 @@
         <x-footer class="mt-auto" />
     </div>
 
-     @if (Session::get('success'))
+    @if (Session::get('success'))
         <x-success-toast>
             {{ Session::get('success') }}
         </x-success-toast>
-     @endif
+    @endif
 </x-layouts.app>
