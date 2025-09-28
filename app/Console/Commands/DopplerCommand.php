@@ -11,7 +11,7 @@ class DopplerCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'run-app';
+    protected $signature = 'run:app';
 
     /**
      * The console command description.
