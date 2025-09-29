@@ -54,9 +54,11 @@
                     <iconify-icon icon="lets-icons:edit-duotone" width="24" height="24"></iconify-icon>
                 </a>
 
-                <a href="javascript:;" id="delete-ics" data-id="{{ $ic->encrypted_id }}">
-                    <iconify-icon icon="lets-icons:trash-duotone" width="24" height="24"></iconify-icon>
-                </a>
+                <flux:modal.trigger name="delete-ics">
+                    <a href="javascript:;" id="delete-ics" data-id="{{ $ic->encrypted_id }}">
+                        <iconify-icon icon="lets-icons:trash-duotone" width="24" height="24"></iconify-icon>
+                    </a>
+                </flux:modal.trigger>
 
                 <a wire:navigate href="{{ route('admin.ics-print', ['encrypted_id' => $ic->encrypted_id]) }}"
                     id="print-ics">
@@ -73,4 +75,24 @@
         </x-table-row>
     @endif
 </x-table>
+
+<x-modal name="delete-ics" class="w-auto md:m-auto mx-4">
+    <x-slot name="header">
+        <flux:modal.close class="text-gray-500 hover:text-gray-700" />
+        <flux:heading size="lg">Delete ICS Record</flux:heading>
+        <flux:text class="mt-2">Are you sure you want to delete this ICS Record?</flux:text>
+    </x-slot>
+    <div class="flex">
+        <flux:spacer />
+        <flux:button type="button" variant="outline" class="me-3" x-on:click="$flux.modal('delete-ics').close()">
+            Cancel</flux:button>
+        <flux:button type="submit" variant="danger" id="delete-ics-btn">Delete</flux:button>
+    </div>
+</x-modal>
+
+@if (Session::get('success'))
+<x-success-toast>
+    {{ Session::get('success') }}
+</x-success-toast>
+@endif
 

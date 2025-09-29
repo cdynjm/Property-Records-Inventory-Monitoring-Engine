@@ -256,6 +256,19 @@ class AREController extends Controller
         return response()->json([
             'message' => 'ARE updated successfully.'
         ], 200);
+    }
 
+    public function deleteARE(Request $request)
+    {
+        $areId = $this->aes->decrypt($request->areID);
+
+        AREInformation::where('are_id', $areId)->delete();
+        ARE::where('id', $areId)->delete();
+
+        $request->session()->flash('success', 'ARE deleted successfully.');
+
+        return response()->json([
+            'message' => 'ARE deleted successfully.'
+        ], 200);
     }
 }

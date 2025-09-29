@@ -1,6 +1,4 @@
-<div>
-    <!-- He who is contented is rich. - Laozi -->
-</div><x-table>
+<x-table>
     <x-slot:head>
         <th class="px-4 py-2 text-[13px]">#</th>
         <th class="px-4 py-2 text-[13px] text-start whitespace-nowrap">ARE Information</th>
@@ -56,9 +54,11 @@
                     <iconify-icon icon="lets-icons:edit-duotone" width="24" height="24"></iconify-icon>
                 </a>
 
-                <a href="javascript:;" id="delete-are" data-id="{{ $ar->encrypted_id }}">
-                    <iconify-icon icon="lets-icons:trash-duotone" width="24" height="24"></iconify-icon>
-                </a>
+                <flux:modal.trigger name="delete-are">
+                    <a href="javascript:;" id="delete-are" data-id="{{ $ar->encrypted_id }}">
+                        <iconify-icon icon="lets-icons:trash-duotone" width="24" height="24"></iconify-icon>
+                    </a>
+                </flux:modal.trigger>
 
                 <a wire:navigate href="{{ route('admin.are-print', ['encrypted_id' => $ar->encrypted_id]) }}"
                     id="print-are">
@@ -76,3 +76,22 @@
     @endif
 </x-table>
 
+<x-modal name="delete-are" class="w-auto md:m-auto mx-4">
+    <x-slot name="header">
+        <flux:modal.close class="text-gray-500 hover:text-gray-700" />
+        <flux:heading size="lg">Delete ARE Record</flux:heading>
+        <flux:text class="mt-2">Are you sure you want to delete this ARE Record?</flux:text>
+    </x-slot>
+    <div class="flex">
+        <flux:spacer />
+        <flux:button type="button" variant="outline" class="me-3" x-on:click="$flux.modal('delete-are').close()">
+            Cancel</flux:button>
+        <flux:button type="submit" variant="danger" id="delete-are-btn">Delete</flux:button>
+    </div>
+</x-modal>
+
+@if (Session::get('success'))
+<x-success-toast>
+    {{ Session::get('success') }}
+</x-success-toast>
+@endif

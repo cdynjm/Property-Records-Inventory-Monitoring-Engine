@@ -224,4 +224,18 @@ class ICSController extends Controller
         ], 200);
 
     }
+
+    public function deleteICS(Request $request)
+    {
+        $icsId = $this->aes->decrypt($request->icsID);
+
+        ICSInformation::where('ics_id', $icsId)->delete();
+        ICS::where('id', $icsId)->delete();
+
+        $request->session()->flash('success', 'ICS deleted successfully.');
+
+        return response()->json([
+            'message' => 'ICS deleted successfully.'
+        ], 200);
+    }
 }

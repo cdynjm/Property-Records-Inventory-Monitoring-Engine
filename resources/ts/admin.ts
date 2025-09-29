@@ -128,6 +128,9 @@ $(function () {
 //ICS FUNCTIONS:
 
 $(function () {
+
+    let icsID: string | null = null;
+
     $(document).on("submit", "#create-ics-form", function (e) {
         e.preventDefault();
         const formData = new FormData(this as HTMLFormElement);
@@ -186,6 +189,132 @@ $(function () {
             })
             .finally(() => {
                 $btn.prop("disabled", false).text("Save changes");
+            });
+    });
+
+    $(document).on("click", "#delete-ics", function (e) {
+        e.preventDefault();
+        icsID = $(this).data("id");
+    });
+
+    $(document).on("click", "#delete-ics-btn", function (e) {
+        e.preventDefault();
+        const $btn = $(this);
+        if (!icsID) {
+            alert("No ICS selected to delete!");
+            return;
+        }
+
+        $btn.prop("disabled", true).text("Deleting...");
+
+        axios
+            .delete("/admin/delete-ics", { data: { icsID } })
+            .then((response: any) => {
+                window.Livewire.navigate(window.location.pathname) as any;
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+                alert("There was an error deleting the ICS.");
+            })
+            .finally(() => {
+                $btn.prop("disabled", false).text("Delete");
+            });
+    });
+});
+
+//ARE FUNCTIONS:
+
+$(function () {
+
+    let areID: string | null = null;
+
+    $(document).on("submit", "#create-are-form", function (e) {
+        e.preventDefault();
+        const formData = new FormData(this as HTMLFormElement);
+        const $btn = $(".save-are-btn");
+        $btn.prop("disabled", true).text("Saving...");
+
+        axios
+            .post("/admin/create-are", formData)
+            .then((response: any) => {
+                window.Livewire.navigate(window.location.pathname) as any;
+            })
+            .catch((error) => {
+                const toast = document.getElementsByClassName("toast-error");
+
+                if (toast.length > 0) {
+                    const messageElem = toast[0].querySelector(
+                        ".toast-error-message"
+                    );
+                    if (messageElem) {
+                        messageElem.textContent = "Error in saving ARE";
+                    }
+                    $(toast[0]).fadeIn(100);
+                    setTimeout(() => $(toast[0]).fadeOut(300), 3000);
+                }
+            })
+            .finally(() => {
+                $btn.prop("disabled", false).text("Save changes");
+            });
+    });
+
+    $(document).on("submit", "#update-are-form", function (e) {
+        e.preventDefault();
+        const formData = new FormData(this as HTMLFormElement);
+        formData.append("_method", "PATCH");
+        const $btn = $(".save-are-btn");
+        $btn.prop("disabled", true).text("Saving...");
+
+        axios
+            .post("/admin/update-are", formData)
+            .then((response: any) => {
+                window.Livewire.navigate(window.location.pathname) as any;
+            })
+            .catch((error) => {
+                const toast = document.getElementsByClassName("toast-error");
+
+                if (toast.length > 0) {
+                    const messageElem = toast[0].querySelector(
+                        ".toast-error-message"
+                    );
+                    if (messageElem) {
+                        messageElem.textContent = "Error in saving ARE";
+                    }
+                    $(toast[0]).fadeIn(100);
+                    setTimeout(() => $(toast[0]).fadeOut(300), 3000);
+                }
+            })
+            .finally(() => {
+                $btn.prop("disabled", false).text("Save changes");
+            });
+    });
+
+    $(document).on("click", "#delete-are", function (e) {
+        e.preventDefault();
+        areID = $(this).data("id");
+    });
+
+    $(document).on("click", "#delete-are-btn", function (e) {
+        e.preventDefault();
+        const $btn = $(this);
+        if (!areID) {
+            alert("No ARE selected to delete!");
+            return;
+        }
+
+        $btn.prop("disabled", true).text("Deleting...");
+
+        axios
+            .delete("/admin/delete-are", { data: { areID } })
+            .then((response: any) => {
+                window.Livewire.navigate(window.location.pathname) as any;
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+                alert("There was an error deleting the ARE.");
+            })
+            .finally(() => {
+                $btn.prop("disabled", false).text("Delete");
             });
     });
 });
@@ -260,7 +389,7 @@ $(function () {
     });
 });
 
-//SEARCH ICS RECORDS FUNCTIONS:
+//SEARCH RECORDS FUNCTIONS:
 
 $(function () {
     $(document).on("click", "#search-records", function (e) {
@@ -562,71 +691,6 @@ $(function () {
             })
             .finally(() => {
                 $btn.prop("disabled", false).text("Delete");
-            });
-    });
-});
-
-//ARE FUNCTIONS:
-
-$(function () {
-    $(document).on("submit", "#create-are-form", function (e) {
-        e.preventDefault();
-        const formData = new FormData(this as HTMLFormElement);
-        const $btn = $(".save-are-btn");
-        $btn.prop("disabled", true).text("Saving...");
-
-        axios
-            .post("/admin/create-are", formData)
-            .then((response: any) => {
-                window.Livewire.navigate(window.location.pathname) as any;
-            })
-            .catch((error) => {
-                const toast = document.getElementsByClassName("toast-error");
-
-                if (toast.length > 0) {
-                    const messageElem = toast[0].querySelector(
-                        ".toast-error-message"
-                    );
-                    if (messageElem) {
-                        messageElem.textContent = "Error in saving ARE";
-                    }
-                    $(toast[0]).fadeIn(100);
-                    setTimeout(() => $(toast[0]).fadeOut(300), 3000);
-                }
-            })
-            .finally(() => {
-                $btn.prop("disabled", false).text("Save changes");
-            });
-    });
-
-    $(document).on("submit", "#update-are-form", function (e) {
-        e.preventDefault();
-        const formData = new FormData(this as HTMLFormElement);
-        formData.append("_method", "PATCH");
-        const $btn = $(".save-are-btn");
-        $btn.prop("disabled", true).text("Saving...");
-
-        axios
-            .post("/admin/update-are", formData)
-            .then((response: any) => {
-                window.Livewire.navigate(window.location.pathname) as any;
-            })
-            .catch((error) => {
-                const toast = document.getElementsByClassName("toast-error");
-
-                if (toast.length > 0) {
-                    const messageElem = toast[0].querySelector(
-                        ".toast-error-message"
-                    );
-                    if (messageElem) {
-                        messageElem.textContent = "Error in saving ARE";
-                    }
-                    $(toast[0]).fadeIn(100);
-                    setTimeout(() => $(toast[0]).fadeOut(300), 3000);
-                }
-            })
-            .finally(() => {
-                $btn.prop("disabled", false).text("Save changes");
             });
     });
 });
