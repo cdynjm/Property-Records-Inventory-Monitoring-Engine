@@ -88,8 +88,7 @@
 
                                      <div class="flex flex-col">
                                         <label class="mb-1 text-sm font-medium text-gray-700">Series Number</label>
-                                        <flux:input class="mb-0" type="number" min="0" step="0.1"
-                                            x-bind:name="'rows[' + index + '][propertyCount]'" />
+                                        <flux:input class="mb-0" x-bind:name="'rows[' + index + '][propertyCount]'" />
                                     </div>
 
                                     <div class="flex flex-col">
@@ -100,9 +99,9 @@
 
                                     <div class="flex flex-col">
                                         <label class="mb-1 text-sm font-medium text-gray-700">Total Value</label>
-                                        <flux:input class="mb-0" x-bind:name="'rows[' + index + '][totalValue]'" />
+                                        <flux:input class="mb-0" type="number" min="0" step="0.1" 
+                                            x-bind:name="'rows[' + index + '][totalValue]'" />
                                     </div>
-
 
                                     <div class="flex flex-col">
                                         <label class="mb-1 text-sm font-medium text-gray-700">Date Acquired</label>

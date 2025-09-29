@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Forms;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -14,7 +14,7 @@ use App\Models\ReceivedBy;
 use App\Models\ARE;
 use App\Models\AREInformation;
 
-class AREFormController extends Controller
+class AREPrintController extends Controller
 {
     protected AESCipher $aes;
 
@@ -25,9 +25,10 @@ class AREFormController extends Controller
 
     public function index(Request $request)
     {
-        $are = ARE::where('id', $this->aes->decrypt($request->encrypted_id))->first();
-
-        return view('pages.admin.forms.are-form', [
+        $areID = $this->aes->decrypt($request->encrypted_id);
+        $are = ARE::where('id', $areID)->select('areControlNumber')->first();
+        return view('pages.admin.are-print', [
+            'encrypted_id' => $request->encrypted_id,
             'are' => $are
         ]);
     }

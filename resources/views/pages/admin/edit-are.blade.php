@@ -4,14 +4,14 @@
         <div class="flex-1">
             <div class="flex items-center justify-center mb-4 gap-2">
                <img src="{{ asset('/img/document.png') }}" alt="" class="w-8 h-auto" draggable="false">
-                <flux:heading level="1" class="text-[15px]">Inventory Custodian Slip <span class="text-blue-500">(Edit)</span></flux:heading>
+                <flux:heading level="1" class="text-[15px]">Acknowledgement Receipt for Equipment <span class="text-blue-500">(Edit)</span></flux:heading>
             </div>
 
             <div class="border border-gray-200 rounded-lg p-5 mb-10">
-                <form action="" id="update-ics-form" class="space-y-4">
-                    <flux:input class="mb-0" name="icsID" autocomplete="off" type="hidden"
-                        value="{{ $ics->encrypted_id }}" />
-                    <p class="font-bold text-[13px] mb-2">ICS NUMBER</p>
+                <form action="" id="update-are-form" class="space-y-4">
+                    <flux:input class="mb-0" name="areID" autocomplete="off" type="hidden"
+                        value="{{ $are->encrypted_id }}" />
+                    <p class="font-bold text-[13px] mb-2">ARE CONTROL NUMBER</p>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
 
                         <div class="flex flex-col">
@@ -20,7 +20,7 @@
                             </label>
                             <flux:select variant="default" name="offices_id" placeholder="Choose Office..." required>
                                 @foreach ($offices as $office)
-                                <option value="{{ $office->encrypted_id }}" @selected($ics->encrypted_offices_id ==
+                                <option value="{{ $office->encrypted_id }}" @selected($are->encrypted_offices_id ==
                                     $office->encrypted_id)>
                                     {{ $office->officeName }}</option>
                                 @endforeach
@@ -31,7 +31,7 @@
                             <label class="mb-1 text-sm font-medium text-gray-700">
                                 Year
                             </label>
-                            <flux:select name="icsYear" required class="mb-0" placeholder="Select Year...">
+                            <flux:select name="areYear" required class="mb-0" placeholder="Select Year...">
                                 @php
                                     $currentYear = date('y');
                                     $years = [];
@@ -44,7 +44,7 @@
                                 @endphp
 
                                 @foreach ($years as $year)
-                                    <option value="{{ $year }}" @selected($ics->icsYear == $year)>{{ $year }}</option>
+                                    <option value="{{ $year }}" @selected($are->areYear == $year)>{{ $year }}</option>
                                 @endforeach
                             </flux:select>
                         </div>
@@ -53,7 +53,7 @@
                             <label class="mb-1 text-sm font-medium text-gray-700">
                                 Code
                             </label>
-                            <flux:input class="mb-0" name="icsCode" value="{{ $ics->icsCode }}" required />
+                            <flux:input class="mb-0" name="areCode" value="{{ $are->areCode }}" required />
                         </div>
 
                     </div>
@@ -64,16 +64,17 @@
 
                     <div x-data="{
                         rows: [
-                            @foreach ($ics->information as $icsInfo)
+                            @foreach ($are->information as $areInfo)
                             {
-                                id: '{{ $icsInfo->id }}',
-                                quantity: '{{ $icsInfo->quantity }}',
-                                unit: '{{ $icsInfo->unit }}',
-                                officeCode: '{{ $icsInfo->officeCode }}',
-                                dateAcquired: '{{ $icsInfo->dateAcquired }}',
-                                estUsefulLife: '{{ $icsInfo->estUsefulLife }}',
-                                unitCost: '{{ $icsInfo->unitCost }}',
-                                description: `{{ $icsInfo->description }}`
+                                id: '{{ $areInfo->id }}',
+                                quantity: '{{ $areInfo->quantity }}',
+                                unit: '{{ $areInfo->unit }}',
+                                account_codes_id: '{{ $aes->encrypt($areInfo->account_codes_id) }}',
+                                propertyCount: '{{ $areInfo->propertyCount }}',
+                                unitCost: '{{ $areInfo->unitCost }}',
+                                totalValue: '{{ $areInfo->totalValue }}',
+                                dateAcquired: '{{ $areInfo->dateAcquired }}',
+                                description: `{{ $areInfo->description }}`
                             }@if (!$loop->last),@endif @endforeach
                         ]
                     }" class="">
@@ -81,7 +82,7 @@
                         <template x-for="(row, index) in rows" :key="index">
                             <div class="rows">
                                 <flux:input type="hidden" x-model="row.id" x-bind:name="'rows[' + index + '][id]'" />
-                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4 mb-3">
+                                <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-7 gap-4 mb-3">
 
                                     <div class="flex flex-col">
                                         <label class="mb-1 text-sm font-medium text-gray-700">Quantity</label>
@@ -102,27 +103,36 @@
                                     </div>
 
                                     <div class="flex flex-col">
-                                        <label class="mb-1 text-sm font-medium text-gray-700">Office Code</label>
-                                        <flux:input class="mb-0" x-model="row.officeCode"
-                                            x-bind:name="'rows[' + index + '][officeCode]'" />
+                                        <label class="mb-1 text-sm font-medium text-gray-700">Account Code</label>
+                                        <flux:select variant="default" placeholder="Choose Unit..." x-model="row.account_codes_id"
+                                            x-bind:name="'rows[' + index + '][account_codes_id]'">
+                                            @foreach ($accountsCode as $ac)
+                                                <option value="{{ $ac->encrypted_id }}">{{ $ac->propertyCode }} - {{ $ac->propertySubCode }} - {{ $ac->description }}</option>
+                                            @endforeach
+                                        </flux:select>
+                                    </div>
+
+                                    <div class="flex flex-col">
+                                        <label class="mb-1 text-sm font-medium text-gray-700">Series Number</label>
+                                        <flux:input class="mb-0" x-model="row.propertyCount" x-bind:name="'rows[' + index + '][propertyCount]'" />
+                                    </div>
+
+                                    <div class="flex flex-col">
+                                        <label class="mb-1 text-sm font-medium text-gray-700">Unit Cost</label>
+                                        <flux:input class="mb-0" type="number" x-model="row.unitCost" min="0" step="0.1"
+                                            x-bind:name="'rows[' + index + '][unitCost]'" />
+                                    </div>
+
+                                    <div class="flex flex-col">
+                                        <label class="mb-1 text-sm font-medium text-gray-700">Total Value</label>
+                                        <flux:input class="mb-0" type="number" x-model="row.totalValue" min="0" step="0.1" 
+                                            x-bind:name="'rows[' + index + '][totalValue]'" />
                                     </div>
 
                                     <div class="flex flex-col">
                                         <label class="mb-1 text-sm font-medium text-gray-700">Date Acquired</label>
                                         <flux:input class="mb-0" type="date" x-model="row.dateAcquired" max="{{ now()->toDateString() }}"
                                             x-bind:name="'rows[' + index + '][dateAcquired]'" />
-                                    </div>
-
-                                    <div class="flex flex-col">
-                                        <label class="mb-1 text-sm font-medium text-gray-700">Est. Useful Life</label>
-                                        <flux:input class="mb-0" x-model="row.estUsefulLife"
-                                            x-bind:name="'rows[' + index + '][estUsefulLife]'" />
-                                    </div>
-
-                                    <div class="flex flex-col">
-                                        <label class="mb-1 text-sm font-medium text-gray-700">Unit Cost</label>
-                                        <flux:input class="mb-0" type="number" min="0" step="0.1" x-model="row.unitCost"
-                                            x-bind:name="'rows[' + index + '][unitCost]'" />
                                     </div>
                                 </div>
 
@@ -145,10 +155,11 @@
                                         x-on:click="rows.push({
                         quantity: '',
                         unit: '',
-                        officeCode: '',
-                        dateAcquired: '',
-                        estUsefulLife: '',
+                        account_codes_id: '',
+                        propertyCount: '',
                         unitCost: '',
+                        totalValue: '',
+                        dateAcquired: '',
                         description: ``
                     })">
                                         <iconify-icon icon="basil:add-outline" width="24" height="24"></iconify-icon>
@@ -171,7 +182,7 @@
                                 placeholder="Choose Personnel..." required>
                                 @foreach ($receivedFrom as $rf)
                                 <option value="{{ $rf->encrypted_id }}" data-position="{{ $rf->position }}"
-                                    @selected($ics->encrypted_receivedFrom_id == $rf->encrypted_id)>
+                                    @selected($are->encrypted_receivedFrom_id == $rf->encrypted_id)>
                                     {{ $rf->name }}</option>
                                 @endforeach
                             </flux:select>
@@ -182,7 +193,7 @@
                                 Position/Office
                             </label>
                             <flux:input class="mb-0" name="receivedFromPosition" id="received-from-position"
-                                value="{{ $ics->receivedFromPosition }}" readonly />
+                                value="{{ $are->receivedFromPosition }}" readonly />
                         </div>
 
                         <div class="flex flex-col">
@@ -190,7 +201,7 @@
                                 Date
                             </label>
                             <flux:input class="mb-0" type="date" name="dateReceivedFrom" max="{{ now()->toDateString() }}"
-                                value="{{ $ics->dateReceivedFrom }}" required />
+                                value="{{ $are->dateReceivedFrom }}" required />
                         </div>
                     </div>
 
@@ -202,9 +213,9 @@
                             </label>
 
                             <flux:input class="mb-0" id="received-by" name="receivedBy" autocomplete="off"
-                                value="{{ $ics->receivedBy }}" />
+                                value="{{ $are->receivedBy }}" />
                             <flux:input class="mb-0" id="received-by-id" name="receivedBy_id" autocomplete="off"
-                                type="hidden" value="{{ $ics->encrypted_receivedBy_id }}" />
+                                type="hidden" value="{{ $are->encrypted_receivedBy_id }}" />
                             <div id="receivedByResults"
                                 class="absolute top-full mt-1 w-full bg-white border border-gray-300 rounded-md shadow-lg z-10 hidden">
                             </div>
@@ -215,7 +226,7 @@
                                 Position/Office
                             </label>
                             <flux:input class="mb-0" name="receivedByPosition" id="received-by-position"
-                                value="{{ $ics->receivedByPosition }}" />
+                                value="{{ $are->receivedByPosition }}" />
                         </div>
 
 
@@ -224,26 +235,13 @@
                                 Date
                             </label>
                             <flux:input class="mb-0" type="date" name="dateReceivedBy" max="{{ now()->toDateString() }}"
-                                value="{{ $ics->dateReceivedBy }}" />
-                        </div>
-                    </div>
-
-
-
-                    <p class="font-bold text-[13px] mb-2">OTHERS</p>
-
-                    <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 mb-6">
-                        <div class="flex flex-col">
-                            <label class="mb-1 text-sm font-medium text-gray-700">
-                                Furnished By
-                            </label>
-                            <flux:input class="mb-0" name="furnishedBy" value="{{ $ics->furnishedBy }}" />
+                                value="{{ $are->dateReceivedBy }}" />
                         </div>
                     </div>
 
                     <div class="flex items-center gap-4">
-                        <flux:button type="submit" variant="primary" class="save-ics-btn">Save changes</flux:button>
-                        <a wire:navigate href="{{ route('admin.ics-print', ['encrypted_id' => $ics->encrypted_id]) }}" id="print-ics">
+                        <flux:button type="submit" variant="primary" class="save-are-btn">Save changes</flux:button>
+                        <a wire:navigate href="{{ route('admin.are-print', ['encrypted_id' => $are->encrypted_id]) }}"  id="print-are">
                             <flux:button type="button" variant="ghost">
                                 <iconify-icon icon="lets-icons:print-duotone" width="24" height="24"></iconify-icon>
                                 Print

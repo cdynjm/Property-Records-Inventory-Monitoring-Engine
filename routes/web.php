@@ -22,6 +22,8 @@ use App\Http\Controllers\Admin\IssuersController;
 use App\Http\Controllers\Admin\ReceiversController;
 use App\Http\Controllers\Admin\Forms\ICSFormController;
 use App\Http\Controllers\Admin\ICSPrintController;
+use App\Http\Controllers\Admin\Forms\AREFormController;
+use App\Http\Controllers\Admin\AREPrintController;
 use App\Http\Controllers\Admin\SearchController;
 use App\Http\Controllers\Admin\AccountsCodeController;
 use App\Http\Controllers\Admin\PersonnelController;
@@ -76,12 +78,16 @@ Route::middleware(['auth'])->group(function () {
             Route::patch('update-ics', [ICSController::class, 'updateICS'])->name('admin.update-ics');
 
             Route::get('are', [AREController::class, 'index'])->name('admin.are');
+            Route::get('edit-are/{encrypted_id}', [AREController::class, 'editARE'])->name('admin.edit-are');
             Route::post('create-are', [AREController::class, 'createARE'])->name('admin.create-are');
+            Route::patch('update-are', [AREController::class, 'updateARE'])->name('admin.update-are');
 
             Route::get('ics-records', [ICSRecordsController::class, 'index'])->name('admin.ics-records');
 
             Route::get('ics-form/{encrypted_id}', [ICSFormController::class, 'index'])->name('admin.ics-form');
             Route::get('ics-print/{encrypted_id}', [ICSPrintController::class, 'index'])->name('admin.ics-print');
+            Route::get('are-form/{encrypted_id}', [AREFormController::class, 'index'])->name('admin.are-form');
+            Route::get('are-print/{encrypted_id}', [AREPrintController::class, 'index'])->name('admin.are-print');
 
             Route::get('are-records', [ARERecordsController::class, 'index'])->name('admin.are-records');
 

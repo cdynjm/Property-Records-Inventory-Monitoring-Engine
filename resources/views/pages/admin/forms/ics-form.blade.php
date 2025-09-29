@@ -11,10 +11,11 @@
 
     <style>
         .page-form {
-            max-width: 100%; 
+            max-width: 100%;
             min-width: 800px;
             overflow-x: auto;
         }
+
         .header {
             text-align: center;
         }
@@ -123,74 +124,93 @@
                 </tr>
 
                 @php
-                $totalRows = 15;
-                $filledRows = $ics->information->count();
+                    $totalRows = 15;
+                    $filledRows = $ics->information->count();
                 @endphp
 
                 @foreach ($ics->information as $icsInfo)
-                <tr>
-                    <td style="text-align: center;">{{ $icsInfo->quantity }}</td>
-                    <td style="text-align: center;">{{ $icsInfo->unit }}</td>
-                    <td style="text-align: left;">{!! nl2br(e($icsInfo->description)) !!}</td>
-                    <td style="text-align: center;">{{ $icsInfo->officeCode }}</td>
-                    <td style="text-align: center;">{{ $icsInfo->invItemNumber }}</td>
-                    <td style="text-align: center;">{{ date('n/j/Y', strtotime($icsInfo->dateAcquired)) }}</td>
-                    <td style="text-align: center;">{{ $icsInfo->estUsefulLife }}</td>
-                    <td style="text-align: center;">{{ number_format($icsInfo->unitCost, 2) }}</td>
-                </tr>
+                    <tr>
+                        <td style="text-align: center;">{{ $icsInfo->quantity }}</td>
+                        <td style="text-align: center;">{{ $icsInfo->unit }}</td>
+                        <td style="text-align: left;">{!! nl2br(e($icsInfo->description)) !!}</td>
+                        <td style="text-align: center;">{{ $icsInfo->officeCode }}</td>
+                        <td style="text-align: center;">{{ $icsInfo->invItemNumber }}</td>
+                        <td style="text-align: center;">{{ date('n/j/Y', strtotime($icsInfo->dateAcquired)) }}</td>
+                        <td style="text-align: center;">{{ $icsInfo->estUsefulLife }}</td>
+                        <td style="text-align: center;">{{ number_format($icsInfo->unitCost, 2) }}</td>
+                    </tr>
                 @endforeach
 
-                @for ($i = $filledRows; $i < $totalRows; $i++) <tr>
-                    <td style="text-align: center;">&nbsp;</td>
-                    <td style="text-align: center;">&nbsp;</td>
-                    <td style="text-align: left;">&nbsp;</td>
-                    <td style="text-align: center;">&nbsp;</td>
-                    <td style="text-align: center;">&nbsp;</td>
-                    <td style="text-align: center;">&nbsp;</td>
-                    <td style="text-align: center;">&nbsp;</td>
-                    <td style="text-align: center;">&nbsp;</td>
-                    </tr>
-                    @endfor
+                @for ($i = $filledRows; $i < $totalRows; $i++)
                     <tr>
-                        <td colspan="3">
-                            <div style="font-style: italic">Received by:</div>
-                            <div style="text-align: center; margin-top: 20px;">
-
-                                <h4 style="margin: 0; {{ $ics->receivedBy != null ? 'color: black;' : 'color: transparent;' }}">{{ $ics->receivedBy != null ? $ics->receivedBy : 'PERSON' }}</h4>
-                                <div style="width: 90%; border: 1px solid rgb(46, 46, 46); margin: 5px auto;"></div>
-                                <div style="font-style: italic; margin-bottom: 10px;">(Signature Over Printed Name)</div>
-
-                                <h5 style="margin: 0; {{ $ics->receivedByPosition != null ? 'color: black;' : 'color: transparent;' }}">{{ $ics->receivedByPosition != null ? $ics->receivedByPosition : 'POSITION' }}</h5>
-                                <div style="width: 90%; border: 1px solid rgb(46, 46, 46); margin: 5px auto;"></div>
-                                <div style="font-style: italic; margin-bottom: 10px;">Position/Office</div>
-
-                                <h5 style="margin: 0; {{ $ics->dateReceivedBy != null ? 'color: black;' : 'color: transparent;' }}">{{ $ics->dateReceivedBy != null ? date('n/j/Y', strtotime($ics->dateReceivedBy)) : 'DATE' }}</h5>
-                                <div style="width: 90%; border: 1px solid rgb(46, 46, 46); margin: 5px auto;"></div>
-                                <div style="font-style: italic; margin-bottom: 20px;">Date</div>
-                            </div>
-
-                        </td>
-                        <td colspan="5">
-                            <div style="font-style: italic">Received from:</div>
-                            <div style="text-align: center; margin-top: 20px;">
-
-                                <h4 style="margin: 0;">{{ $ics->receivedFrom->name }}</h4>
-                                <div style="width: 90%; border: 1px solid rgb(46, 46, 46); margin: 5px auto;"></div>
-                                <div style="font-style: italic; margin-bottom: 10px;">
-                                    (Signature Over Printed Name)</div>
-
-                                <h5 style="margin: 0;">{{ $ics->receivedFromPosition }}</h5>
-                                <div style="width: 90%; border: 1px solid rgb(46, 46, 46); margin: 5px auto;"></div>
-                                <div
-                                    style="font-style: italic; margin-bottom: 10px;">
-                                    Position/Office</div>
-
-                                <h5 style="margin: 0;">{{ date('n/j/Y', strtotime($ics->dateReceivedFrom)) }}</h5>
-                                <div style="width: 90%; border: 1px solid rgb(46, 46, 46); margin: 5px auto;"></div>
-                                <div style="font-style: italic; margin-bottom: 20px;">Date</div>
-                            </div>
-                        </td>
+                        <td style="text-align: center;">&nbsp;</td>
+                        <td style="text-align: center;">&nbsp;</td>
+                        <td style="text-align: left;">&nbsp;</td>
+                        <td style="text-align: center;">&nbsp;</td>
+                        <td style="text-align: center;">&nbsp;</td>
+                        <td style="text-align: center;">&nbsp;</td>
+                        <td style="text-align: center;">&nbsp;</td>
+                        <td style="text-align: center;">&nbsp;</td>
                     </tr>
+                @endfor
+                <tr>
+                    <td colspan="3">
+                        <div style="font-style: italic">Received by:</div>
+                        <div style="text-align: center; margin-top: 20px;">
+
+                            <h4
+                                style="margin: 0; {{ $ics->receivedBy != null ? 'color: black;' : 'color: transparent;' }}">
+                                {{ $ics->receivedBy != null ? $ics->receivedBy : 'PERSON' }}</h4>
+                            <div
+                                style="flex: 1; border-bottom: 1px solid rgb(46, 46, 46); text-align: center; max-width: 70%; margin: 5px auto;">
+                            </div>
+                            <div style="font-style: italic; margin-bottom: 10px;">(Signature Over Printed Name)</div>
+
+                            <h5
+                                style="margin: 0; {{ $ics->receivedByPosition != null ? 'color: black;' : 'color: transparent;' }}">
+                                {{ $ics->receivedByPosition != null ? $ics->receivedByPosition : 'POSITION' }}</h5>
+                            <div
+                                style="flex: 1; border-bottom: 1px solid rgb(46, 46, 46); text-align: center; max-width: 70%; margin: 5px auto;">
+                            </div>
+                            <div style="font-style: italic; margin-bottom: 10px;">Position/Office</div>
+
+                            <h5
+                                style="margin: 0; {{ $ics->dateReceivedBy != null ? 'color: black;' : 'color: transparent;' }}">
+                                {{ $ics->dateReceivedBy != null ? date('n/j/Y', strtotime($ics->dateReceivedBy)) : 'DATE' }}
+                            </h5>
+                            <div
+                                style="flex: 1; border-bottom: 1px solid rgb(46, 46, 46); text-align: center; max-width: 70%; margin: 5px auto;">
+                            </div>
+                            <div style="font-style: italic; margin-bottom: 20px;">Date</div>
+                        </div>
+
+                    </td>
+                    <td colspan="5">
+                        <div style="font-style: italic">Received from:</div>
+                        <div style="text-align: center; margin-top: 20px;">
+
+                            <h4 style="margin: 0;">{{ $ics->receivedFrom->name }}</h4>
+                            <div
+                                style="flex: 1; border-bottom: 1px solid rgb(46, 46, 46); text-align: center; max-width: 70%; margin: 5px auto;">
+                            </div>
+                            <div style="font-style: italic; margin-bottom: 10px;">
+                                (Signature Over Printed Name)</div>
+
+                            <h5 style="margin: 0;">{{ $ics->receivedFromPosition }}</h5>
+                            <div
+                                style="flex: 1; border-bottom: 1px solid rgb(46, 46, 46); text-align: center; max-width: 70%; margin: 5px auto;">
+                            </div>
+                            <div style="font-style: italic; margin-bottom: 10px;">
+                                Position/Office</div>
+
+                            <h5 style="margin: 0;">{{ date('n/j/Y', strtotime($ics->dateReceivedFrom)) }}</h5>
+                            <div
+                                style="flex: 1; border-bottom: 1px solid rgb(46, 46, 46); text-align: center; max-width: 70%; margin: 5px auto;">
+                            </div>
+                            <div style="font-style: italic; margin-bottom: 20px;">Date</div>
+                        </div>
+                    </td>
+                </tr>
             </table>
         </div>
     </div>

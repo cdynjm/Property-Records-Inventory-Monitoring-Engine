@@ -15,7 +15,7 @@
             <td class="border-b border-gray-100 px-4 py-2 text-center whitespace-nowrap">{{ $index + 1 }}
             </td>
             <td class="border-b border-black-100 px-4 py-2">
-                <a wire:navigate href="" id="edit-are">
+                <a wire:navigate href="{{ route('admin.edit-are', ['encrypted_id' => $ar->encrypted_id]) }}" id="edit-are">
                     <p class="whitespace-nowrap font-bold mb-2 flex items-center gap-2">
                     <iconify-icon icon="fluent-color:document-text-28" width="22" height="22"></iconify-icon>
                     {{ $ar->areControlNumber }}
@@ -51,7 +51,7 @@
                 class="border-b border-gray-100 px-4 py-2 whitespace-nowrap uppercase text-[12px]  {{ $ar->remarks == 'active' ? 'text-green-500' : 'text-red-500' }}">
                 {{ $ar->remarks }}</td>
             <td class="border-b border-gray-100 px-4 py-2 text-center whitespace-nowrap">
-                <a wire:navigate href=""
+                <a wire:navigate href="{{ route('admin.edit-are', ['encrypted_id' => $ar->encrypted_id]) }}"
                     id="edit-are">
                     <iconify-icon icon="lets-icons:edit-duotone" width="24" height="24"></iconify-icon>
                 </a>
@@ -60,7 +60,7 @@
                     <iconify-icon icon="lets-icons:trash-duotone" width="24" height="24"></iconify-icon>
                 </a>
 
-                <a wire:navigate href=""
+                <a wire:navigate href="{{ route('admin.are-print', ['encrypted_id' => $ar->encrypted_id]) }}"
                     id="print-are">
                     <iconify-icon icon="lets-icons:print-duotone" width="24" height="24"></iconify-icon>
                 </a>
