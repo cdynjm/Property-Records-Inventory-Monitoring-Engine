@@ -54,6 +54,92 @@
 
                     <hr />
 
+                    <p class="font-bold text-[13px] mb-2">TABLE</p>
+
+                    <div x-data="{ rows: [Date.now()] }" class="">
+                        <template x-for="(row, index) in rows" :key="row">
+                            <div class="rows">
+                                <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-7 gap-4 mb-3">
+                                    <div class="flex flex-col">
+                                        <label class="mb-1 text-sm font-medium text-gray-700">Quantity</label>
+                                        <flux:input class="mb-0" type="number" min="0"
+                                            x-bind:name="'rows[' + index + '][quantity]'" />
+                                    </div>
+
+                                    <div class="flex flex-col">
+                                        <label class="mb-1 text-sm font-medium text-gray-700">Unit</label>
+                                        <flux:select variant="default" placeholder="Choose Unit..."
+                                            x-bind:name="'rows[' + index + '][unit]'">
+                                            @foreach ($units as $unit)
+                                                <option value="{{ $unit->unit }}">{{ $unit->unit }}</option>
+                                            @endforeach
+                                        </flux:select>
+                                    </div>
+
+                                    <div class="flex flex-col">
+                                        <label class="mb-1 text-sm font-medium text-gray-700">Account Code</label>
+                                        <flux:select variant="default" placeholder="Choose Account Code..."
+                                            x-bind:name="'rows[' + index + '][account_codes_id]'">
+                                            @foreach ($accountsCode as $ac)
+                                                <option value="{{ $ac->encrypted_id }}">{{ $ac->propertyCode }} - {{ $ac->propertySubCode }} - {{ $ac->description }}</option>
+                                            @endforeach
+                                        </flux:select>
+                                    </div>
+
+                                     <div class="flex flex-col">
+                                        <label class="mb-1 text-sm font-medium text-gray-700">Series Number</label>
+                                        <flux:input class="mb-0" type="number" min="0" step="0.1"
+                                            x-bind:name="'rows[' + index + '][propertyCount]'" />
+                                    </div>
+
+                                    <div class="flex flex-col">
+                                        <label class="mb-1 text-sm font-medium text-gray-700">Unit Cost</label>
+                                        <flux:input class="mb-0" type="number" min="0" step="0.1"
+                                            x-bind:name="'rows[' + index + '][unitCost]'" />
+                                    </div>
+
+                                    <div class="flex flex-col">
+                                        <label class="mb-1 text-sm font-medium text-gray-700">Total Value</label>
+                                        <flux:input class="mb-0" x-bind:name="'rows[' + index + '][totalValue]'" />
+                                    </div>
+
+
+                                    <div class="flex flex-col">
+                                        <label class="mb-1 text-sm font-medium text-gray-700">Date Acquired</label>
+                                        <flux:input class="mb-0" type="date" max="{{ now()->toDateString() }}"
+                                            x-bind:name="'rows[' + index + '][dateAcquired]'" />
+                                    </div>
+
+                                </div>
+
+                                <div class="grid grid-cols-1 gap-4 mb-3">
+                                    <div class="flex flex-col">
+                                        <label class="mb-1 text-sm font-medium text-gray-700">Description</label>
+                                        <flux:textarea class="mb-0"
+                                            x-bind:name="'rows[' + index + '][description]'" />
+                                    </div>
+                                </div>
+
+                                <div class="flex justify-end space-x-2 mb-4">
+                                    <button type="button"
+                                        class="p-1 pb-0 text-sm bg-red-500 text-white rounded-lg hover:bg-red-600"
+                                        x-show="rows.length > 1" x-on:click="rows.splice(index, 1)">
+                                        <iconify-icon icon="pajamas:remove" width="16"
+                                            height="16"></iconify-icon>
+                                    </button>
+                                    <button type="button"
+                                        class="p-1 pb-0 text-sm bg-green-500 text-white rounded-lg hover:bg-green-600"
+                                        x-on:click="rows.push(Date.now() + index)">
+                                        <iconify-icon icon="basil:add-outline" width="24"
+                                            height="24"></iconify-icon>
+                                    </button>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+
+                    <hr />
+
                     <p class="font-bold text-[13px] mb-2">PERSONNEL</p>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">

@@ -13,7 +13,7 @@ class AREInformation extends Model
     protected $fillable = [
         'are_id', 'quantity', 'unit', 'description',
         'account_codes_id', 'propertyYear', 'propertyCode', 'propertySubCode',
-        'properyCount', 'propertyOffice', 'propertyNumber',
+        'propertyCount', 'propertyOffice', 'propertyNumber',
         'unitCost', 'totalValue', 'dateAcquired'
     ];
 

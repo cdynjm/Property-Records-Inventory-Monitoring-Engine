@@ -6,6 +6,13 @@
                 <flux:heading level="1">List of ARE Records</flux:heading>
                 <x-filter-information />
             </div>
+
+            <x-are-records :are="$are" />
+
+            <div class="mt-8">
+                {{ $are->links('vendor.pagination.custom-pagination') }}
+            </div>
+            
         </div>
 
         <x-footer class="mt-auto" />

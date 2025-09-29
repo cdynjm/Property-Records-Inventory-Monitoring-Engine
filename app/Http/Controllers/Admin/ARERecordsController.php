@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Session;
 use App\Http\Controllers\Security\AESCipher;
 
+use App\Models\ARE;
+
 class ARERecordsController extends Controller
 {
     protected AESCipher $aes;
@@ -18,6 +20,18 @@ class ARERecordsController extends Controller
 
     public function index()
     {
-        return view('pages.admin.are-records');
+        $year = session('year');
+        $search = session('search');
+
+        $are = ARE::where('areControlNumber', 'like', '%'.$search.'%')
+        ->where('dateReceivedFrom', 'like', '%'.$year.'%')
+        ->orderBy('updated_at', 'desc')->paginate(10) ->through(function ($are) {
+            $are->encrypted_id = $this->aes->encrypt($are->id);
+            return $are;
+        });
+
+        return view('pages.admin.are-records', [
+            'are' => $are,
+        ]);
     }
 }

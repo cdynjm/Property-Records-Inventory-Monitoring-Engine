@@ -9,6 +9,7 @@ use App\Http\Controllers\Security\AESCipher;
 
 use App\Models\ReceivedBy;
 use App\Models\ICS;
+use App\Models\ARE;
 
 class ReceiversController extends Controller
 {
@@ -48,10 +49,19 @@ class ReceiversController extends Controller
             return $ics;
         });
 
+        $are = ARE::where('receivedBy_id', $receivedByID)
+        ->where('areControlNumber', 'like', '%'.$search.'%')
+        ->where('dateReceivedFrom', 'like', '%'.$year.'%')
+        ->orderBy('updated_at', 'desc')->paginate(10) ->through(function ($are) {
+            $are->encrypted_id = $this->aes->encrypt($are->id);
+            return $are;
+        });
+
         $receiver = ReceivedBy::where('id', $receivedByID)->first();
 
         return view('pages.admin.receivers-property-inventory-records', [
             'ics' => $ics,
+            'are' => $are,
             'receiver' => $receiver
         ]);
     }

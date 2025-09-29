@@ -451,7 +451,7 @@ $(function () {
     });
 });
 
-//ARE FUNCTIONS:
+//ACCOUNT FUNCTIONS:
 
 $(function () {
 
@@ -562,6 +562,71 @@ $(function () {
             })
             .finally(() => {
                 $btn.prop("disabled", false).text("Delete");
+            });
+    });
+});
+
+//ARE FUNCTIONS:
+
+$(function () {
+    $(document).on("submit", "#create-are-form", function (e) {
+        e.preventDefault();
+        const formData = new FormData(this as HTMLFormElement);
+        const $btn = $(".save-are-btn");
+        $btn.prop("disabled", true).text("Saving...");
+
+        axios
+            .post("/admin/create-are", formData)
+            .then((response: any) => {
+                window.Livewire.navigate(window.location.pathname) as any;
+            })
+            .catch((error) => {
+                const toast = document.getElementsByClassName("toast-error");
+
+                if (toast.length > 0) {
+                    const messageElem = toast[0].querySelector(
+                        ".toast-error-message"
+                    );
+                    if (messageElem) {
+                        messageElem.textContent = "Error in saving ARE";
+                    }
+                    $(toast[0]).fadeIn(100);
+                    setTimeout(() => $(toast[0]).fadeOut(300), 3000);
+                }
+            })
+            .finally(() => {
+                $btn.prop("disabled", false).text("Save changes");
+            });
+    });
+
+    $(document).on("submit", "#update-are-form", function (e) {
+        e.preventDefault();
+        const formData = new FormData(this as HTMLFormElement);
+        formData.append("_method", "PATCH");
+        const $btn = $(".save-are-btn");
+        $btn.prop("disabled", true).text("Saving...");
+
+        axios
+            .post("/admin/update-are", formData)
+            .then((response: any) => {
+                window.Livewire.navigate(window.location.pathname) as any;
+            })
+            .catch((error) => {
+                const toast = document.getElementsByClassName("toast-error");
+
+                if (toast.length > 0) {
+                    const messageElem = toast[0].querySelector(
+                        ".toast-error-message"
+                    );
+                    if (messageElem) {
+                        messageElem.textContent = "Error in saving ARE";
+                    }
+                    $(toast[0]).fadeIn(100);
+                    setTimeout(() => $(toast[0]).fadeOut(300), 3000);
+                }
+            })
+            .finally(() => {
+                $btn.prop("disabled", false).text("Save changes");
             });
     });
 });

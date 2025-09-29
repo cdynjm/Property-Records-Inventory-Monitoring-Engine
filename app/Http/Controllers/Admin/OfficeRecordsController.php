@@ -9,6 +9,7 @@ use App\Http\Controllers\Security\AESCipher;
 
 use App\Models\Office;
 use App\Models\ICS;
+use App\Models\ARE;
 
 class OfficeRecordsController extends Controller
 {
@@ -46,10 +47,19 @@ class OfficeRecordsController extends Controller
             return $ics;
         });
 
+        $are = ARE::where('offices_id', $officeID)
+        ->where('areControlNumber', 'like', '%'.$search.'%')
+        ->where('dateReceivedFrom', 'like', '%'.$year.'%')
+        ->orderBy('updated_at', 'desc')->paginate(10) ->through(function ($are) {
+            $are->encrypted_id = $this->aes->encrypt($are->id);
+            return $are;
+        });
+
         $office = Office::where('id', $officeID)->first();
 
         return view('pages.admin.office-propery-inventory-records', [
             'ics' => $ics,
+            'are' => $are,
             'office' => $office
         ]);
     }

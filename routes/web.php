@@ -76,6 +76,7 @@ Route::middleware(['auth'])->group(function () {
             Route::patch('update-ics', [ICSController::class, 'updateICS'])->name('admin.update-ics');
 
             Route::get('are', [AREController::class, 'index'])->name('admin.are');
+            Route::post('create-are', [AREController::class, 'createARE'])->name('admin.create-are');
 
             Route::get('ics-records', [ICSRecordsController::class, 'index'])->name('admin.ics-records');
 
