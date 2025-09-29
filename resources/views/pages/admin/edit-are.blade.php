@@ -62,22 +62,25 @@
 
                     <p class="font-bold text-[13px] mb-2">TABLE</p>
 
-                    <div x-data="{
-                        rows: [
-                            @foreach ($are->information as $areInfo)
-                            {
-                                id: '{{ $areInfo->id }}',
-                                quantity: '{{ $areInfo->quantity }}',
-                                unit: '{{ $areInfo->unit }}',
-                                account_codes_id: '{{ $aes->encrypt($areInfo->account_codes_id) }}',
-                                propertyCount: '{{ $areInfo->propertyCount }}',
-                                unitCost: '{{ $areInfo->unitCost }}',
-                                totalValue: '{{ $areInfo->totalValue }}',
-                                dateAcquired: '{{ $areInfo->dateAcquired }}',
-                                description: `{{ $areInfo->description }}`
-                            }@if (!$loop->last),@endif @endforeach
-                        ]
-                    }" class="">
+                    <!-- no-minify:start -->
+                        <div x-data="{
+                            rows: [
+                                @foreach ($are->information as $areInfo)
+                                {
+                                    id: '{{ $aes->encrypt($areInfo->id) }}',
+                                    quantity: '{{ $areInfo->quantity }}',
+                                    unit: '{{ $areInfo->unit }}',
+                                    account_codes_id: '{{ $aes->encrypt($areInfo->account_codes_id) }}',
+                                    propertyCount: '{{ $areInfo->propertyCount }}',
+                                    unitCost: '{{ $areInfo->unitCost }}',
+                                    totalValue: '{{ $areInfo->totalValue }}',
+                                    dateAcquired: '{{ $areInfo->dateAcquired }}',
+                                    description: `{{ $areInfo->description }}`
+                                }@if (!$loop->last),@endif
+                                @endforeach
+                            ]
+                        }" class="">
+                    <!-- no-minify:end -->
 
                         <template x-for="(row, index) in rows" :key="index">
                             <div class="rows">

@@ -192,7 +192,18 @@ class AREController extends Controller
         ARE::where('id', $AreId)->update($data);
 
         $rows = $request->input('rows', []);
-        $submittedIds = collect($rows)->pluck('id')->filter()->toArray();
+        $submittedIds = collect($rows)
+        ->pluck('id')
+        ->filter()
+        ->map(function ($id) {
+            try {
+                return $this->aes->decrypt($id);
+            } catch (\Exception $e) {
+                return null;
+            }
+        })
+        ->filter()
+        ->toArray();
 
         AREInformation::where('are_id', $AreId)
             ->whereNotIn('id', $submittedIds)
@@ -204,7 +215,7 @@ class AREController extends Controller
 
             if (!empty($row['id'])) {
                
-                AREInformation::where('id', $row['id'])->update([
+                AREInformation::where('id', $this->aes->decrypt($row['id']))->update([
                     'quantity' => $row['quantity'],
                     'unit' => $row['unit'],
                     'description' => $row['description'],

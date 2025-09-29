@@ -6,18 +6,10 @@ use Closure;
 
 class MinifyHtmlMiddleware
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @return mixed
-     */
     public function handle($request, Closure $next)
     {
         $response = $next($request);
 
-        // Process only HTML responses
         if ($response->headers->get('Content-Type') === 'text/html; charset=UTF-8') {
             $content = $response->getContent();
 
@@ -25,62 +17,94 @@ class MinifyHtmlMiddleware
                 return $response;
             }
 
-            // Minify HTML and inline JavaScript
+            // Extract no-minify blocks first
+            [$content, $placeholders] = $this->excludeNoMinifyBlocks($content);
+
+            // Minify HTML + JS
             $minified = $this->minifyHtmlAndJs($content);
 
-            // Set the minified content back to the response
+            // Restore skipped blocks
+            $minified = $this->restoreNoMinifyBlocks($minified, $placeholders);
+
             $response->setContent($minified);
         }
 
         return $response;
     }
 
-    /**
-     * Minify HTML and inline JavaScript.
-     *
-     * @param string $html
-     * @return string
-     */
     protected function minifyHtmlAndJs($html)
     {
-        // Minify inline JavaScript using regex
-        $html = preg_replace_callback(
-            '/<script\b[^>]*>(.*?)<\/script>/is',
-            function ($matches) {
-                // Minify only non-empty script tags
-                if (trim($matches[1])) {
-                    return '<script>' . $this->minifyJs($matches[1]) . '</script>';
-                }
-                return $matches[0];
-            },
-            $html
+        $parts = preg_split(
+            '/(<\/?(?:textarea|flux:textarea|pre)\b[^>]*>.*?<\/(?:textarea|flux:textarea|pre)>)/is',
+            $html,
+            -1,
+            PREG_SPLIT_DELIM_CAPTURE
         );
 
-        // Remove HTML comments except for conditional comments
-        $html = preg_replace('/<!--(?!\[if).*?-->/s', '', $html);
+        $result = '';
 
-        // Remove whitespace between tags
-        $html = preg_replace('/>\s+</', '><', $html);
+        foreach ($parts as $part) {
+            if (preg_match('/^<(textarea|flux:textarea|pre)\b/i', $part)) {
+                $result .= $part;
+                continue;
+            }
 
-        // Remove unnecessary spaces and line breaks
-        $html = preg_replace('/\s+/', ' ', $html);
+            // Minify inline JS
+            $part = preg_replace_callback(
+                '/<script\b[^>]*>(.*?)<\/script>/is',
+                function ($matches) {
+                    if (trim($matches[1])) {
+                        return '<script>' . $this->minifyJs($matches[1]) . '</script>';
+                    }
+                    return $matches[0];
+                },
+                $part
+            );
 
-        return $html;
+            $part = preg_replace('/<!--(?!\[if).*?-->/s', '', $part);
+            $part = preg_replace('/>\s+</', '><', $part);
+            $part = preg_replace('/\s+/', ' ', $part);
+
+            $result .= $part;
+        }
+
+        return $result;
+    }
+
+    protected function minifyJs($js)
+    {
+        $js = preg_replace('/\/\*.*?\*\/|\/\/.*(?=[\n\r])/', '', $js);
+        $js = preg_replace('/\s+/', ' ', $js);
+        $js = preg_replace('/\s*([{};,:])\s*/', '$1', $js);
+        $js = preg_replace('/;}/', '}', $js);
+        return trim($js);
     }
 
     /**
-     * Minify JavaScript content.
-     *
-     * @param string $js
-     * @return string
+     * Exclude no-minify blocks.
      */
-    protected function minifyJs($js)
+    protected function excludeNoMinifyBlocks(string $html): array
     {
-        // Remove comments, unnecessary spaces, and line breaks
-        $js = preg_replace('/\/\*.*?\*\/|\/\/.*(?=[\n\r])/', '', $js); // Remove comments
-        $js = preg_replace('/\s+/', ' ', $js); // Collapse spaces
-        $js = preg_replace('/\s*([{};,:])\s*/', '$1', $js); // Remove spaces around symbols
-        $js = preg_replace('/;}/', '}', $js); // Remove unnecessary semicolons
-        return trim($js);
+        preg_match_all('/<!-- no-minify:start -->(.*?)<!-- no-minify:end -->/is', $html, $matches);
+        $placeholders = [];
+
+        foreach ($matches[0] as $i => $block) {
+            $key = "###NO_MINIFY_BLOCK_$i###";
+            $html = str_replace($block, $key, $html);
+            $placeholders[$key] = $block;
+        }
+
+        return [$html, $placeholders];
+    }
+
+    /**
+     * Restore excluded blocks.
+     */
+    protected function restoreNoMinifyBlocks(string $html, array $placeholders): string
+    {
+        foreach ($placeholders as $key => $block) {
+            $html = str_replace($key, $block, $html);
+        }
+        return $html;
     }
 }

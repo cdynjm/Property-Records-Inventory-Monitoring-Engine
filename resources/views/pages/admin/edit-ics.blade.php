@@ -62,11 +62,12 @@
 
                     <p class="font-bold text-[13px] mb-2">TABLE</p>
 
+                    <!-- no-minify:start -->
                     <div x-data="{
                         rows: [
                             @foreach ($ics->information as $icsInfo)
                             {
-                                id: '{{ $icsInfo->id }}',
+                                id: '{{ $aes->encrypt($icsInfo->id) }}',
                                 quantity: '{{ $icsInfo->quantity }}',
                                 unit: '{{ $icsInfo->unit }}',
                                 officeCode: '{{ $icsInfo->officeCode }}',
@@ -77,6 +78,7 @@
                             }@if (!$loop->last),@endif @endforeach
                         ]
                     }" class="">
+                    <!-- no-minify:end -->
 
                         <template x-for="(row, index) in rows" :key="index">
                             <div class="rows">

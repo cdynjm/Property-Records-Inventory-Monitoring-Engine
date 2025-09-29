@@ -114,11 +114,14 @@ class ICSController extends Controller
             return $rf;
         });
 
+        $aes = $this->aes;
+
         return view('pages.admin.edit-ics', [
             'ics' => $ics,
             'offices' => $offices,
             'units' => $units,
             'receivedFrom' => $receivedFrom,
+            'aes' => $aes,
         ]);
     }
 
@@ -168,7 +171,18 @@ class ICSController extends Controller
         ICS::where('id', $icsId)->update($data);
 
         $rows = $request->input('rows', []);
-        $submittedIds = collect($rows)->pluck('id')->filter()->toArray();
+        $submittedIds = collect($rows)
+        ->pluck('id')
+        ->filter()
+        ->map(function ($id) {
+            try {
+                return $this->aes->decrypt($id);
+            } catch (\Exception $e) {
+                return null;
+            }
+        })
+        ->filter()
+        ->toArray();
 
         ICSInformation::where('ics_id', $icsId)
             ->whereNotIn('id', $submittedIds)
@@ -177,7 +191,7 @@ class ICSController extends Controller
         foreach ($rows as $row) {
             if (!empty($row['id'])) {
                
-                ICSInformation::where('id', $row['id'])->update([
+                ICSInformation::where('id', $this->aes->decrypt($row['id']))->update([
                     'quantity' => $row['quantity'],
                     'unit' => $row['unit'], 
                     'officeCode' => $row['officeCode'],
