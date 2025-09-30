@@ -196,7 +196,7 @@
                                 Position/Office
                             </label>
                             <flux:input class="mb-0" name="receivedFromPosition" id="received-from-position"
-                                value="{{ $are->receivedFromPosition }}" readonly />
+                                value="{{ $are->receivedFromPosition }}" />
                         </div>
 
                         <div class="flex flex-col">

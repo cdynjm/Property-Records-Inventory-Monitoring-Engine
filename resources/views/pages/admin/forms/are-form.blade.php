@@ -78,12 +78,12 @@
         <div class="header">
             <h3 style="margin-bottom: 0">ACKNOWLEDGEMENT RECEIPT FOR EQUIPMENT</h3>
             <p>Provincial Government of Southern Leyte</p>
-            <i>LGU</i>
+            <i style="font-size: 12px;">LGU</i>
         </div>
 
         <div style="display: flex; justify-content: space-between; margin-bottom: 10px; width: 100%;">
             <span>Office/Department: {{ $are->areOffice }}</span>
-            <span>A.R.E CONTROL NO.: {{ $are->areControlNumber }}</span>
+            <span>A.R.E. CONTROL NO.: {{ $are->areControlNumber }}</span>
         </div>
 
         <div class="table">

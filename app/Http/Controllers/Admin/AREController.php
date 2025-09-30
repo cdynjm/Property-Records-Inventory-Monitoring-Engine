@@ -67,7 +67,7 @@ class AREController extends Controller
             'areCode' => $request->areCode, 
             'areControlNumber' => $office->officeName . '-' . $request->areYear . '-' . $request->areCode,
             'receivedFrom_id' => $receivedFrom->id,
-            'receivedFromPosition' => $receivedFrom->position,
+            'receivedFromPosition' => $request->receivedFromPosition,
             'dateReceivedFrom' => $request->dateReceivedFrom,
             'remarks' => 'active'
         ]);
@@ -164,7 +164,7 @@ class AREController extends Controller
             'receivedByPosition' => $request->receivedByPosition,
             'dateReceivedBy' => $request->dateReceivedBy,
             'receivedFrom_id' => $receivedFrom->id,
-            'receivedFromPosition' => $receivedFrom->position,
+            'receivedFromPosition' => $request->receivedFromPosition,
             'dateReceivedFrom' => $request->dateReceivedFrom,
          ];
 

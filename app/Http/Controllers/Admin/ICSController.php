@@ -59,7 +59,7 @@ class ICSController extends Controller
             'icsCode' => $request->icsCode, 
             'icsNumber' => $office->officeName . '-' . $request->icsYear . '-' . $request->icsCode,
             'receivedFrom_id' => $receivedFrom->id, 
-            'receivedFromPosition' => $receivedFrom->position, 
+            'receivedFromPosition' => $request->receivedFromPosition, 
             'dateReceivedFrom' => $request->dateReceivedFrom,
             'furnishedBy' => $request->furnishedBy, 
             'remarks' => 'active'
@@ -142,7 +142,7 @@ class ICSController extends Controller
             'receivedByPosition' => $request->receivedByPosition,
             'dateReceivedBy' => $request->dateReceivedBy,
             'receivedFrom_id' => $receivedFrom->id,
-            'receivedFromPosition' => $receivedFrom->position,
+            'receivedFromPosition' => $request->receivedFromPosition,
             'dateReceivedFrom' => $request->dateReceivedFrom,
             'furnishedBy' => $request->furnishedBy,
         ];

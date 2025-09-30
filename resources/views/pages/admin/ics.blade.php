@@ -149,8 +149,7 @@
                             <label class="mb-1 text-sm font-medium text-gray-700">
                                 Position/Office
                             </label>
-                            <flux:input class="mb-0" name="receivedFromPosition" id="received-from-position"
-                                readonly />
+                            <flux:input class="mb-0" name="receivedFromPosition" id="received-from-position" />
                         </div>
 
                         <div class="flex flex-col">
