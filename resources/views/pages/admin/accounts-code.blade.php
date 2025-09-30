@@ -12,6 +12,7 @@
                 <x-slot:head>
                     <th class="px-4 py-2 text-[13px]">#</th>
                     <th class="px-4 py-2 text-[13px] text-start">Description</th>
+                    <th class="px-4 py-2 text-[13px] text-center whitespace-nowrap">Year Inventory ({{ session('year') }})</th>
                     <th class="px-4 py-2 text-[13px] text-center whitespace-nowrap">PPE sub-major account group</th>
                     <th class="px-4 py-2 text-[13px] text-center whitespace-nowrap">General Ledger Account</th>
                     <th class="px-4 py-2 text-[13px]">Actions</th>
@@ -21,14 +22,15 @@
                     <x-table-row class="">
                         <td class="border-b border-gray-100 px-4 py-2 text-center whitespace-nowrap">{{ $index + 1 }}</td>
                         <td class="border-b border-gray-100 px-4 py-2 whitespace-nowrap">
-                            <a wire:navigate href="#">
+                            <a wire:navigate href="{{ route('admin.accounts-code-property-inventory-records', ['encrypted_id' => $ac->encrypted_id]) }}">
                                 {{ $ac->description }}
                             </a>
                         </td>
+                        <td class="border-b border-gray-100 text-center px-4 py-2 whitespace-nowrap font-bold text-[17px] text-green-600">{{ $ac->areInformation->count() }}</td>
                         <td class="border-b border-gray-100 text-center px-4 py-2 whitespace-nowrap">{{ $ac->propertyCode }}</td>
                         <td class="border-b border-gray-100 text-center px-4 py-2 whitespace-nowrap">{{ $ac->propertySubCode }}</td>
                         <td class="border-b border-gray-100 px-4 py-2 text-center whitespace-nowrap">
-                             <a wire:navigate href="#">
+                             <a wire:navigate href="{{ route('admin.accounts-code-property-inventory-records', ['encrypted_id' => $ac->encrypted_id]) }}">
                                 <iconify-icon icon="lets-icons:view-duotone" width="24"
                                     height="24"></iconify-icon>
                             </a>

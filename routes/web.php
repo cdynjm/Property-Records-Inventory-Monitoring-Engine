@@ -94,16 +94,16 @@ Route::middleware(['auth'])->group(function () {
             Route::get('are-records', [ARERecordsController::class, 'index'])->name('admin.are-records');
 
             Route::get('office-records', [OfficeRecordsController::class, 'index'])->name('admin.office-records');
-            Route::get('office-records/{encrypted_id}', [OfficeRecordsController::class, 'officeProperyInventoryRecords'])->name('admin.office-property-inventory-records');
+            Route::get('office-records/{encrypted_id}', [OfficeRecordsController::class, 'officePropetryInventoryRecords'])->name('admin.office-property-inventory-records');
         
             Route::get('issuers', [IssuersController::class, 'index'])->name('admin.issuers');
-            Route::get('issuers/{encrypted_id}', [IssuersController::class, 'issuersProperyInventoryRecords'])->name('admin.issuers-property-inventory-records');
+            Route::get('issuers/{encrypted_id}', [IssuersController::class, 'issuersPropertyInventoryRecords'])->name('admin.issuers-property-inventory-records');
             Route::post('create-issuer', [IssuersController::class, 'createIssuer'])->name('admin.create-issuer');
             Route::patch('update-issuer', [IssuersController::class, 'updateIssuer'])->name('admin.update-issuer');
             Route::delete('delete-issuer', [IssuersController::class, 'deleteIssuer'])->name('admin.delete-issuer');
             
             Route::get('receivers', [ReceiversController::class, 'index'])->name('admin.receivers');
-            Route::get('receivers/{encrypted_id}', [ReceiversController::class, 'receiversProperyInventoryRecords'])->name('admin.receivers-property-inventory-records');
+            Route::get('receivers/{encrypted_id}', [ReceiversController::class, 'receiversPropertyInventoryRecords'])->name('admin.receivers-property-inventory-records');
 
             Route::post('search', [SearchController::class, 'search'])->name('admin.search');
             Route::post('search-clear', [SearchController::class, 'searchClear'])->name('admin.search-clear');
@@ -113,6 +113,7 @@ Route::middleware(['auth'])->group(function () {
             Route::post('clear-receiver', [SearchController::class, 'clearReceiver'])->name('admin.search-receiver');
 
             Route::get('accounts-code', [AccountsCodeController::class, 'index'])->name('admin.accounts-code');
+            Route::get('accounts-code/{encrypted_id}', [AccountsCodeController::class, 'accountsCodePropertyInventoryRecords'])->name('admin.accounts-code-property-inventory-records');
             Route::post('create-accounts-code', [AccountsCodeController::class, 'createAccountsCode'])->name('admin.create-accounts-code');
             Route::patch('update-accounts-code', [AccountsCodeController::class, 'updateAccountsCode'])->name('admin.update-accounts-code');
             Route::delete('delete-accounts-code', [AccountsCodeController::class, 'deleteAccountsCode'])->name('admin.delete-accounts-code');

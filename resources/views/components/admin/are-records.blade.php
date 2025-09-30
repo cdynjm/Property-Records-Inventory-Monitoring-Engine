@@ -10,26 +10,43 @@
 
     @foreach ($are as $index => $ar)
         <x-table-row class="">
-            <td class="border-b border-gray-100 px-4 py-2 text-center whitespace-nowrap">{{ $index + 1 }}
+            <td class="border-b border-gray-100 px-4 py-2 text-center whitespace-nowrap font-bold">{{ $index + 1 }}
             </td>
             <td class="border-b border-black-100 px-4 py-2">
-                <a wire:navigate href="{{ route('admin.edit-are', ['encrypted_id' => $ar->encrypted_id]) }}" id="edit-are">
+                <a wire:navigate href="{{ route('admin.edit-are', ['encrypted_id' => $ar->encrypted_id]) }}"
+                    id="edit-are">
                     <p class="whitespace-nowrap font-bold mb-2 flex items-center gap-2">
-                    <iconify-icon icon="fluent-color:document-text-28" width="22" height="22"></iconify-icon>
-                    {{ $ar->areControlNumber }}
-                </p>
+                        <iconify-icon icon="fluent-color:document-text-28" width="22" height="22"></iconify-icon>
+                        {{ $ar->areControlNumber }}
+                    </p>
 
-                <ol class="">
-                    @foreach ($ar->information as $areInfo)
-                        <li class="flex items-center gap-2 space-y-2 italic text-[13px] ms-4">
-                            <iconify-icon icon="solar:bag-check-line-duotone" class="text-green-500" width="18"
-                                height="18"></iconify-icon>
-                            <p class="truncate max-w-[300px]">{{ $areInfo->description }}</p> <b
-                                class="whitespace-nowrap mb-2">( {{ $areInfo->quantity }} {{ $areInfo->unit }}
-                                )</b>
-                        </li>
-                    @endforeach
-                </ol>
+                    <table class="min-w-full border-none border-gray-200 text-sm">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-3 py-2 text-left border-b text-gray-500 text-[13px]">Description</th>
+                                <th class="px-3 py-2 text-left border-b text-gray-500 text-[13px]">PPE</th>
+                                <th class="px-3 py-2 text-left border-b text-gray-500 text-[13px]">Quantity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($ar->information as $areInfo)
+                                <tr>
+                                    <td class="px-3 py-2 text-[13px]">
+                                        <div class="flex items-center gap-2">
+                                            <iconify-icon icon="solar:bag-check-line-duotone" class="text-green-500"
+                                                width="18" height="18"></iconify-icon>
+                                            {!! nl2br(e($areInfo->description)) !!}
+                                        </div>
+                                    </td>
+                                    <td class="px-3 py-2 text-[13px]">{{ $areInfo->accountsCode->description }}
+                                    </td>
+                                    <td class="px-3 py-2 text-[13px]">{{ $areInfo->quantity }}
+                                        {{ $areInfo->unit }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+
                 </a>
             </td>
             <td class="border-b border-gray-100 px-4 py-2 whitespace-nowrap">
@@ -91,7 +108,7 @@
 </x-modal>
 
 @if (Session::get('success'))
-<x-success-toast>
-    {{ Session::get('success') }}
-</x-success-toast>
+    <x-success-toast>
+        {{ Session::get('success') }}
+    </x-success-toast>
 @endif

@@ -71,7 +71,7 @@ class IssuersController extends Controller
         ], 200);
     }
 
-    public function issuersProperyInventoryRecords(Request $request)
+    public function issuersPropertyInventoryRecords(Request $request)
     {
         $year = session('year');
         $search = session('search');
@@ -80,7 +80,7 @@ class IssuersController extends Controller
         $ics = ICS::where('receivedFrom_id', $receivedFromID)
         ->where('icsNumber', 'like', '%'.$search.'%')
         ->where('dateReceivedFrom', 'like', '%'.$year.'%')
-        ->orderBy('updated_at', 'desc')->paginate(10)->through(function ($ics) {
+        ->orderBy('updated_at', 'desc')->paginate(15)->through(function ($ics) {
             $ics->encrypted_id = $this->aes->encrypt($ics->id);
             return $ics;
         });
@@ -88,7 +88,7 @@ class IssuersController extends Controller
         $are = ARE::where('receivedFrom_id', $receivedFromID)
         ->where('areControlNumber', 'like', '%'.$search.'%')
         ->where('dateReceivedFrom', 'like', '%'.$year.'%')
-        ->orderBy('updated_at', 'desc')->paginate(10) ->through(function ($are) {
+        ->orderBy('updated_at', 'desc')->paginate(15) ->through(function ($are) {
             $are->encrypted_id = $this->aes->encrypt($are->id);
             return $are;
         });

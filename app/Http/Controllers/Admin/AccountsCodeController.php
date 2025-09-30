@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Security\AESCipher;
 
 use App\Models\AccountsCode;
+use App\Models\ARE;
 
 class AccountsCodeController extends Controller
 {
@@ -63,5 +64,35 @@ class AccountsCodeController extends Controller
         AccountsCode::where('id', $accountID)->delete();
 
          $request->session()->flash('success', 'Accounts code deleted successfully.');
+    }
+
+    public function accountsCodePropertyInventoryRecords(Request $request)
+    {
+        $year = session('year');
+        $search = session('search');
+        $accountCodeID = $this->aes->decrypt($request->encrypted_id);
+
+        $accountsCode = AccountsCode::where('id', $accountCodeID)->first();
+
+        $are = ARE::whereHas('information', function ($query) use ($accountCodeID) {
+                $query->where('account_codes_id', $accountCodeID);
+            })
+            ->where('areControlNumber', 'like', '%'.$search.'%')
+            ->where('dateReceivedFrom', 'like', '%'.$year.'%')
+            ->orderBy('updated_at', 'desc')
+            ->with(['information' => function ($query) use ($accountCodeID) {
+                $query->where('account_codes_id', $accountCodeID)
+                    ->with('accountsCode');
+            }])
+            ->paginate(15)
+            ->through(function ($are) {
+                $are->encrypted_id = $this->aes->encrypt($are->id);
+                return $are;
+            });
+
+        return view('pages.admin.accounts-code-property-inventory-records', [
+            'are' => $are,
+            'accountsCode' => $accountsCode
+        ]);
     }
 }

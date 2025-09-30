@@ -10,26 +10,39 @@
 
     @foreach ($ics as $index => $ic)
         <x-table-row class="">
-            <td class="border-b border-gray-100 px-4 py-2 text-center whitespace-nowrap">{{ $index + 1 }}
+            <td class="border-b border-gray-100 px-4 py-2 text-center whitespace-nowrap font-bold">{{ $index + 1 }}
             </td>
             <td class="border-b border-black-100 px-4 py-2">
-                <a wire:navigate href="{{ route('admin.edit-ics', ['encrypted_id' => $ic->encrypted_id]) }}" id="edit-ics">
+                <a wire:navigate href="{{ route('admin.edit-ics', ['encrypted_id' => $ic->encrypted_id]) }}"
+                    id="edit-ics">
                     <p class="whitespace-nowrap font-bold mb-2 flex items-center gap-2">
-                    <iconify-icon icon="fluent-color:document-text-28" width="22" height="22"></iconify-icon>
-                    {{ $ic->icsNumber }}
-                </p>
+                        <iconify-icon icon="fluent-color:document-text-28" width="22" height="22"></iconify-icon>
+                        {{ $ic->icsNumber }}
+                    </p>
 
-                <ol class="">
-                    @foreach ($ic->information as $icsInfo)
-                        <li class="flex items-center gap-2 space-y-2 italic text-[13px] ms-4">
-                            <iconify-icon icon="solar:bag-check-line-duotone" class="text-green-500" width="18"
-                                height="18"></iconify-icon>
-                            <p class="truncate max-w-[300px]">{{ $icsInfo->description }}</p> <b
-                                class="whitespace-nowrap mb-2">( {{ $icsInfo->quantity }} {{ $icsInfo->unit }}
-                                )</b>
-                        </li>
-                    @endforeach
-                </ol>
+                    <table class="min-w-full border-none border-gray-200 text-sm">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-3 py-2 text-left border-b text-gray-500 text-[13px]">Description</th>
+                                <th class="px-3 py-2 text-left border-b text-gray-500 text-[13px]">Quantity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($ic->information as $icsInfo)
+                                <tr>
+                                    <td class="px-3 py-2 text-[13px]">
+                                        <div class="flex items-center gap-2">
+                                            <iconify-icon icon="solar:bag-check-line-duotone" class="text-green-500"
+                                                width="18" height="18"></iconify-icon>
+                                            {!! nl2br(e($icsInfo->description)) !!}
+                                        </div>
+                                    </td>
+                                    <td class="px-3 py-2 text-[13px]">{{ $icsInfo->quantity }}
+                                        {{ $icsInfo->unit }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </a>
             </td>
             <td class="border-b border-gray-100 px-4 py-2 whitespace-nowrap">
@@ -91,8 +104,7 @@
 </x-modal>
 
 @if (Session::get('success'))
-<x-success-toast>
-    {{ Session::get('success') }}
-</x-success-toast>
+    <x-success-toast>
+        {{ Session::get('success') }}
+    </x-success-toast>
 @endif
-

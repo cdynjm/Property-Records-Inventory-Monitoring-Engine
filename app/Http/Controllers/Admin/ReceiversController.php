@@ -35,7 +35,7 @@ class ReceiversController extends Controller
         ]);
     }
 
-    public function receiversProperyInventoryRecords(Request $request)
+    public function receiversPropertyInventoryRecords(Request $request)
     {
         $year = session('year');
         $search = session('search');
@@ -44,7 +44,7 @@ class ReceiversController extends Controller
         $ics = ICS::where('receivedBy_id', $receivedByID)
         ->where('icsNumber', 'like', '%'.$search.'%')
         ->where('dateReceivedFrom', 'like', '%'.$year.'%')
-        ->orderBy('updated_at', 'desc')->paginate(10)->through(function ($ics) {
+        ->orderBy('updated_at', 'desc')->paginate(15)->through(function ($ics) {
             $ics->encrypted_id = $this->aes->encrypt($ics->id);
             return $ics;
         });
@@ -52,7 +52,7 @@ class ReceiversController extends Controller
         $are = ARE::where('receivedBy_id', $receivedByID)
         ->where('areControlNumber', 'like', '%'.$search.'%')
         ->where('dateReceivedFrom', 'like', '%'.$year.'%')
-        ->orderBy('updated_at', 'desc')->paginate(10) ->through(function ($are) {
+        ->orderBy('updated_at', 'desc')->paginate(15) ->through(function ($are) {
             $are->encrypted_id = $this->aes->encrypt($are->id);
             return $are;
         });

@@ -22,8 +22,8 @@ class AREInformation extends Model
         return $this->belongsTo(ARE::class, 'are_id');
     }
 
-    public function accountCode()
+    public function accountsCode()
     {
-        return $this->belongsTo(AccountCode::class, 'account_codes_id');
+        return $this->belongsTo(AccountsCode::class, 'account_codes_id');
     }
 }

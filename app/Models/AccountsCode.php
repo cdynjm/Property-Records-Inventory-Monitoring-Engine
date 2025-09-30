@@ -12,8 +12,8 @@ class AccountsCode extends Model
     protected $table = 'account_codes';
     protected $fillable = ['propertyCode', 'propertySubCode', 'description'];
 
-    public function are()
+    public function areInformation()
     {
-        return $this->hasMany(AREInformation::class, 'account_codes_id');
+        return $this->hasMany(AREInformation::class, 'account_codes_id')->where('propertyYear', session('year'));
     }
 }
