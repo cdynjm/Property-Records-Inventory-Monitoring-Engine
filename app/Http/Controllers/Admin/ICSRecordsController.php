@@ -25,7 +25,7 @@ class ICSRecordsController extends Controller
 
         $ics = ICS::where('icsNumber', 'like', '%'.$search.'%')
         ->where('dateReceivedFrom', 'like', '%'.$year.'%')
-        ->orderBy('updated_at', 'desc')->paginate(10) ->through(function ($ics) {
+        ->orderBy('updated_at', 'desc')->paginate(15) ->through(function ($ics) {
             $ics->encrypted_id = $this->aes->encrypt($ics->id);
             return $ics;
         });

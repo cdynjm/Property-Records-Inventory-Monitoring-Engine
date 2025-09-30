@@ -25,7 +25,7 @@ class ARERecordsController extends Controller
 
         $are = ARE::where('areControlNumber', 'like', '%'.$search.'%')
         ->where('dateReceivedFrom', 'like', '%'.$year.'%')
-        ->orderBy('updated_at', 'desc')->paginate(10) ->through(function ($are) {
+        ->orderBy('updated_at', 'desc')->paginate(15) ->through(function ($are) {
             $are->encrypted_id = $this->aes->encrypt($are->id);
             return $are;
         });

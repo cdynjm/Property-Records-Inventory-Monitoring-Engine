@@ -25,7 +25,7 @@ class ReceiversController extends Controller
          $search = session('search-receiver');
 
         $receivedBy = ReceivedBy::where('name', 'like', '%'.$search.'%')
-            ->orderBy('name', 'asc')->paginate(10) ->through(function ($rb) {
+            ->orderBy('name', 'asc')->paginate(15) ->through(function ($rb) {
             $rb->encrypted_id = $this->aes->encrypt($rb->id);
             return $rb;
         });

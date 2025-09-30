@@ -25,7 +25,7 @@ class AccountsCodeController extends Controller
     {
         $accountsCode = AccountsCode::orderBy('propertyCode', 'asc')
         ->orderBy('propertySubCode', 'asc')
-        ->get()->map(function ($ac) {
+        ->paginate(15)->through(function ($ac) {
             $ac->encrypted_id = $this->aes->encrypt($ac->id);
             return $ac;
         });
