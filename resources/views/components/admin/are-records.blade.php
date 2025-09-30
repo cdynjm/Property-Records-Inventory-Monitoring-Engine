@@ -1,97 +1,85 @@
-<x-table>
-    <x-slot:head>
-        <th class="px-4 py-2 text-[13px]">#</th>
-        <th class="px-4 py-2 text-[13px] text-start whitespace-nowrap">ARE Information</th>
-        <th class="px-4 py-2 text-[13px] text-start whitespace-nowrap">Received From</th>
-        <th class="px-4 py-2 text-[13px] text-start whitespace-nowrap">Received By</th>
-        <th class="px-4 py-2 text-[13px] text-start whitespace-nowrap">Remarks</th>
-        <th class="px-4 py-2 text-[13px]">Actions</th>
-    </x-slot:head>
-
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
     @foreach ($are as $index => $ar)
-        <x-table-row class="">
-            <td class="border-b border-gray-100 px-4 py-2 text-center whitespace-nowrap font-bold">{{ $index + 1 }}
-            </td>
-            <td class="border-b border-black-100 px-4 py-2">
-                <a wire:navigate href="{{ route('admin.edit-are', ['encrypted_id' => $ar->encrypted_id]) }}"
-                    id="edit-are">
-                    <p class="whitespace-nowrap font-bold mb-2 flex items-center gap-2">
+        <div class="bg-white border rounded-lg shadow-sm hover:shadow-md transition p-4 flex flex-col">
+            <a wire:navigate href="{{ route('admin.edit-are', ['encrypted_id' => $ar->encrypted_id]) }}">
+                {{-- Header / ARE Control Number --}}
+                <div class="flex items-center justify-between mb-4">
+                    <p class="font-bold flex items-center gap-2 text-[15px]">
                         <iconify-icon icon="fluent-color:document-text-28" width="22" height="22"></iconify-icon>
                         {{ $ar->areControlNumber }}
                     </p>
-
-                    <table class="min-w-full border-none border-gray-200 text-sm">
-                        <thead class="bg-gray-50">
-                            <tr>
-                                <th class="px-3 py-2 text-left border-b text-gray-500 text-[13px]">Description</th>
-                                <th class="px-3 py-2 text-left border-b text-gray-500 text-[13px]">PPE</th>
-                                <th class="px-3 py-2 text-left border-b text-gray-500 text-[13px]">Quantity</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($ar->information as $areInfo)
-                                <tr>
-                                    <td class="px-3 py-2 text-[13px]">
-                                        <div class="flex items-center gap-2">
-                                            <iconify-icon icon="solar:bag-check-line-duotone" class="text-green-500"
-                                                width="18" height="18"></iconify-icon>
-                                            {!! nl2br(e($areInfo->description)) !!}
-                                        </div>
-                                    </td>
-                                    <td class="px-3 py-2 text-[13px]">{{ $areInfo->accountsCode->description }}
-                                    </td>
-                                    <td class="px-3 py-2 text-[13px]">{{ $areInfo->quantity }}
-                                        {{ $areInfo->unit }}</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-
-                </a>
-            </td>
-            <td class="border-b border-gray-100 px-4 py-2 whitespace-nowrap">
-                <div>
-                    {{ $ar->receivedFrom->name }}
+                    <span class="text-gray-400 text-sm">#{{ $index + 1 }}</span>
                 </div>
-                <p class="text-[13px]">{{ date('M d, Y', strtotime($ar->dateReceivedFrom)) }}</p>
-            </td>
-            <td class="border-b border-gray-100 px-4 py-2 whitespace-nowrap">
-                <div>
-                    {{ $ar->receivedBy != null ? $ar->receivedBy : '-' }}
-                </div>
-                <p class="text-[13px] {{ $ar->dateReceivedBy == null ? 'invisible' : '' }}">
-                    {{ date('M d, Y', strtotime($ar->dateReceivedBy)) }}</p>
-            </td>
-            <td
-                class="border-b border-gray-100 px-4 py-2 whitespace-nowrap uppercase text-[12px]  {{ $ar->remarks == 'active' ? 'text-green-500' : 'text-red-500' }}">
-                {{ $ar->remarks }}</td>
-            <td class="border-b border-gray-100 px-4 py-2 text-center whitespace-nowrap">
-                <a wire:navigate href="{{ route('admin.edit-are', ['encrypted_id' => $ar->encrypted_id]) }}"
-                    id="edit-are">
-                    <iconify-icon icon="lets-icons:edit-duotone" width="24" height="24"></iconify-icon>
-                </a>
 
+                {{-- ARE Information --}}
+                <div class="grid grid-cols-1 gap-3 mb-4">
+                    @foreach ($ar->information as $areInfo)
+                        <div class="p-2 border rounded-md bg-gray-50">
+                            <div class="flex items-center gap-2 mb-2">
+                                <iconify-icon icon="solar:bag-check-line-duotone" class="text-green-500" width="18"
+                                    height="18"></iconify-icon>
+                                <p class="text-[13px] leading-snug">
+                                    {!! nl2br(e($areInfo->description)) !!}
+                                </p>
+                            </div>
+                            <p class="text-[12px] mt-1"><span class="font-semibold">PPE:</span>
+                                {{ $areInfo->accountsCode->description }}</p>
+                            <p class="text-[12px]"><span class="font-semibold">Quantity:</span>
+                                {{ $areInfo->quantity }} {{ $areInfo->unit }}</p>
+                        </div>
+                    @endforeach
+                </div>
+            </a>
+
+            {{-- Received From / By --}}
+            <div class="text-[13px] mb-4">
+                <div>
+                    <p class="font-semibold text-gray-500">Received From:</p>
+                    <p>{{ $ar->receivedFrom->name }}</p>
+                    <p class="text-gray-500">{{ date('M d, Y', strtotime($ar->dateReceivedFrom)) }}</p>
+                </div>
+                <hr class="my-3">
+                <div>
+                    <p class="font-semibold text-gray-500">Received By:</p>
+                    <p>{{ $ar->receivedBy ?? '-' }}</p>
+                    @if ($ar->dateReceivedBy)
+                        <p class="text-gray-500">{{ date('M d, Y', strtotime($ar->dateReceivedBy)) }}</p>
+                    @endif
+                </div>
+            </div>
+
+            {{-- Remarks --}}
+            <div class="mb-4">
+                <span
+                    class="uppercase text-[12px] font-bold
+                    {{ $ar->remarks === 'active' ? 'text-green-500' : 'text-red-500' }}">
+                    {{ $ar->remarks }}
+                </span>
+            </div>
+
+            {{-- Actions --}}
+            <div class="flex items-center gap-3 mt-auto">
+                <a wire:navigate href="{{ route('admin.edit-are', ['encrypted_id' => $ar->encrypted_id]) }}">
+                    <iconify-icon icon="lets-icons:edit-duotone" width="22" height="22"></iconify-icon>
+                </a>
                 <flux:modal.trigger name="delete-are">
-                    <a href="javascript:;" id="delete-are" data-id="{{ $ar->encrypted_id }}">
-                        <iconify-icon icon="lets-icons:trash-duotone" width="24" height="24"></iconify-icon>
+                    <a href="javascript:;" data-id="{{ $ar->encrypted_id }}" id="delete-are">
+                        <iconify-icon icon="lets-icons:trash-duotone" width="22" height="22"></iconify-icon>
                     </a>
                 </flux:modal.trigger>
 
-                <a wire:navigate href="{{ route('admin.are-print', ['encrypted_id' => $ar->encrypted_id]) }}"
-                    id="print-are">
-                    <iconify-icon icon="lets-icons:print-duotone" width="24" height="24"></iconify-icon>
+                <a wire:navigate href="{{ route('admin.are-print', ['encrypted_id' => $ar->encrypted_id]) }}">
+                    <iconify-icon icon="lets-icons:print-duotone" width="22" height="22"></iconify-icon>
                 </a>
-            </td>
-        </x-table-row>
+            </div>
+        </div>
     @endforeach
+</div>
 
-    @if ($are->isEmpty())
-        <x-table-row>
-            <td colspan="10" class="border-b border-gray-100 px-4 py-2 text-center text-gray-500">No ARE
-                found.</td>
-        </x-table-row>
-    @endif
-</x-table>
+@if ($are->isEmpty())
+    <div class="text-center text-gray-500 py-8">No ARE found.</div>
+@endif
+
 
 <x-modal name="delete-are" class="w-auto md:m-auto mx-4">
     <x-slot name="header">

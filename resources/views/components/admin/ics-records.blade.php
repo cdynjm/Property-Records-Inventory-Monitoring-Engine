@@ -1,93 +1,81 @@
-<x-table>
-    <x-slot:head>
-        <th class="px-4 py-2 text-[13px]">#</th>
-        <th class="px-4 py-2 text-[13px] text-start whitespace-nowrap">ICS Information</th>
-        <th class="px-4 py-2 text-[13px] text-start whitespace-nowrap">Received From</th>
-        <th class="px-4 py-2 text-[13px] text-start whitespace-nowrap">Received By</th>
-        <th class="px-4 py-2 text-[13px] text-start whitespace-nowrap">Remarks</th>
-        <th class="px-4 py-2 text-[13px]">Actions</th>
-    </x-slot:head>
-
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
     @foreach ($ics as $index => $ic)
-        <x-table-row class="">
-            <td class="border-b border-gray-100 px-4 py-2 text-center whitespace-nowrap font-bold">{{ $index + 1 }}
-            </td>
-            <td class="border-b border-black-100 px-4 py-2">
-                <a wire:navigate href="{{ route('admin.edit-ics', ['encrypted_id' => $ic->encrypted_id]) }}"
-                    id="edit-ics">
-                    <p class="whitespace-nowrap font-bold mb-2 flex items-center gap-2">
+        <div class="bg-white border rounded-lg shadow-sm hover:shadow-md transition p-4 flex flex-col">
+            <a wire:navigate href="{{ route('admin.edit-ics', ['encrypted_id' => $ic->encrypted_id]) }}">
+                {{-- Header / ARE Control Number --}}
+                <div class="flex items-center justify-between mb-4">
+                    <p class="font-bold flex items-center gap-2 text-[15px]">
                         <iconify-icon icon="fluent-color:document-text-28" width="22" height="22"></iconify-icon>
                         {{ $ic->icsNumber }}
                     </p>
-
-                    <table class="min-w-full border-none border-gray-200 text-sm">
-                        <thead class="bg-gray-50">
-                            <tr>
-                                <th class="px-3 py-2 text-left border-b text-gray-500 text-[13px]">Description</th>
-                                <th class="px-3 py-2 text-left border-b text-gray-500 text-[13px]">Quantity</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($ic->information as $icsInfo)
-                                <tr>
-                                    <td class="px-3 py-2 text-[13px]">
-                                        <div class="flex items-center gap-2">
-                                            <iconify-icon icon="solar:bag-check-line-duotone" class="text-green-500"
-                                                width="18" height="18"></iconify-icon>
-                                            {!! nl2br(e($icsInfo->description)) !!}
-                                        </div>
-                                    </td>
-                                    <td class="px-3 py-2 text-[13px]">{{ $icsInfo->quantity }}
-                                        {{ $icsInfo->unit }}</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </a>
-            </td>
-            <td class="border-b border-gray-100 px-4 py-2 whitespace-nowrap">
-                <div>
-                    {{ $ic->receivedFrom->name }}
+                    <span class="text-gray-400 text-sm">#{{ $index + 1 }}</span>
                 </div>
-                <p class="text-[13px]">{{ date('M d, Y', strtotime($ic->dateReceivedFrom)) }}</p>
-            </td>
-            <td class="border-b border-gray-100 px-4 py-2 whitespace-nowrap">
-                <div>
-                    {{ $ic->receivedBy != null ? $ic->receivedBy : '-' }}
-                </div>
-                <p class="text-[13px] {{ $ic->dateReceivedBy == null ? 'invisible' : '' }}">
-                    {{ date('M d, Y', strtotime($ic->dateReceivedBy)) }}</p>
-            </td>
-            <td
-                class="border-b border-gray-100 px-4 py-2 whitespace-nowrap uppercase text-[12px]  {{ $ic->remarks == 'active' ? 'text-green-500' : 'text-red-500' }}">
-                {{ $ic->remarks }}</td>
-            <td class="border-b border-gray-100 px-4 py-2 text-center whitespace-nowrap">
-                <a wire:navigate href="{{ route('admin.edit-ics', ['encrypted_id' => $ic->encrypted_id]) }}"
-                    id="edit-ics">
-                    <iconify-icon icon="lets-icons:edit-duotone" width="24" height="24"></iconify-icon>
-                </a>
 
+                {{-- ARE Information --}}
+                <div class="grid grid-cols-1 gap-3 mb-4">
+                    @foreach ($ic->information as $icsInfo)
+                        <div class="p-2 border rounded-md bg-gray-50">
+                            <div class="flex items-center gap-2 mb-2">
+                                <iconify-icon icon="solar:bag-check-line-duotone" class="text-green-500" width="18"
+                                    height="18"></iconify-icon>
+                                <p class="text-[13px] leading-snug">
+                                    {!! nl2br(e($icsInfo->description)) !!}
+                                </p>
+                            </div>
+                            <p class="text-[12px]"><span class="font-semibold">Quantity:</span>
+                                {{ $icsInfo->quantity }} {{ $icsInfo->unit }}</p>
+                        </div>
+                    @endforeach
+                </div>
+            </a>
+
+            {{-- Received From / By --}}
+            <div class="text-[13px] mb-4">
+                <div>
+                    <p class="font-semibold text-gray-500">Received From:</p>
+                    <p>{{ $ic->receivedFrom->name }}</p>
+                    <p class="text-gray-500">{{ date('M d, Y', strtotime($ic->dateReceivedFrom)) }}</p>
+                </div>
+                <hr class="my-3">
+                <div>
+                    <p class="font-semibold text-gray-500">Received By:</p>
+                    <p>{{ $ic->receivedBy ?? '-' }}</p>
+                    @if ($ic->dateReceivedBy)
+                        <p class="text-gray-500">{{ date('M d, Y', strtotime($ic->dateReceivedBy)) }}</p>
+                    @endif
+                </div>
+            </div>
+
+            {{-- Remarks --}}
+            <div class="mb-4">
+                <span
+                    class="uppercase text-[12px] font-bold
+                    {{ $ic->remarks === 'active' ? 'text-green-500' : 'text-red-500' }}">
+                    {{ $ic->remarks }}
+                </span>
+            </div>
+
+            {{-- Actions --}}
+            <div class="flex items-center gap-3 mt-auto">
+                <a wire:navigate href="{{ route('admin.edit-ics', ['encrypted_id' => $ic->encrypted_id]) }}">
+                    <iconify-icon icon="lets-icons:edit-duotone" width="22" height="22"></iconify-icon>
+                </a>
                 <flux:modal.trigger name="delete-ics">
-                    <a href="javascript:;" id="delete-ics" data-id="{{ $ic->encrypted_id }}">
-                        <iconify-icon icon="lets-icons:trash-duotone" width="24" height="24"></iconify-icon>
+                    <a href="javascript:;" data-id="{{ $ic->encrypted_id }}" id="delete-ics">
+                        <iconify-icon icon="lets-icons:trash-duotone" width="22" height="22"></iconify-icon>
                     </a>
                 </flux:modal.trigger>
-
-                <a wire:navigate href="{{ route('admin.ics-print', ['encrypted_id' => $ic->encrypted_id]) }}"
-                    id="print-ics">
-                    <iconify-icon icon="lets-icons:print-duotone" width="24" height="24"></iconify-icon>
+                <a wire:navigate href="{{ route('admin.ics-print', ['encrypted_id' => $ic->encrypted_id]) }}">
+                    <iconify-icon icon="lets-icons:print-duotone" width="22" height="22"></iconify-icon>
                 </a>
-            </td>
-        </x-table-row>
+            </div>
+        </div>
     @endforeach
+</div>
 
-    @if ($ics->isEmpty())
-        <x-table-row>
-            <td colspan="10" class="border-b border-gray-100 px-4 py-2 text-center text-gray-500">No ICS
-                found.</td>
-        </x-table-row>
-    @endif
-</x-table>
+@if ($ics->isEmpty())
+    <div class="text-center text-gray-500 py-8">No ICS found.</div>
+@endif
 
 <x-modal name="delete-ics" class="w-auto md:m-auto mx-4">
     <x-slot name="header">
