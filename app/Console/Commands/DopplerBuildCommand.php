@@ -4,14 +4,14 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 
-class DopplerCommand extends Command
+class DopplerBuildCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'run:app';
+    protected $signature = 'run:build';
 
     /**
      * The console command description.
@@ -26,8 +26,8 @@ class DopplerCommand extends Command
     public function handle()
     {
         $commands = [
+            'cmd /c "start doppler run -- npm run build"',
             'cmd /c "start doppler run -- php artisan serve"',
-            'cmd /c "start doppler run -- npm run dev"'
         ];
 
         foreach ($commands as $command) {
