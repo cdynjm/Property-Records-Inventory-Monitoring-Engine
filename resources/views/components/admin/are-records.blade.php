@@ -77,7 +77,12 @@
 </div>
 
 @if ($are->isEmpty())
-    <div class="text-center text-gray-500 py-8">No ARE found.</div>
+    <div class="grid grid-cols-1 gap-6">
+        <div class="bg-white border rounded-lg transition p-4 flex flex-col">
+            <iconify-icon icon="solar:sad-square-line-duotone" width="24" height="24" class="mb-3"></iconify-icon>
+            <small class="text-center text-gray-500">Sorry, no ARE records found.</small>
+        </div>
+    </div>
 @endif
 
 
