@@ -92,7 +92,7 @@
                 </tr>
                 <tr>
                     <td colspan="10" style="text-align: right;">
-                        <span style="margin-right: 100px;">ICS No.: {{ $ics->icsNumber }}</span>
+                        <span style="margin-right: 10px;">ICS No.: {{ $ics->icsNumber }}</span>
                     </td>
                 </tr>
                 <tr>

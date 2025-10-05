@@ -71,6 +71,7 @@
                                 quantity: '{{ $icsInfo->quantity }}',
                                 unit: '{{ $icsInfo->unit }}',
                                 officeCode: '{{ $icsInfo->officeCode }}',
+                                invItemNumber: '{{ $icsInfo->invItemNumber }}',
                                 dateAcquired: '{{ $icsInfo->dateAcquired }}',
                                 estUsefulLife: '{{ $icsInfo->estUsefulLife }}',
                                 unitCost: '{{ $icsInfo->unitCost }}',
@@ -83,7 +84,7 @@
                         <template x-for="(row, index) in rows" :key="index">
                             <div class="rows">
                                 <flux:input type="hidden" x-model="row.id" x-bind:name="'rows[' + index + '][id]'" />
-                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4 mb-3">
+                                <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-7 gap-4 mb-3">
 
                                     <div class="flex flex-col">
                                         <label class="mb-1 text-sm font-medium text-gray-700">Quantity</label>
@@ -107,6 +108,11 @@
                                         <label class="mb-1 text-sm font-medium text-gray-700">Office Code</label>
                                         <flux:input class="mb-0" x-model="row.officeCode"
                                             x-bind:name="'rows[' + index + '][officeCode]'" />
+                                    </div>
+
+                                    <div class="flex flex-col">
+                                        <label class="mb-1 text-sm font-medium text-gray-700">Inventory Item No.</label>
+                                        <flux:input class="mb-0" x-model="row.invItemNumber" x-bind:name="'rows[' + index + '][invItemNumber]'" />
                                     </div>
 
                                     <div class="flex flex-col">

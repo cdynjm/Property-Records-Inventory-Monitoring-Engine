@@ -61,7 +61,7 @@
                     <div x-data="{ rows: [Date.now()] }" class="">
                         <template x-for="(row, index) in rows" :key="row">
                             <div class="rows">
-                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4 mb-3">
+                                <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-7 gap-4 mb-3">
                                     <div class="flex flex-col">
                                         <label class="mb-1 text-sm font-medium text-gray-700">Quantity</label>
                                         <flux:input class="mb-0" type="number" min="0"
@@ -81,6 +81,11 @@
                                     <div class="flex flex-col">
                                         <label class="mb-1 text-sm font-medium text-gray-700">Office Code</label>
                                         <flux:input class="mb-0" x-bind:name="'rows[' + index + '][officeCode]'" />
+                                    </div>
+
+                                     <div class="flex flex-col">
+                                        <label class="mb-1 text-sm font-medium text-gray-700">Inventory Item No.</label>
+                                        <flux:input class="mb-0" x-bind:name="'rows[' + index + '][invItemNumber]'" />
                                     </div>
 
                                     <div class="flex flex-col">
