@@ -73,7 +73,7 @@ class ICSController extends Controller
                 'quantity' => $row['quantity'],
                 'unit' => $row['unit'], 
                 'officeCode' => $row['officeCode'],
-                'invItemNumber' => $office->officeName . '-' . $request->icsYear . '-' . $row['invItemNumber'],
+                'invItemNumber' => $row['invItemNumber'],
                 'dateAcquired' => $row['dateAcquired'],
                 'estUsefulLife' => $row['estUsefulLife'],
                 'unitCost' => $row['unitCost'],

@@ -98,6 +98,11 @@
                         'route' => 'admin.accounts-code',
                         'label' => __('Accounts Code'),
                     ],
+                    [
+                        'icon' => 'clipboard-document-list',
+                        'route' => 'admin.units',
+                        'label' => __('Unit'),
+                    ],
                 ];
             @endphp
 

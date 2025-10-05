@@ -694,3 +694,203 @@ $(function () {
             });
     });
 });
+
+//UNIT FUNCTIONS:
+
+$(function () {
+
+    let unitID: string | null = null;
+
+    $(document).on("submit", "#admin-create-unit", function (e) {
+        e.preventDefault();
+        const formData = new FormData(this as HTMLFormElement);
+        const $btn = $(".save-unit-btn");
+        $btn.prop("disabled", true).text("Saving...");
+
+        axios
+            .post("/admin/create-unit", formData)
+            .then((response: any) => {
+                window.Livewire.navigate(window.location.pathname) as any;
+            })
+            .catch((error) => {
+                
+            })
+            .finally(() => {
+                $btn.prop("disabled", false).text("Save changes");
+            });
+    });
+
+    $(document).on("click", "#admin-edit-unit", function (e) {
+        e.preventDefault();
+        unitID = $(this).data("id");
+        const unitName = $(this).data("unit");
+        if (unitID) {
+            $("#unit-name").val(unitName);
+        }
+    });
+
+    $(document).on("submit", "#admin-update-unit", function (e) {
+        e.preventDefault();
+
+        const formData = new FormData(this as HTMLFormElement);
+        formData.append("unitID", unitID || "");
+        formData.append("_method", "PATCH");
+
+        const $btn = $(".save-unit-btn");
+        $btn.prop("disabled", true).text("Saving...");
+
+        axios
+            .post("/admin/update-unit", formData)
+            .then((response: any) => {
+                window.Livewire.navigate(window.location.pathname) as any;
+            })
+            .catch((error) => {
+               
+            })
+            .finally(() => {
+                $btn.prop("disabled", false).text("Save changes");
+            });
+    });
+
+    $(document).on("click", "#admin-delete-unit", function (e) {
+        e.preventDefault();
+        unitID = $(this).data("id");
+    });
+
+    $(document).on("click", "#admin-delete-unit-btn", function (e) {
+        e.preventDefault();
+        const $btn = $(this);
+        if (!unitID) {
+            alert("No unit selected to delete!");
+            return;
+        }
+
+        $btn.prop("disabled", true).text("Deleting...");
+
+        axios
+            .delete("/admin/delete-unit", { data: { unitID } })
+            .then((response: any) => {
+                window.Livewire.navigate(window.location.pathname) as any;
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+                alert("There was an error deleting the unit.");
+            })
+            .finally(() => {
+                $btn.prop("disabled", false).text("Delete");
+            });
+    });
+});
+
+//OFFICE FUNCTIONS:
+
+$(function () {
+
+    let officeID: string | null = null;
+
+    $(document).on("submit", "#admin-create-office", function (e) {
+        e.preventDefault();
+        const formData = new FormData(this as HTMLFormElement);
+        const $btn = $(".save-office-btn");
+        $btn.prop("disabled", true).text("Saving...");
+
+        axios
+            .post("/admin/create-office", formData)
+            .then((response: any) => {
+                window.Livewire.navigate(window.location.pathname) as any;
+            })
+            .catch((error) => {
+                const toast = document.getElementsByClassName("toast-error");
+
+                if (toast.length > 0) {
+                    const messageElem = toast[0].querySelector(
+                        ".toast-error-message"
+                    );
+                    if (messageElem) {
+                        messageElem.textContent = "Username is already taken";
+                    }
+                    $(toast[0]).fadeIn(100);
+                    setTimeout(() => $(toast[0]).fadeOut(300), 3000);
+                }
+            })
+            .finally(() => {
+                $btn.prop("disabled", false).text("Save changes");
+            });
+    });
+
+    $(document).on("click", "#admin-edit-office", function (e) {
+        e.preventDefault();
+        officeID = $(this).data("id");
+        const officeName = $(this).data("name");
+        const officeCode = $(this).data("code");
+        const username = $(this).data("username");
+        if (officeID) {
+            $("#office-name").val(officeName);
+            $("#office-code").val(officeCode);
+            $("#username").val(username);
+        }
+    });
+
+    $(document).on("submit", "#admin-update-office", function (e) {
+        e.preventDefault();
+
+        const formData = new FormData(this as HTMLFormElement);
+        formData.append("officeID", officeID || "");
+        formData.append("_method", "PATCH");
+
+        const $btn = $(".save-office-btn");
+        $btn.prop("disabled", true).text("Saving...");
+
+        axios
+            .post("/admin/update-office", formData)
+            .then((response: any) => {
+                window.Livewire.navigate(window.location.pathname) as any;
+            })
+            .catch((error) => {
+                const toast = document.getElementsByClassName("toast-error");
+
+                if (toast.length > 0) {
+                    const messageElem = toast[1].querySelector(
+                        ".toast-error-message"
+                    );
+                    if (messageElem) {
+                        messageElem.textContent = "Username is already taken";
+                    }
+                    $(toast[1]).fadeIn(100);
+                    setTimeout(() => $(toast[1]).fadeOut(300), 3000);
+                }
+            })
+            .finally(() => {
+                $btn.prop("disabled", false).text("Save changes");
+            });
+    });
+
+    $(document).on("click", "#admin-delete-office", function (e) {
+        e.preventDefault();
+        officeID = $(this).data("id");
+    });
+
+    $(document).on("click", "#admin-delete-office-btn", function (e) {
+        e.preventDefault();
+        const $btn = $(this);
+        if (!officeID) {
+            alert("No office selected to delete!");
+            return;
+        }
+
+        $btn.prop("disabled", true).text("Deleting...");
+
+        axios
+            .delete("/admin/delete-office", { data: { officeID } })
+            .then((response: any) => {
+                window.Livewire.navigate(window.location.pathname) as any;
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+                alert("There was an error deleting the office.");
+            })
+            .finally(() => {
+                $btn.prop("disabled", false).text("Delete");
+            });
+    });
+});

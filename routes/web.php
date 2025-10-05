@@ -27,6 +27,7 @@ use App\Http\Controllers\Admin\AREPrintController;
 use App\Http\Controllers\Admin\SearchController;
 use App\Http\Controllers\Admin\AccountsCodeController;
 use App\Http\Controllers\Admin\PersonnelController;
+use App\Http\Controllers\Admin\UnitController as AdminUnitController;
 
 use App\Http\Controllers\Office\DashboardController as OfficeDashboardController;
 
@@ -61,7 +62,6 @@ Route::middleware(['auth'])->group(function () {
             Route::patch('update-unit', [UnitController::class, 'updateUnit'])->name('superadmin.update-unit');
             Route::delete('delete-unit', [UnitController::class, 'deleteUnit'])->name('superadmin.delete-unit');
             
-
         });
 
     });
@@ -95,7 +95,10 @@ Route::middleware(['auth'])->group(function () {
 
             Route::get('office-records', [OfficeRecordsController::class, 'index'])->name('admin.office-records');
             Route::get('office-records/{encrypted_id}', [OfficeRecordsController::class, 'officePropetryInventoryRecords'])->name('admin.office-property-inventory-records');
-        
+            Route::post('create-office', [OfficeRecordsController::class, 'createOffice'])->name('admin.create-office');
+            Route::patch('update-office', [OfficeRecordsController::class, 'updateOffice'])->name('admin.update-office');
+            Route::delete('delete-office', [OfficeRecordsController::class, 'deleteOffice'])->name('admin.delete-office');
+            
             Route::get('issuers', [IssuersController::class, 'index'])->name('admin.issuers');
             Route::get('issuers/{encrypted_id}', [IssuersController::class, 'issuersPropertyInventoryRecords'])->name('admin.issuers-property-inventory-records');
             Route::post('create-issuer', [IssuersController::class, 'createIssuer'])->name('admin.create-issuer');
@@ -117,6 +120,11 @@ Route::middleware(['auth'])->group(function () {
             Route::post('create-accounts-code', [AccountsCodeController::class, 'createAccountsCode'])->name('admin.create-accounts-code');
             Route::patch('update-accounts-code', [AccountsCodeController::class, 'updateAccountsCode'])->name('admin.update-accounts-code');
             Route::delete('delete-accounts-code', [AccountsCodeController::class, 'deleteAccountsCode'])->name('admin.delete-accounts-code');
+
+            Route::get('units', [AdminUnitController::class, 'index'])->name('admin.units');
+            Route::post('create-unit', [AdminUnitController::class, 'createUnit'])->name('admin.create-unit');
+            Route::patch('update-unit', [AdminUnitController::class, 'updateUnit'])->name('admin.update-unit');
+            Route::delete('delete-unit', [AdminUnitController::class, 'deleteUnit'])->name('admin.delete-unit');
 
             Route::get('search-received-by', [PersonnelController::class, 'searchReceivedBy'])->name('admin.search-received-by');
         });
