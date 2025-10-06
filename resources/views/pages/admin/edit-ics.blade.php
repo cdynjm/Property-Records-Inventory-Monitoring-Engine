@@ -137,7 +137,7 @@
                                 <div class="grid grid-cols-1 gap-4 mb-3">
                                     <div class="flex flex-col">
                                         <label class="mb-1 text-sm font-medium text-gray-700">Description</label>
-                                        <flux:textarea class="mb-0" x-text="row.description"
+                                        <flux:textarea class="mb-0 h-50" x-text="row.description"
                                             x-bind:name="'rows[' + index + '][description]'" />
                                     </div>
                                 </div>
