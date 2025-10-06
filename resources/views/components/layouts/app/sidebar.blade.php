@@ -134,6 +134,16 @@
                         'route' => 'office.dashboard',
                         'label' => __('Dashboard'),
                     ],
+                    [
+                        'icon' => 'clipboard-document-check',
+                        'route' => 'office.are-records',
+                        'label' => __('ARE Records'),
+                    ],
+                    [
+                        'icon' => 'clipboard-document',
+                        'route' => 'office.ics-records',
+                        'label' => __('ICS Records'),
+                    ],
                 ];
             @endphp
 

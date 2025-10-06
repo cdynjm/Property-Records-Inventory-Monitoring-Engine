@@ -30,6 +30,13 @@ use App\Http\Controllers\Admin\PersonnelController;
 use App\Http\Controllers\Admin\UnitController as AdminUnitController;
 
 use App\Http\Controllers\Office\DashboardController as OfficeDashboardController;
+use App\Http\Controllers\Office\SearchController as OfficeSearchController;
+use App\Http\Controllers\Office\ICSRecordsController as OfficeICSRecordsController;
+use App\Http\Controllers\Office\ARERecordsController as OfficeARERecordsController;
+use App\Http\Controllers\Office\Forms\ICSFormController as OfficeICSFormController;
+use App\Http\Controllers\Office\ICSPrintController as OfficeICSPrintController;
+use App\Http\Controllers\Office\Forms\AREFormController as OfficeAREFormController;
+use App\Http\Controllers\Office\AREPrintController as OfficeAREPrintController;
 
 Route::get('/', [RedirectIfAuthenticated::class, 'index'])->name('home');
 
@@ -137,6 +144,18 @@ Route::middleware(['auth'])->group(function () {
     
             Route::get('dashboard', [OfficeDashboardController::class, 'index'])->name('office.dashboard');
             
+            Route::post('search', [OfficeSearchController::class, 'search'])->name('office.search');
+            Route::post('search-clear', [OfficeSearchController::class, 'searchClear'])->name('office.search-clear');
+            Route::post('year', [OfficeSearchController::class, 'year'])->name('office.year');
+            Route::post('year-clear', [OfficeSearchController::class, 'yearClear'])->name('office.year-clear');
+
+            Route::get('ics-records', [OfficeICSRecordsController::class, 'index'])->name('office.ics-records');
+            Route::get('are-records', [OfficeARERecordsController::class, 'index'])->name('office.are-records');
+
+            Route::get('ics-form/{encrypted_id}', [OfficeICSFormController::class, 'index'])->name('office.ics-form');
+            Route::get('ics-print/{encrypted_id}', [OfficeICSPrintController::class, 'index'])->name('office.ics-print');
+            Route::get('are-form/{encrypted_id}', [OfficeAREFormController::class, 'index'])->name('office.are-form');
+            Route::get('are-print/{encrypted_id}', [OfficeAREPrintController::class, 'index'])->name('office.are-print');
         });
 
     });

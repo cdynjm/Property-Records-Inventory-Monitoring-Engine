@@ -61,4 +61,9 @@ class User extends Authenticatable
             ->map(fn ($word) => Str::substr($word, 0, 1))
             ->implode('');
     }
+
+    public function office()
+    {
+        return $this->belongsTo(Office::class, 'offices_id');
+    }
 }
