@@ -61,7 +61,6 @@ class ICSController extends Controller
             'receivedFrom_id' => $receivedFrom->id, 
             'receivedFromPosition' => $request->receivedFromPosition, 
             'dateReceivedFrom' => $request->dateReceivedFrom,
-            'furnishedBy' => $request->furnishedBy, 
             'remarks' => 'active'
         ]);
 
@@ -144,7 +143,6 @@ class ICSController extends Controller
             'receivedFrom_id' => $receivedFrom->id,
             'receivedFromPosition' => $request->receivedFromPosition,
             'dateReceivedFrom' => $request->dateReceivedFrom,
-            'furnishedBy' => $request->furnishedBy,
         ];
 
         if (!empty($request->receivedBy_id)) {
@@ -193,7 +191,7 @@ class ICSController extends Controller
                
                 ICSInformation::where('id', $this->aes->decrypt($row['id']))->update([
                     'quantity' => $row['quantity'],
-                    'unit' => $row['unit'], 
+                    'unit' => $row['unit'] ?? null, 
                     'officeCode' => $row['officeCode'],
                     'invItemNumber' => $row['invItemNumber'],
                     'dateAcquired' => $row['dateAcquired'],
@@ -206,9 +204,9 @@ class ICSController extends Controller
                 ICSInformation::create([
                     'ics_id' => $icsId,
                     'quantity' => $row['quantity'],
-                    'unit' => $row['unit'], 
+                    'unit' => $row['unit'] ?? null, 
                     'officeCode' => $row['officeCode'],
-                    'invItemNumber' => $office->officeName . '-' . $request->icsYear . '-' . $office->officeCode,
+                    'invItemNumber' => $row['invItemNumber'],
                     'dateAcquired' => $row['dateAcquired'],
                     'estUsefulLife' => $row['estUsefulLife'],
                     'unitCost' => $row['unitCost'],

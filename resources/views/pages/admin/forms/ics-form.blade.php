@@ -98,7 +98,7 @@
                 <tr>
                     <td style="text-align: center">QTY.</td>
                     <td style="text-align: center">UNIT</td>
-                    <td style="text-align: center" width="30%">DESCRIPTION</td>
+                    <td style="text-align: center" width="40%">DESCRIPTION</td>
 
                     <td style="text-align: center; padding:0;">
                         <div style="border-bottom:1px solid black; padding:2px 0;">Office</div>

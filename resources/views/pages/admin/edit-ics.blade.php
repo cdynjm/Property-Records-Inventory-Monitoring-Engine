@@ -236,19 +236,6 @@
                         </div>
                     </div>
 
-
-
-                    <p class="font-bold text-[13px] mb-2">OTHERS</p>
-
-                    <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 mb-6">
-                        <div class="flex flex-col">
-                            <label class="mb-1 text-sm font-medium text-gray-700">
-                                Furnished By
-                            </label>
-                            <flux:input class="mb-0" name="furnishedBy" value="{{ $ics->furnishedBy }}" />
-                        </div>
-                    </div>
-
                     <div class="flex items-center gap-4">
                         <flux:button type="submit" variant="primary" class="save-ics-btn">Save changes</flux:button>
                         <a wire:navigate href="{{ route('admin.ics-print', ['encrypted_id' => $ics->encrypted_id]) }}" id="print-ics">
