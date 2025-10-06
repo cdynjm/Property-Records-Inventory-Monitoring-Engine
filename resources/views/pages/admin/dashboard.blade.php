@@ -121,6 +121,35 @@
                 </div>
             </div>
 
+            <div class="flex justify-end mb-4">
+                <flux:button variant="primary" size="sm" x-data
+                    x-on:click="
+            const year = '{{ session('year') }}';
+            const headers = ['Month', 'ARE Records', 'ICS Records'];
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            const are = {{ $areData }};
+            const ics = {{ $icsData }};
+
+            let csvContent = 'data:text/csv;charset=utf-8,';
+            csvContent += 'Year: ' + year + '\n\n';
+            csvContent += headers.join(',') + '\n';
+
+            for (let i = 0; i < months.length; i++) {
+                csvContent += months[i] + ',' + are[i] + ',' + ics[i] + '\n';
+            }
+
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement('a');
+            link.setAttribute('href', encodedUri);
+            link.setAttribute('download', 'Inventory Report ' + year + '.csv');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        ">
+                    <small>Download CSV</small>
+                </flux:button>
+            </div>
+
             <div class="grid md:grid-cols-2 gap-6">
                 <!-- ARE Chart -->
                 <div x-data="chart({
@@ -174,7 +203,6 @@
                     <canvas x-ref="canvas" class="w-full h-64"></canvas>
                 </div>
             </div>
-
         </div>
 
         <x-footer class="mt-auto" />
