@@ -39,7 +39,7 @@
                 <hr class="my-3">
                 <div>
                     <p class="font-semibold text-gray-500">Received By:</p>
-                    <p>{{ $ic->receivedBy ?? '-' }}</p>
+                    <p>{{ $ic->receivedBy != null ? $ic->receivedBy : '-' }}</p>
                     @if ($ic->dateReceivedBy)
                         <p class="text-gray-500">{{ date('M d, Y', strtotime($ic->dateReceivedBy)) }}</p>
                     @endif

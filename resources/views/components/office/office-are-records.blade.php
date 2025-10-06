@@ -41,7 +41,7 @@
                 <hr class="my-3">
                 <div>
                     <p class="font-semibold text-gray-500">Received By:</p>
-                    <p>{{ $ar->receivedBy ?? '-' }}</p>
+                     <p>{{ $ar->receivedBy != null ? $ar->receivedBy : '-' }}</p>
                     @if ($ar->dateReceivedBy)
                         <p class="text-gray-500">{{ date('M d, Y', strtotime($ar->dateReceivedBy)) }}</p>
                     @endif

@@ -60,18 +60,44 @@ class AREController extends Controller
         $office = Office::where('id', $this->aes->decrypt($request->offices_id))->first();
         $receivedFrom = ReceivedFrom::where('id', $this->aes->decrypt($request->receivedFrom_id))->first();
 
-        $are = ARE::create([
+        $data = [
             'offices_id' => $office->id, 
             'areOffice' => $office->officeName, 
             'areYear' => $request->areYear, 
             'areCode' => $request->areCode, 
             'areControlNumber' => $office->officeName . '-' . $request->areYear . '-' . $request->areCode,
+            'receivedBy' => strtoupper($request->receivedBy),
+            'receivedByPosition' => $request->receivedByPosition,
+            'dateReceivedBy' => $request->dateReceivedBy,
             'receivedFrom_id' => $receivedFrom->id,
             'receivedFromPosition' => $request->receivedFromPosition,
             'dateReceivedFrom' => $request->dateReceivedFrom,
             'remarks' => 'active'
-        ]);
+        ];
 
+        if (!empty($request->receivedBy_id)) {
+            $data['receivedBy_id'] = $this->aes->decrypt($request->receivedBy_id);
+        
+            ReceivedBy::where('id', $data['receivedBy_id'])->update([
+                'name'     => strtoupper($request->receivedBy),
+                'position' => $request->receivedByPosition,
+            ]);
+
+        } else {
+            if(!empty($request->receivedBy)) {
+                $receivedBy = ReceivedBy::create([
+                    'name'     => strtoupper($request->receivedBy),
+                    'position' => $request->receivedByPosition,
+                ]);
+
+                $data['receivedBy_id'] = $receivedBy->id;
+            } else {
+                $data['receivedBy_id'] = null;
+            }
+        }
+        
+        $are = ARE::create($data);
+        
         $rows = $request->input('rows');
 
         foreach ($request->rows as $row) {

@@ -61,6 +61,4 @@ class SearchController extends Controller
             'message' => 'success'
         ], 200);
     }
-
-
 }

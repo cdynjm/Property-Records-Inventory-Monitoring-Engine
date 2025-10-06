@@ -9,12 +9,14 @@ use Hash;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Security\AESCipher;
+use App\Traits\HasKeywordSearch;
 
 use App\Models\AccountsCode;
 use App\Models\ARE;
 
 class AccountsCodeController extends Controller
 {
+     use HasKeywordSearch;
     protected AESCipher $aes;
 
     public function __construct(AESCipher $aes)
@@ -74,11 +76,12 @@ class AccountsCodeController extends Controller
 
         $accountsCode = AccountsCode::where('id', $accountCodeID)->first();
 
-        $are = ARE::whereHas('information', function ($query) use ($accountCodeID) {
+        $are = $this->searchARE(
+            ARE::whereHas('information', function ($query) use ($accountCodeID) {
                 $query->where('account_codes_id', $accountCodeID);
-            })
-            ->where('areControlNumber', 'like', '%'.$search.'%')
-            ->where('dateReceivedFrom', 'like', '%'.$year.'%')
+            })->where('dateReceivedFrom', 'like', '%'.$year.'%'),
+            $search
+        )
             ->orderBy('updated_at', 'desc')
             ->with(['information' => function ($query) use ($accountCodeID) {
                 $query->where('account_codes_id', $accountCodeID)

@@ -52,17 +52,43 @@ class ICSController extends Controller
         $office = Office::where('id', $this->aes->decrypt($request->offices_id))->first();
         $receivedFrom = ReceivedFrom::where('id', $this->aes->decrypt($request->receivedFrom_id))->first();
 
-        $ics = ICS::create([
+        $data = [
             'offices_id' => $office->id, 
             'icsOffice' => $office->officeName, 
             'icsYear' => $request->icsYear, 
             'icsCode' => $request->icsCode, 
             'icsNumber' => $office->officeName . '-' . $request->icsYear . '-' . $request->icsCode,
+            'receivedBy' => strtoupper($request->receivedBy),
+            'receivedByPosition' => $request->receivedByPosition,
+            'dateReceivedBy' => $request->dateReceivedBy,
             'receivedFrom_id' => $receivedFrom->id, 
             'receivedFromPosition' => $request->receivedFromPosition, 
             'dateReceivedFrom' => $request->dateReceivedFrom,
             'remarks' => 'active'
-        ]);
+        ];
+
+        if (!empty($request->receivedBy_id)) {
+            $data['receivedBy_id'] = $this->aes->decrypt($request->receivedBy_id);
+        
+            ReceivedBy::where('id', $data['receivedBy_id'])->update([
+                'name'     => strtoupper($request->receivedBy),
+                'position' => $request->receivedByPosition,
+            ]);
+
+        } else {
+            if(!empty($request->receivedBy)) {
+                $receivedBy = ReceivedBy::create([
+                    'name'     => strtoupper($request->receivedBy),
+                    'position' => $request->receivedByPosition,
+                ]);
+
+                $data['receivedBy_id'] = $receivedBy->id;
+            } else {
+                $data['receivedBy_id'] = null;
+            }
+        }
+
+        $ics = ICS::create($data);
 
         $rows = $request->input('rows');
         

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Session;
 use App\Http\Controllers\Security\AESCipher;
+use App\Traits\HasKeywordSearch;
 
 use App\Models\ReceivedBy;
 use App\Models\ICS;
@@ -13,6 +14,7 @@ use App\Models\ARE;
 
 class ReceiversController extends Controller
 {
+    use HasKeywordSearch;
     protected AESCipher $aes;
 
     public function __construct(AESCipher $aes)
@@ -41,17 +43,21 @@ class ReceiversController extends Controller
         $search = session('search');
         $receivedByID = $this->aes->decrypt($request->encrypted_id);
 
-        $ics = ICS::where('receivedBy_id', $receivedByID)
-        ->where('icsNumber', 'like', '%'.$search.'%')
-        ->where('dateReceivedFrom', 'like', '%'.$year.'%')
+        $ics = $this->searchICS(
+            ICS::where('receivedBy_id', $receivedByID)
+                ->where('dateReceivedFrom', 'like', '%'.$year.'%'),
+            $search
+        )
         ->orderBy('updated_at', 'desc')->paginate(15)->through(function ($ics) {
             $ics->encrypted_id = $this->aes->encrypt($ics->id);
             return $ics;
         });
 
-        $are = ARE::where('receivedBy_id', $receivedByID)
-        ->where('areControlNumber', 'like', '%'.$search.'%')
-        ->where('dateReceivedFrom', 'like', '%'.$year.'%')
+        $are = $this->searchARE(
+            ARE::where('receivedBy_id', $receivedByID)
+                ->where('dateReceivedFrom', 'like', '%'.$year.'%'),
+            $search
+        )
         ->orderBy('updated_at', 'desc')->paginate(15) ->through(function ($are) {
             $are->encrypted_id = $this->aes->encrypt($are->id);
             return $are;
