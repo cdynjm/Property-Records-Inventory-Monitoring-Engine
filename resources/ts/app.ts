@@ -1,5 +1,7 @@
 import "iconify-icon";
 
+import './components/chart'
+
 import "./admin";
 import "./office";
 import "./superadmin";

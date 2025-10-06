@@ -46,7 +46,7 @@
                             <!-- stat text -->
                             <div>
                                 <p class="text-xs font-semibold text-gray-500">Total ARE</p>
-                                <p class="text-2xl font-bold text-gray-900">{{ $are }}</p>
+                                <p class="text-2xl font-bold text-gray-900">{{ $areTotal }}</p>
                             </div>
                         </div>
 
@@ -92,7 +92,7 @@
                             <!-- stat text -->
                             <div>
                                 <p class="text-xs font-semibold text-gray-500">Total ICS</p>
-                                <p class="text-2xl font-bold text-gray-900">{{ $ics }}</p>
+                                <p class="text-2xl font-bold text-gray-900">{{ $icsTotal }}</p>
                             </div>
                         </div>
 
@@ -121,6 +121,59 @@
                 </div>
             </div>
 
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- ARE Chart -->
+                <div x-data="chart({
+                    type: 'line',
+                    data: {
+                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                        datasets: [{
+                            label: 'ARE Records ({{ session('year') }})',
+                            data: {{ $areData }},
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            backgroundColor: 'rgba(255, 99, 132, 0.3)',
+                            fill: true,
+                            tension: 0.4,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: { position: 'top' },
+                            title: { display: true, text: 'ARE Records per Month' }
+                        },
+                        scales: { y: { beginAtZero: true } }
+                    }
+                })">
+                    <canvas x-ref="canvas" class="w-full h-64"></canvas>
+                </div>
+
+                <!-- ICS Chart -->
+                <div x-data="chart({
+                    type: 'line',
+                    data: {
+                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                        datasets: [{
+                            label: 'ICS Records ({{ session('year') }})',
+                            data: {{ $icsData }},
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            backgroundColor: 'rgba(54, 162, 235, 0.3)',
+                            fill: true,
+                            tension: 0.4,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: { position: 'top' },
+                            title: { display: true, text: 'ICS Records per Month' }
+                        },
+                        scales: { y: { beginAtZero: true } }
+                    }
+                })">
+                    <canvas x-ref="canvas" class="w-full h-64"></canvas>
+                </div>
+            </div>
 
         </div>
 
