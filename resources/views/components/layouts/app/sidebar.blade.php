@@ -41,7 +41,7 @@
             @endphp
 
             <flux:navlist variant="outline">
-                <flux:navlist.group :heading="__('Platform')" class="grid">
+                <flux:navlist.group :heading="__('Pages')" class="grid">
                     @foreach ($superadminNavItems as $item)
                         <flux:navlist.item :icon="$item['icon']" class="mb-1" :href="route($item['route'])"
                             :current="request()->routeIs($item['route'])" wire:navigate>
@@ -107,7 +107,7 @@
             @endphp
 
             <flux:navlist variant="outline">
-                <flux:navlist.group :heading="__('Platform')" class="grid">
+                <flux:navlist.group :heading="__('Pages')" class="grid">
                     @foreach ($navItems as $item)
                         <flux:navlist.item :icon="$item['icon']" class="mb-1" :href="route($item['route'])"
                             :current="request()->routeIs($item['route'])" wire:navigate>
@@ -148,7 +148,7 @@
             @endphp
 
             <flux:navlist variant="outline">
-                <flux:navlist.group :heading="__('Platform')" class="grid">
+                <flux:navlist.group :heading="__('Pages')" class="grid">
                     @foreach ($officeNavItems as $item)
                         <flux:navlist.item :icon="$item['icon']" class="mb-1" :href="route($item['route'])"
                             :current="request()->routeIs($item['route'])" wire:navigate>
