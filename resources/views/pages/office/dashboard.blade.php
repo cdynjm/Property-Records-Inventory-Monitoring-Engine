@@ -206,6 +206,41 @@
                 </div>
             </div>
 
+            @php
+                $months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+                $areData = is_string($areData) ? json_decode($areData, true) : $areData;
+                $icsData = is_string($icsData) ? json_decode($icsData, true) : $icsData;
+
+                $areData = array_map('intval', $areData ?? []);
+                $icsData = array_map('intval', $icsData ?? []);
+            @endphp
+
+            <div class="mt-8 overflow-x-auto">
+                <flux:heading size="md" class="mb-3">
+                    Monthly ARE and ICS Summary ({{ session('year') }})
+                </flux:heading>
+
+                <x-table>
+                    <x-slot:head>
+                        <th class="px-4 py-2 border-b text-center">Month</th>
+                        <th class="px-4 py-2 border-b text-center">ARE Records</th>
+                        <th class="px-4 py-2 border-b text-center">ICS Records</th>
+                    </x-slot:head>
+                    @foreach ($months as $i => $month)
+                            <x-table-row class="">
+                            <td class="px-4 py-2 border-b text-center">{{ $month }}</td>
+                            <td class="px-4 py-2 border-b text-center">{{ $areData[$i] ?? 0 }}</td>
+                            <td class="px-4 py-2 border-b text-center">{{ $icsData[$i] ?? 0 }}</td>
+                        </x-table-row>
+                    @endforeach
+                    <x-table-row class="">
+                        <td class="px-4 py-2 border-t text-center font-semibold">Total:</td>
+                        <td class="px-4 py-2 border-t text-center font-semibold">{{ array_sum($areData) }}</td>
+                        <td class="px-4 py-2 border-t text-center font-semibold">{{ array_sum($icsData) }}</td>
+                    </x-table-row>
+                </x-table>
+            </div>
         </div>
 
         <x-footer class="mt-auto" />
