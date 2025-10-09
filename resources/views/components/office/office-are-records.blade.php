@@ -1,9 +1,9 @@
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
     @foreach ($are as $index => $ar)
-        <div class="bg-white border rounded-lg shadow-sm hover:shadow-md transition p-4 flex flex-col">
-            <a wire:navigate href="{{ route('office.are-print', ['encrypted_id' => $ar->encrypted_id]) }}">
-                {{-- Header / ARE Control Number --}}
-                <div class="flex items-center justify-between mb-4">
+        <div class="bg-white border rounded-lg transition flex flex-col">
+            {{-- Header / ARE Control Number --}}
+            <a wire:navigate href="{{ route('admin.edit-are', ['encrypted_id' => $ar->encrypted_id]) }}" class="flex-1">
+                <div class="flex items-center justify-between px-4 pt-4 mb-4">
                     <p class="font-bold flex items-center gap-2 text-[15px]">
                         <iconify-icon icon="fluent-color:document-text-28" width="22" height="22"></iconify-icon>
                         {{ $ar->areControlNumber }}
@@ -12,27 +12,22 @@
                 </div>
 
                 {{-- ARE Information --}}
-                <div class="grid grid-cols-1 gap-3 mb-4">
+                <div class="grid grid-cols-1 gap-3 px-4 mb-4">
                     @foreach ($ar->information as $areInfo)
                         <div class="p-2 border rounded-md bg-gray-50">
-                            <div class="flex items-center gap-2 mb-2">
-                                <iconify-icon icon="solar:bag-check-line-duotone" class="text-green-500" width="18"
-                                    height="18"></iconify-icon>
-                                <p class="text-[13px] leading-snug">
-                                    {!! nl2br(e($areInfo->description)) !!}
-                                </p>
+                            <div class="flex items-start gap-2 mb-1">
+                                <iconify-icon icon="solar:bag-check-line-duotone" class="text-green-500" width="18" height="18"></iconify-icon>
+                                <p class="text-[13px] leading-snug">{!! nl2br(e($areInfo->description)) !!}</p>
                             </div>
-                            <p class="text-[12px] mt-1"><span class="font-semibold">PPE:</span>
-                                {{ $areInfo->accountsCode->description }}</p>
-                            <p class="text-[12px]"><span class="font-semibold">Quantity:</span>
-                                {{ $areInfo->quantity }} {{ $areInfo->unit }}</p>
+                            <p class="text-[12px]"><span class="font-semibold">PPE:</span> {{ $areInfo->accountsCode->description }}</p>
+                            <p class="text-[12px]"><span class="font-semibold">Quantity:</span> {{ $areInfo->quantity }} {{ $areInfo->unit }}</p>
                         </div>
                     @endforeach
                 </div>
             </a>
 
             {{-- Received From / By --}}
-            <div class="text-[13px] mb-4">
+            <div class="text-[13px] px-4 mb-4">
                 <div>
                     <p class="font-semibold text-gray-500">Received From:</p>
                     <p>{{ $ar->receivedFrom->name }}</p>
@@ -41,7 +36,7 @@
                 <hr class="my-3">
                 <div>
                     <p class="font-semibold text-gray-500">Received By:</p>
-                     <p>{{ $ar->receivedBy != null ? $ar->receivedBy : '-' }}</p>
+                    <p>{{ $ar->receivedBy != null ? $ar->receivedBy : '-' }}</p>
                     @if ($ar->dateReceivedBy)
                         <p class="text-gray-500">{{ date('M d, Y', strtotime($ar->dateReceivedBy)) }}</p>
                     @endif
@@ -49,7 +44,7 @@
             </div>
 
             {{-- Remarks --}}
-            <div class="mb-4">
+            <div class="px-4 mb-3">
                 <span
                     class="uppercase text-[12px] font-bold
                     {{ $ar->remarks === 'active' ? 'text-green-500' : 'text-red-500' }}">
@@ -58,13 +53,13 @@
             </div>
 
             {{-- Actions --}}
-            <div class="flex items-center gap-3 mt-auto">
-                <a wire:navigate href="{{ route('office.are-print', ['encrypted_id' => $ar->encrypted_id]) }}">
-                    <flux:button type="button" variant="filled" size="sm" class="me-3">
+            <div class="flex items-center justify-around mt-auto bg-gray-50 py-2 border-t rounded-b-lg">
+                <div class="flex flex-col items-center">
+                    <a wire:navigate href="{{ route('office.are-print', ['encrypted_id' => $ar->encrypted_id]) }}">
                         <iconify-icon icon="lets-icons:print-duotone" width="22" height="22"></iconify-icon>
-                        <span class="text-[13px]">Print</span>
-                    </flux:button>
-                </a>
+                    </a>
+                    <span class="text-[11px] text-gray-600">Print</span>
+                </div>
             </div>
         </div>
     @endforeach

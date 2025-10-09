@@ -81,7 +81,7 @@
             <i style="font-size: 12px;">LGU</i>
         </div>
 
-        <div style="display: flex; justify-content: space-between; margin-bottom: 10px; width: 100%;">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 5px; width: 100%;">
             <span>Office/Department: {{ $are->areOffice }}</span>
             <span>A.R.E. CONTROL NO.: {{ $are->areControlNumber }}</span>
         </div>
@@ -115,22 +115,40 @@
                 </tr>
 
                 @php
-                    $totalRows = 15;
-                    $filledRows = $are->information->count();
+                    $totalRows = 20;
+                    $filledRows = 0;
                 @endphp
 
                 @foreach ($are->information as $areInfo)
-                    <tr>
-                        <td style="text-align: center;">{{ $areInfo->quantity }}</td>
-                        <td style="text-align: center;">{{ $areInfo->unit }}</td>
-                        <td style="text-align: left;">{!! nl2br(e($areInfo->description)) !!}</td>
-                        <td style="text-align: center;">
-                            {{ $areInfo->propertyYear }}-{{ $areInfo->propertyCode }}-{{ $areInfo->propertySubCode }}-{{ $areInfo->propertyCount }}-{{ $areInfo->propertyOffice }}
-                        </td>
-                        <td style="text-align: center;">{{ number_format($areInfo->unitCost, 2) }}</td>
-                        <td style="text-align: center;">{{ number_format($areInfo->totalValue, 2) }}</td>
-                        <td style="text-align: center;">{{ date('n/j/Y', strtotime($areInfo->dateAcquired)) }}</td>
-                    </tr>
+                    @php
+                        $lines = preg_split("/\r\n|\n|\r/", $areInfo->description);
+                        $filledRows += count($lines);
+                    @endphp
+
+                    @foreach ($lines as $index => $line)
+                        <tr>
+                            @if ($index === 0)
+                                <td style="text-align: center;">{{ $areInfo->quantity }}</td>
+                                <td style="text-align: center;">{{ $areInfo->unit }}</td>
+                                <td style="text-align: left;">{{ $line }}</td>
+                                <td style="text-align: center;">
+                                    {{ $areInfo->propertyYear }}-{{ $areInfo->propertyCode }}-{{ $areInfo->propertySubCode }}-{{ $areInfo->propertyCount }}-{{ $areInfo->propertyOffice }}
+                                </td>
+                                <td style="text-align: center;">{{ number_format($areInfo->unitCost, 2) }}</td>
+                                <td style="text-align: center;">{{ number_format($areInfo->totalValue, 2) }}</td>
+                                <td style="text-align: center;">{{ date('n/j/Y', strtotime($areInfo->dateAcquired)) }}
+                                </td>
+                            @else
+                                <td style="text-align: center;">&nbsp;</td>
+                                <td style="text-align: center;">&nbsp;</td>
+                                <td style="text-align: left;">{{ $line }}</td>
+                                <td style="text-align: center;">&nbsp;</td>
+                                <td style="text-align: center;">&nbsp;</td>
+                                <td style="text-align: center;">&nbsp;</td>
+                                <td style="text-align: center;">&nbsp;</td>
+                            @endif
+                        </tr>
+                    @endforeach
                 @endforeach
 
                 @for ($i = $filledRows; $i < $totalRows; $i++)

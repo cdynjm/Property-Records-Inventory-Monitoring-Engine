@@ -124,21 +124,40 @@
                 </tr>
 
                 @php
-                    $totalRows = 15;
-                    $filledRows = $ics->information->count();
+                    $totalRows = 20;
+                    $filledRows = 0;
                 @endphp
 
                 @foreach ($ics->information as $icsInfo)
-                    <tr>
-                        <td style="text-align: center;">{{ $icsInfo->quantity }}</td>
-                        <td style="text-align: center;">{{ $icsInfo->unit }}</td>
-                        <td style="text-align: left;">{!! nl2br(e($icsInfo->description)) !!}</td>
-                        <td style="text-align: center;">{{ $icsInfo->officeCode }}</td>
-                        <td style="text-align: center;">{{ $icsInfo->invItemNumber }}</td>
-                        <td style="text-align: center;">{{ date('n/j/Y', strtotime($icsInfo->dateAcquired)) }}</td>
-                        <td style="text-align: center;">{{ $icsInfo->estUsefulLife }}</td>
-                        <td style="text-align: center;">{{ number_format($icsInfo->unitCost, 2) }}</td>
-                    </tr>
+                    @php
+                        $lines = preg_split("/\r\n|\n|\r/", $icsInfo->description);
+                        $filledRows += count($lines);
+                    @endphp
+
+                    @foreach ($lines as $index => $line)
+                        <tr>
+                            @if ($index === 0)
+                                <td style="text-align: center;">{{ $icsInfo->quantity }}</td>
+                                <td style="text-align: center;">{{ $icsInfo->unit }}</td>
+                                <td style="text-align: left;">{{ $line }}</td>
+                                <td style="text-align: center;">{{ $icsInfo->officeCode }}</td>
+                                <td style="text-align: center;">{{ $icsInfo->invItemNumber }}</td>
+                                <td style="text-align: center;">{{ date('n/j/Y', strtotime($icsInfo->dateAcquired)) }}
+                                </td>
+                                <td style="text-align: center;">{{ $icsInfo->estUsefulLife }}</td>
+                                <td style="text-align: center;">{{ number_format($icsInfo->unitCost, 2) }}</td>
+                            @else
+                                <td style="text-align: center;">&nbsp;</td>
+                                <td style="text-align: center;">&nbsp;</td>
+                                <td style="text-align: left;">{{ $line }}</td>
+                                <td style="text-align: center;">&nbsp;</td>
+                                <td style="text-align: center;">&nbsp;</td>
+                                <td style="text-align: center;">&nbsp;</td>
+                                <td style="text-align: center;">&nbsp;</td>
+                                <td style="text-align: center;">&nbsp;</td>
+                            @endif
+                        </tr>
+                    @endforeach
                 @endforeach
 
                 @for ($i = $filledRows; $i < $totalRows; $i++)
@@ -153,6 +172,7 @@
                         <td style="text-align: center;">&nbsp;</td>
                     </tr>
                 @endfor
+
                 <tr>
                     <td colspan="3">
                         <div style="font-style: italic">Received by:</div>

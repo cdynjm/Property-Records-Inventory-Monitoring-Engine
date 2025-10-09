@@ -1,9 +1,9 @@
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
     @foreach ($ics as $index => $ic)
-        <div class="bg-white border rounded-lg shadow-sm hover:shadow-md transition p-4 flex flex-col">
-            <a wire:navigate href="{{ route('admin.edit-ics', ['encrypted_id' => $ic->encrypted_id]) }}">
+         <div class="bg-white border rounded-lg transition flex flex-col">
+            <a wire:navigate href="{{ route('admin.edit-ics', ['encrypted_id' => $ic->encrypted_id]) }}" class="flex-1">
                 {{-- Header / ARE Control Number --}}
-                <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center justify-between px-4 pt-4 mb-4">
                     <p class="font-bold flex items-center gap-2 text-[15px]">
                         <iconify-icon icon="fluent-color:document-text-28" width="22" height="22"></iconify-icon>
                         {{ $ic->icsNumber }}
@@ -11,11 +11,11 @@
                     <span class="text-gray-400 text-sm">#{{ $index + 1 }}</span>
                 </div>
 
-                {{-- ARE Information --}}
-                <div class="grid grid-cols-1 gap-3 mb-4">
+                {{-- ICS Information --}}
+                 <div class="grid grid-cols-1 gap-3 px-4 mb-4">
                     @foreach ($ic->information as $icsInfo)
                         <div class="p-2 border rounded-md bg-gray-50">
-                            <div class="flex items-center gap-2 mb-2">
+                            <div class="flex items-start gap-2 mb-2">
                                 <iconify-icon icon="solar:bag-check-line-duotone" class="text-green-500" width="18"
                                     height="18"></iconify-icon>
                                 <p class="text-[13px] leading-snug">
@@ -30,7 +30,7 @@
             </a>
 
             {{-- Received From / By --}}
-            <div class="text-[13px] mb-4">
+            <div class="text-[13px] px-4 mb-4">
                 <div>
                     <p class="font-semibold text-gray-500">Received From:</p>
                     <p>{{ $ic->receivedFrom->name }}</p>
@@ -47,7 +47,7 @@
             </div>
 
             {{-- Remarks --}}
-            <div class="mb-4">
+            <div class="px-4 mb-3">
                 <span
                     class="uppercase text-[12px] font-bold
                     {{ $ic->remarks === 'active' ? 'text-green-500' : 'text-red-500' }}">
@@ -56,18 +56,27 @@
             </div>
 
             {{-- Actions --}}
-            <div class="flex items-center gap-3 mt-auto">
-                <a wire:navigate href="{{ route('admin.edit-ics', ['encrypted_id' => $ic->encrypted_id]) }}">
-                    <iconify-icon icon="lets-icons:edit-duotone" width="22" height="22"></iconify-icon>
-                </a>
-                <flux:modal.trigger name="delete-ics">
-                    <a href="javascript:;" data-id="{{ $ic->encrypted_id }}" id="delete-ics">
-                        <iconify-icon icon="lets-icons:trash-duotone" width="22" height="22"></iconify-icon>
+            <div class="flex items-center justify-around mt-auto bg-gray-50 py-2 border-t rounded-b-lg">
+                <div class="flex flex-col items-center">
+                    <a wire:navigate href="{{ route('admin.edit-ics', ['encrypted_id' => $ic->encrypted_id]) }}">
+                        <iconify-icon icon="lets-icons:edit-duotone" width="22" height="22"></iconify-icon>
                     </a>
-                </flux:modal.trigger>
-                <a wire:navigate href="{{ route('admin.ics-print', ['encrypted_id' => $ic->encrypted_id]) }}">
-                    <iconify-icon icon="lets-icons:print-duotone" width="22" height="22"></iconify-icon>
-                </a>
+                    <span class="text-[11px] text-gray-600">Edit</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <a wire:navigate href="{{ route('admin.ics-print', ['encrypted_id' => $ic->encrypted_id]) }}">
+                        <iconify-icon icon="lets-icons:print-duotone" width="22" height="22"></iconify-icon>
+                    </a>
+                    <span class="text-[11px] text-gray-600">Print</span>
+                </div>
+                <div class="flex flex-col items-center text-red-500">
+                    <flux:modal.trigger name="delete-ics">
+                        <a href="javascript:;" data-id="{{ $ic->encrypted_id }}" id="delete-ics">
+                            <iconify-icon icon="lets-icons:trash-duotone" width="22" height="22"></iconify-icon>
+                        </a>
+                    </flux:modal.trigger>
+                    <span class="text-[11px] text-red-600">Delete</span>
+                </div>
             </div>
         </div>
     @endforeach
@@ -76,7 +85,8 @@
 @if ($ics->isEmpty())
     <div class="grid grid-cols-1 gap-6">
         <div class="bg-white border rounded-lg transition p-4 flex flex-col">
-            <iconify-icon icon="solar:sad-square-line-duotone" width="24" height="24" class="mb-3"></iconify-icon>
+            <iconify-icon icon="solar:sad-square-line-duotone" width="24" height="24"
+                class="mb-3"></iconify-icon>
             <small class="text-center text-gray-500">Sorry, no ICS records found.</small>
         </div>
     </div>
@@ -101,4 +111,3 @@
         {{ Session::get('success') }}
     </x-success-toast>
 @endif
-
