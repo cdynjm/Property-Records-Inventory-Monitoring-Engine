@@ -27,3 +27,4 @@ class AreRecords extends Component
         return view('components.admin.are-records');
     }
 }
+
