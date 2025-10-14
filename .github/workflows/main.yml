@@ -44,7 +44,7 @@ jobs:
       - name: 📂 Upload files via SCP
         uses: Burnett01/rsync-deployments@5.2
         with:
-          switches: -avzr
+          switches: -avzr --no-perms --no-owner --no-group \
             --exclude='.git*' \
             --exclude='.github' \
             --exclude='.env'
@@ -54,3 +54,4 @@ jobs:
           remote_user: ${{ secrets.USERNAME }}
           remote_key: ${{ secrets.SSH_PRIVATE_KEY }}
           remote_port: 22
+
