@@ -44,7 +44,7 @@ jobs:
       - name: 📂 Upload files via SCP
         uses: Burnett01/rsync-deployments@5.2
         with:
-          switches: -avzr --delete \
+          switches: -avzr
             --exclude='.git*' \
             --exclude='.github' \
             --exclude='.env'
