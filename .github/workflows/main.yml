@@ -58,6 +58,11 @@ jobs:
       # 9️⃣ Run Doppler on server (via SSH command)
       - name: 🔐 Load Doppler secrets on server
         run: |
-          ssh -o StrictHostKeyChecking=no -i "${{ secrets.SSH_PRIVATE_KEY }}" \
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > private_key.pem
+          chmod 600 private_key.pem
+
+          ssh -o StrictHostKeyChecking=no -i private_key.pem \
             ${{ secrets.USERNAME }}@${{ secrets.SERVER }} \
-            "cd ${{ secrets.TARGET }} && doppler secrets download --format=env --project prime --config production > .env"
+            "source ~/.bashrc && cd ${{ secrets.TARGET }} && doppler secrets download --format=env --project prime --config production > .env"
+
+          rm -f private_key.pem
