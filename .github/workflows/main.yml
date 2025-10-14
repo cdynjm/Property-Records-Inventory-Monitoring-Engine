@@ -14,7 +14,19 @@ jobs:
       - name: 🚚 Get latest code
         uses: actions/checkout@v4
 
-      # 2️⃣ Set up PHP (for Composer)
+      # 2️⃣ Install Doppler CLI
+      - name: 🧩 Install Doppler CLI
+        run: |
+          curl -Ls --compressed https://cli.doppler.com/install.sh | sh
+
+      # 3️⃣ Download .env from Doppler (production config)
+      - name: 🔐 Download secrets from Doppler
+        env:
+          DOPPLER_TOKEN: ${{ secrets.DOPPLER_TOKEN }}
+        run: |
+          doppler secrets download --format=env --project prime --config production > .env
+
+      # 4️⃣ Set up PHP (for Composer)
       - name: 🧩 Set up PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -22,33 +34,32 @@ jobs:
           extensions: mbstring, bcmath, intl
           tools: composer
 
-      # 3️⃣ Install Composer dependencies
+      # 5️⃣ Install Composer dependencies
       - name: 📦 Install Composer dependencies
         run: composer install --no-interaction --prefer-dist --optimize-autoloader
 
-      # 4️⃣ Set up Node.js (version 22)
+      # 6️⃣ Set up Node.js (for Vite or Mix)
       - name: ⚙️ Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
 
-      # 5️⃣ Install NPM dependencies
+      # 7️⃣ Install NPM dependencies
       - name: 📦 Install NPM dependencies
         run: npm install
 
-      # (Optional) 6️⃣ Build your assets (for Vite or Laravel Mix)
+      # 8️⃣ Build your frontend assets
       - name: 🏗️ Build assets
         run: npm run build
 
-      # 7️⃣ Deploy to your server via rsync
-      - name: 📂 Upload files via SCP
+      # 9️⃣ Deploy to your server via rsync (include .env this time)
+      - name: 📂 Upload files via rsync
         uses: Burnett01/rsync-deployments@5.2
         with:
-          switches: -avzr --exclude='.git*' --exclude='.env'
+          switches: -avzr --exclude='.git*'
           path: "./"
           remote_path: ${{ secrets.TARGET }}
           remote_host: ${{ secrets.SERVER }}
           remote_user: ${{ secrets.USERNAME }}
           remote_key: ${{ secrets.SSH_PRIVATE_KEY }}
           remote_port: 22
-
