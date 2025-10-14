@@ -20,11 +20,11 @@ jobs:
           curl -Ls --compressed https://cli.doppler.com/install.sh | sh
 
       # 3️⃣ Download .env from Doppler (production config)
-      - name: 🔐 Download secrets from Doppler
-        env:
-          DOPPLER_TOKEN: ${{ secrets.DOPPLER_TOKEN }}
+      # 2️⃣ Install Doppler CLI (user-level, no sudo)
+      - name: 🧩 Install Doppler CLI
         run: |
-          doppler secrets download --format=env --project prime --config production > .env
+          curl -Ls https://cli.doppler.com/install.sh | bash -s -- --no-install-system-wide
+          echo "$HOME/.doppler/bin" >> $GITHUB_PATH
 
       # 4️⃣ Set up PHP (for Composer)
       - name: 🧩 Set up PHP
