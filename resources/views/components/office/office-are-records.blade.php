@@ -15,12 +15,13 @@
                 <div class="grid grid-cols-1 gap-3 px-4 mb-4">
                     @foreach ($ar->information as $areInfo)
                         <div class="p-2 border rounded-md bg-gray-50">
-                            <div class="flex items-start gap-2 mb-1">
+                            <div class="flex items-start gap-2 mb-2">
                                 <iconify-icon icon="solar:bag-check-line-duotone" class="text-green-500" width="18" height="18"></iconify-icon>
                                 <p class="text-[13px] leading-snug">{!! nl2br(e($areInfo->description)) !!}</p>
                             </div>
-                            <p class="text-[12px]"><span class="font-semibold">PPE:</span> {{ $areInfo->accountsCode->description }}</p>
-                            <p class="text-[12px]"><span class="font-semibold">Quantity:</span> {{ $areInfo->quantity }} {{ $areInfo->unit }}</p>
+                            <p class="text-[12px]"><span class="font-semibold mr-1">Quantity:</span> {{ $areInfo->quantity }} {{ $areInfo->unit }}</p>
+                            <p class="text-[12px]"><span class="font-semibold mr-1">Property No.</span> {{ $areInfo->propertyNumber }}</p>
+                            <p class="text-[12px]"><span class="font-semibold mr-1">PPE:</span> {{ $areInfo->accountsCode->description }}</p>
                         </div>
                     @endforeach
                 </div>
@@ -56,7 +57,7 @@
             <div class="flex items-center justify-around mt-auto bg-gray-50 py-2 border-t rounded-b-lg">
                 <div class="flex flex-col items-center">
                     <a wire:navigate href="{{ route('office.are-print', ['encrypted_id' => $ar->encrypted_id]) }}">
-                        <iconify-icon icon="lets-icons:print-duotone" width="22" height="22"></iconify-icon>
+                        <iconify-icon icon="lets-icons:print-duotone" width="22" height="22" class="text-gray-500"></iconify-icon>
                     </a>
                     <span class="text-[11px] text-gray-600">Print</span>
                 </div>

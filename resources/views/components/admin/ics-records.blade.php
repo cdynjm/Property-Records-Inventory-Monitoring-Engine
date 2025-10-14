@@ -59,13 +59,13 @@
             <div class="flex items-center justify-around mt-auto bg-gray-50 py-2 border-t rounded-b-lg">
                 <div class="flex flex-col items-center">
                     <a wire:navigate href="{{ route('admin.edit-ics', ['encrypted_id' => $ic->encrypted_id]) }}">
-                        <iconify-icon icon="lets-icons:edit-duotone" width="22" height="22"></iconify-icon>
+                        <iconify-icon icon="lets-icons:edit-duotone" width="22" height="22" class="text-gray-500"></iconify-icon>
                     </a>
                     <span class="text-[11px] text-gray-600">Edit</span>
                 </div>
                 <div class="flex flex-col items-center">
                     <a wire:navigate href="{{ route('admin.ics-print', ['encrypted_id' => $ic->encrypted_id]) }}">
-                        <iconify-icon icon="lets-icons:print-duotone" width="22" height="22"></iconify-icon>
+                        <iconify-icon icon="lets-icons:print-duotone" width="22" height="22" class="text-gray-500"></iconify-icon>
                     </a>
                     <span class="text-[11px] text-gray-600">Print</span>
                 </div>
@@ -75,7 +75,7 @@
                             <iconify-icon icon="lets-icons:trash-duotone" width="22" height="22"></iconify-icon>
                         </a>
                     </flux:modal.trigger>
-                    <span class="text-[11px] text-red-600">Delete</span>
+                    <span class="text-[11px] text-red-500">Delete</span>
                 </div>
             </div>
         </div>

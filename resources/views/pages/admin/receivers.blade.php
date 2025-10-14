@@ -48,7 +48,7 @@
                             <a wire:navigate
                                 href="{{ route('admin.receivers-property-inventory-records', ['encrypted_id' => $rb->encrypted_id]) }}">
                                 <iconify-icon icon="lets-icons:view-duotone" width="24"
-                                    height="24"></iconify-icon>
+                                    height="24" class="text-gray-500"></iconify-icon>
                             </a>
 
                         </td>

@@ -7,10 +7,11 @@ trait HasKeywordSearch
     public function searchARE($query, $search)
     {
         return $query->where(function ($q) use ($search) {
-            $q->where('areControlNumber', 'like', "%{$search}%")
-              ->orWhere('receivedBy', 'like', "%{$search}%")
+            $q->where('areControlNumber', 'like', "{$search}%")
+              ->orWhere('receivedBy', 'like', "{$search}%")
               ->orWhereHas('information', function ($infoQuery) use ($search) {
-                  $infoQuery->where('description', 'like', "%{$search}%");
+                  $infoQuery->where('description', 'like', "{$search}%")
+                        ->orWhere('propertyNumber', 'like', "{$search}%");
               });
         });
     }
@@ -18,10 +19,10 @@ trait HasKeywordSearch
     public function searchICS($query, $search)
     {
         return $query->where(function ($q) use ($search) {
-            $q->where('icsNumber', 'like', "%{$search}%")
-              ->orWhere('receivedBy', 'like', "%{$search}%")
+            $q->where('icsNumber', 'like', "{$search}%")
+              ->orWhere('receivedBy', 'like', "{$search}%")
               ->orWhereHas('information', function ($infoQuery) use ($search) {
-                  $infoQuery->where('description', 'like', "%{$search}%");
+                  $infoQuery->where('description', 'like', "{$search}%");
               });
         });
     }

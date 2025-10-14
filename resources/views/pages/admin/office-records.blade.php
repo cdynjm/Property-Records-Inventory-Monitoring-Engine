@@ -27,22 +27,22 @@
                         </td>
                         <td class="border-b border-gray-100 px-4 py-2 whitespace-nowrap">{{ $of->officeCode }}</td>
                         <td class="border-b border-gray-100 px-4 py-2 text-center whitespace-nowrap">
+                            <a wire:navigate href="{{ route('admin.office-property-inventory-records', ['encrypted_id' => $of->encrypted_id]) }}">
+                                <iconify-icon icon="lets-icons:view-duotone" width="24"
+                                    height="24" class="text-gray-500"></iconify-icon>
+                            </a>
                             <flux:modal.trigger name="edit-office">
                                 <a href="javascript:;" id="admin-edit-office" data-id="{{ $of->encrypted_id }}"
                                     data-name="{{ $of->officeName }}" data-code="{{ $of->officeCode }}"
                                     data-username="{{ $of->user->email }}">
                                     <iconify-icon icon="lets-icons:edit-duotone" width="24"
-                                        height="24"></iconify-icon>
+                                        height="24" class="text-gray-500"></iconify-icon>
                                 </a>
                             </flux:modal.trigger>
-                             <a wire:navigate href="{{ route('admin.office-property-inventory-records', ['encrypted_id' => $of->encrypted_id]) }}">
-                                <iconify-icon icon="lets-icons:view-duotone" width="24"
-                                    height="24"></iconify-icon>
-                            </a>
                             <flux:modal.trigger name="delete-office">
                                 <a href="javascript:;" id="admin-delete-office" data-id="{{ $of->encrypted_id }}">
                                     <iconify-icon icon="lets-icons:trash-duotone" width="24"
-                                        height="24"></iconify-icon>
+                                        height="24" class="text-red-500"></iconify-icon>
                                 </a>
                             </flux:modal.trigger>
                         </td>

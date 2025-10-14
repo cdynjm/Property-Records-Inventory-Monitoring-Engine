@@ -32,19 +32,19 @@
                             <a wire:navigate
                                 href="{{ route('admin.issuers-property-inventory-records', ['encrypted_id' => $rf->encrypted_id]) }}">
                                 <iconify-icon icon="lets-icons:view-duotone" width="24"
-                                    height="24"></iconify-icon>
+                                    height="24" class="text-gray-500"></iconify-icon>
                             </a>
                             <flux:modal.trigger name="edit-issuer">
                                 <a href="javascript:;" id="edit-issuer" data-id="{{ $rf->encrypted_id }}"
                                     data-name="{{ $rf->name }}" data-position="{{ $rf->position }}">
                                     <iconify-icon icon="lets-icons:edit-duotone" width="24"
-                                        height="24"></iconify-icon>
+                                        height="24" class="text-gray-500"></iconify-icon>
                                 </a>
                             </flux:modal.trigger>
                             <flux:modal.trigger name="delete-issuer">
                                 <a href="javascript:;" id="delete-issuer" data-id="{{ $rf->encrypted_id }}">
                                     <iconify-icon icon="lets-icons:trash-duotone" width="24"
-                                        height="24"></iconify-icon>
+                                        height="24" class="text-red-500"></iconify-icon>
                                 </a>
                             </flux:modal.trigger>
                         </td>

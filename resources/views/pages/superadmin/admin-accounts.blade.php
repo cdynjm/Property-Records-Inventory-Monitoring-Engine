@@ -24,12 +24,12 @@
                         <flux:modal.trigger name="edit-admin">
                             <a href="javascript:;" id="edit-admin" data-id="{{ $ad->encrypted_id }}"
                                 data-name="{{ $ad->name }}" data-username="{{ $ad->email }}">
-                                <iconify-icon icon="lets-icons:edit-duotone" width="24" height="24"></iconify-icon>
+                                <iconify-icon icon="lets-icons:edit-duotone" width="24" height="24" class="text-gray-500"></iconify-icon>
                             </a>
                         </flux:modal.trigger>
                         <flux:modal.trigger name="delete-admin">
                             <a href="javascript:;" id="delete-admin" data-id="{{ $ad->encrypted_id }}">
-                                <iconify-icon icon="lets-icons:trash-duotone" width="24" height="24"></iconify-icon>
+                                <iconify-icon icon="lets-icons:trash-duotone" width="24" height="24" class="text-red-500"></iconify-icon>
                             </a>
                         </flux:modal.trigger>
                     </td>

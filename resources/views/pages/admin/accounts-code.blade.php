@@ -62,7 +62,7 @@
                             <a wire:navigate
                                 href="{{ route('admin.accounts-code-property-inventory-records', ['encrypted_id' => $ac->encrypted_id]) }}">
                                 <iconify-icon icon="lets-icons:view-duotone" width="24"
-                                    height="24"></iconify-icon>
+                                    height="24" class="text-gray-500"></iconify-icon>
                             </a>
                             <flux:modal.trigger name="edit-account">
                                 <a href="javascript:;" id="edit-account" data-id="{{ $ac->encrypted_id }}"
@@ -70,13 +70,13 @@
                                     data-property-sub-code="{{ $ac->propertySubCode }}"
                                     data-description="{{ $ac->description }}">
                                     <iconify-icon icon="lets-icons:edit-duotone" width="24"
-                                        height="24"></iconify-icon>
+                                        height="24" class="text-gray-500"></iconify-icon>
                                 </a>
                             </flux:modal.trigger>
                             <flux:modal.trigger name="delete-account">
                                 <a href="javascript:;" id="delete-account" data-id="{{ $ac->encrypted_id }}">
                                     <iconify-icon icon="lets-icons:trash-duotone" width="24"
-                                        height="24"></iconify-icon>
+                                        height="24" class="text-red-500"></iconify-icon>
                                 </a>
                             </flux:modal.trigger>
                         </td>
