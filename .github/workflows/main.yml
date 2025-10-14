@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - dependencies
+      - master
 
 name: 🚀 Deploy website on push
 
