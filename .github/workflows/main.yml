@@ -10,6 +10,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
+      # 4️⃣ Set up Node.js (version 22)
+      - name: ⚙️ Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # 5️⃣ Install NPM dependencies
+      - name: 📦 Install NPM dependencies
+        run: npm install
+        
       # (Optional) 6️⃣ Build your assets (for Vite or Laravel Mix)
       - name: 🏗️ Build assets
         run: npm run build
