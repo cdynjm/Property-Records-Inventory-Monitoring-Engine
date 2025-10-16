@@ -1,85 +1,100 @@
-<div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+<x-table>
+    <x-slot:head>
+        <th class="border border-gray-200 px-4 py-2 text-[13px] text-center text-nowrap">#</th>
+        <th class="border border-gray-200 px-4 py-2 text-[13px] text-start text-nowrap">ICS Number</th>
+        <th class="border border-gray-200 px-4 py-2 text-[13px] text-start text-nowrap">Item Description</th>
+        <th class="border border-gray-200 px-4 py-2 text-[13px] text-center text-nowrap">Inventory Item No.</th>
+        <th class="border border-gray-200 px-4 py-2 text-[13px] text-start text-nowrap">Personnel</th>
+        <th class="border border-gray-200 px-4 py-2 text-[13px] text-center text-nowrap">Actions</th>
+    </x-slot:head>
+
     @foreach ($ics as $index => $ic)
-         <div class="bg-white border rounded-lg transition flex flex-col">
-            <a wire:navigate href="{{ route('admin.edit-ics', ['encrypted_id' => $ic->encrypted_id]) }}" class="flex-1">
-                {{-- Header / ARE Control Number --}}
-                <div class="flex items-center justify-between px-4 pt-4 mb-4">
-                    <p class="font-bold flex items-center gap-2 text-[15px]">
-                        <iconify-icon icon="fluent-color:document-text-28" width="22" height="22"></iconify-icon>
+        @foreach ($ic->information as $infoIndex => $icsInfo)
+            <x-table-row>
+                @if ($infoIndex === 0)
+                    <td class="border border-gray-200 px-4 py-2 text-center align-middle whitespace-nowrap"
+                        rowspan="{{ count($ic->information) }}">
+                        {{ $index + 1 }}
+                    </td>
+                    <td class="border border-gray-200 py-2 align-middle text-nowrap" rowspan="{{ count($ic->information) }}">
+                        <div class="flex items-center justify-between px-4 pt-4 mb-4">
+                    <p class="font-bold flex items-center gap-2 text-[13px]">
+                        <iconify-icon icon="fluent-color:document-text-28" width="20" height="20"></iconify-icon>
                         {{ $ic->icsNumber }}
                     </p>
-                    <span class="text-gray-400 text-sm">#{{ $index + 1 }}</span>
+                   
                 </div>
+                    </td>
+                @endif
+                    
+                {{-- Item Description --}}
+                <td class="border border-gray-200 px-4 py-2 align-middle text-nowrap xl:text-wrap">
+                    <div class="flex items-start gap-2">
+                        <iconify-icon icon="solar:bag-check-line-duotone" class="text-green-500" width="18"
+                            height="18"></iconify-icon>
+                        <p class="text-[13px] leading-snug">{!! nl2br(e($icsInfo->description)) !!}</p>
+                    </div>
+                    <p class="text-[12px] mt-1">
+                        <span class="font-semibold mr-1">Quantity:</span>
+                        {{ $icsInfo->quantity }} {{ $icsInfo->unit }}
+                    </p>
+                    <p class="text-[12px]">
+                        <span class="font-semibold mr-1">Date Acquired:</span>
+                        {{ $icsInfo->dateAcquired ? date('M d, Y', strtotime($icsInfo->dateAcquired)) : '-' }}
+                    </p>
+                </td>
 
-                {{-- ICS Information --}}
-                 <div class="grid grid-cols-1 gap-3 px-4 mb-4">
-                    @foreach ($ic->information as $icsInfo)
-                        <div class="p-2 border rounded-md bg-gray-50">
-                            <div class="flex items-start gap-2 mb-2">
-                                <iconify-icon icon="solar:bag-check-line-duotone" class="text-green-500" width="18"
-                                    height="18"></iconify-icon>
-                                <p class="text-[13px] leading-snug">
-                                    {!! nl2br(e($icsInfo->description)) !!}
-                                </p>
+                {{-- Property Number --}}
+                <td class="border border-gray-200 text-center px-4 py-2 align-middle text-[13px] whitespace-nowrap">
+                    {{ $icsInfo->invItemNumber }}
+                </td>
+
+                {{-- Only show personnel and actions once per ARE --}}
+                @if ($infoIndex === 0)
+                    <td class="border border-gray-200 px-4 py-2 align-middle whitespace-nowrap"
+                        rowspan="{{ count($ic->information) }}">
+                        <div class="text-[13px]">
+                            <div class="mb-4">
+                                <p class="font-semibold text-gray-500">Received From:</p>
+                                <p>{{ $ic->receivedFrom->name }}</p>
+                                <p class="text-gray-500">{{ date('M d, Y', strtotime($ic->dateReceivedFrom)) }}</p>
                             </div>
-                            <p class="text-[12px]"><span class="font-semibold">Quantity:</span>
-                                {{ $icsInfo->quantity }} {{ $icsInfo->unit }}</p>
+
+                            <div>
+                                <p class="font-semibold text-gray-500">Received By:</p>
+                                <p>{{ $ic->receivedBy != null ? $ic->receivedBy : '-' }}</p>
+                                @if ($ic->dateReceivedBy)
+                                    <p class="text-gray-500">{{ date('M d, Y', strtotime($ic->dateReceivedBy)) }}</p>
+                                @endif
+                            </div>
                         </div>
-                    @endforeach
-                </div>
-            </a>
+                    </td>
 
-            {{-- Received From / By --}}
-            <div class="text-[13px] px-4 mb-4">
-                <div>
-                    <p class="font-semibold text-gray-500">Received From:</p>
-                    <p>{{ $ic->receivedFrom->name }}</p>
-                    <p class="text-gray-500">{{ date('M d, Y', strtotime($ic->dateReceivedFrom)) }}</p>
-                </div>
-                <hr class="my-3">
-                <div>
-                    <p class="font-semibold text-gray-500">Received By:</p>
-                    <p>{{ $ic->receivedBy != null ? $ic->receivedBy : '-' }}</p>
-                    @if ($ic->dateReceivedBy)
-                        <p class="text-gray-500">{{ date('M d, Y', strtotime($ic->dateReceivedBy)) }}</p>
-                    @endif
-                </div>
-            </div>
-
-            {{-- Remarks --}}
-            <div class="px-4 mb-3">
-                <span
-                    class="uppercase text-[12px] font-bold
-                    {{ $ic->remarks === 'active' ? 'text-green-500' : 'text-red-500' }}">
-                    {{ $ic->remarks }}
-                </span>
-            </div>
-
-            {{-- Actions --}}
-            <div class="flex items-center justify-around mt-auto bg-gray-50 py-2 border-t rounded-b-lg">
-                <div class="flex flex-col items-center">
-                    <a wire:navigate href="{{ route('office.ics-print', ['encrypted_id' => $ic->encrypted_id]) }}">
-                        <iconify-icon icon="lets-icons:print-duotone" width="22" height="22" class="text-gray-500"></iconify-icon>
-                    </a>
-                    <span class="text-[11px] text-gray-600">Print</span>
-                </div>
-            </div>
-        </div>
+                    <td class="border border-gray-200 px-4 py-2 align-middle whitespace-nowrap"
+                        rowspan="{{ count($ic->information) }}">
+                        <div class="flex items-center justify-around gap-2">
+                            <div class="flex flex-col items-center">
+                                <a wire:navigate
+                                    href="{{ route('office.ics-print', ['encrypted_id' => $ic->encrypted_id]) }}">
+                                    <iconify-icon icon="lets-icons:print-duotone" width="22" height="22"
+                                        class="text-gray-500"></iconify-icon>
+                                </a>
+                                <span class="text-[11px] text-gray-600">Print</span>
+                            </div>
+                        </div>
+                    </td>
+                @endif
+            </x-table-row>
+        @endforeach
     @endforeach
-</div>
+</x-table>
 
 @if ($ics->isEmpty())
     <div class="grid grid-cols-1 gap-6">
         <div class="bg-white border rounded-lg transition p-4 flex flex-col">
-            <iconify-icon icon="solar:sad-square-line-duotone" width="24" height="24" class="mb-3"></iconify-icon>
+            <iconify-icon icon="solar:sad-square-line-duotone" width="24" height="24"
+                class="mb-3"></iconify-icon>
             <small class="text-center text-gray-500">Sorry, no ICS records found.</small>
         </div>
     </div>
 @endif
-
-@if (Session::get('success'))
-    <x-success-toast>
-        {{ Session::get('success') }}
-    </x-success-toast>
-@endif
-
