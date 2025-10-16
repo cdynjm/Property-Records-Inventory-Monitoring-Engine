@@ -1,6 +1,6 @@
 <div class="overflow-x-auto">
     <table class="min-w-full text-sm">
-        <thead class="bg-gray-100">
+        <thead class="bg-green-50">
             <tr class="border-none">
                 {{ $head }}
             </tr>
