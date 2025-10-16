@@ -17,31 +17,39 @@
                 </x-slot:head>
 
                 @foreach ($admins as $index => $ad)
-                <x-table-row class="">
-                    <td class="border-b border-gray-100 px-4 py-2 text-center whitespace-nowrap">{{ $index + 1 }}</td>
-                    <td class="border-b border-gray-100 px-4 py-2 whitespace-nowrap">{{ $ad->name }}</td>
-                    <td class="border-b border-gray-100 px-4 py-2 text-center whitespace-nowrap">
-                        <flux:modal.trigger name="edit-admin">
-                            <a href="javascript:;" id="edit-admin" data-id="{{ $ad->encrypted_id }}"
-                                data-name="{{ $ad->name }}" data-username="{{ $ad->email }}">
-                                <iconify-icon icon="lets-icons:edit-duotone" width="24" height="24" class="text-gray-500"></iconify-icon>
-                            </a>
-                        </flux:modal.trigger>
-                        <flux:modal.trigger name="delete-admin">
-                            <a href="javascript:;" id="delete-admin" data-id="{{ $ad->encrypted_id }}">
-                                <iconify-icon icon="lets-icons:trash-duotone" width="24" height="24" class="text-red-500"></iconify-icon>
-                            </a>
-                        </flux:modal.trigger>
-                    </td>
-                </x-table-row>
+                    <x-table-row class="">
+                        <td class="  px-4 py-2 text-center whitespace-nowrap">{{ $index + 1 }}
+                        </td>
+                        <td class="  px-4 py-2 whitespace-nowrap">{{ $ad->name }}</td>
+                        <td class="  px-4 py-2 text-center whitespace-nowrap">
+                            <div class="flex items-center justify-center gap-2">
+                                <div class="flex flex-col items-center">
+                                    <flux:modal.trigger name="edit-admin">
+                                        <a href="javascript:;" id="edit-admin" data-id="{{ $ad->encrypted_id }}"
+                                            data-name="{{ $ad->name }}" data-username="{{ $ad->email }}">
+                                            <small class="text-gray-500">Edit</small>
+                                        </a>
+                                    </flux:modal.trigger>
+                                </div>
+                                <div class="flex flex-col items-center text-red-500">
+                                    <flux:modal.trigger name="delete-admin">
+                                        <a href="javascript:;" id="delete-admin" data-id="{{ $ad->encrypted_id }}" class="mt-1">
+                                            <iconify-icon icon="lets-icons:trash-duotone" width="24" height="24"
+                                                class="text-red-500"></iconify-icon>
+                                        </a>
+                                    </flux:modal.trigger>
+                                </div>
+                            </div>
+                        </td>
+                    </x-table-row>
                 @endforeach
 
                 @if ($admins->isEmpty())
-                <x-table-row>
-                    <td colspan="4" class="border-b border-gray-100 px-4 py-2 text-center text-gray-500">No admin
-                        accounts
-                        found.</td>
-                </x-table-row>
+                    <x-table-row>
+                        <td colspan="4" class="  px-4 py-2 text-center text-gray-500">No admin
+                            accounts
+                            found.</td>
+                    </x-table-row>
                 @endif
             </x-table>
         </div>
@@ -56,7 +64,8 @@
         <form action="" id="create-admin">
             <flux:input label="Name" placeholder="Name" class="mb-4" name="name" required />
             <flux:input label="Username" placeholder="Username" class="mb-4" name="username" required />
-            <flux:input label="Password" type="password" placeholder="Password" class="mb-4" name="password" viewable required />
+            <flux:input label="Password" type="password" placeholder="Password" class="mb-4" name="password" viewable
+                required />
             <div class="flex">
                 <flux:spacer />
                 <flux:button type="button" variant="outline" class="me-3"
@@ -73,8 +82,10 @@
         </x-slot>
         <form action="" id="update-admin">
             <flux:input label="Name" placeholder="Name" class="mb-4" id="admin-name" name="name" required />
-            <flux:input label="Username" placeholder="Username" class="mb-4" id="username" name="username" required />
-            <flux:input label="New Password" type="password" placeholder="Password" class="mb-4" name="password" viewable />
+            <flux:input label="Username" placeholder="Username" class="mb-4" id="username" name="username"
+                required />
+            <flux:input label="New Password" type="password" placeholder="Password" class="mb-4" name="password"
+                viewable />
 
             <div class="flex">
                 <flux:spacer />
@@ -93,16 +104,17 @@
         </x-slot>
         <div class="flex">
             <flux:spacer />
-            <flux:button type="button" variant="outline" class="me-3" x-on:click="$flux.modal('delete-admin').close()">
+            <flux:button type="button" variant="outline" class="me-3"
+                x-on:click="$flux.modal('delete-admin').close()">
                 Cancel</flux:button>
             <flux:button type="submit" variant="danger" id="delete-admin-btn">Delete</flux:button>
         </div>
     </x-modal>
 
     @if (Session::get('success'))
-    <x-success-toast>
-        {{ Session::get('success') }}
-    </x-success-toast>
+        <x-success-toast>
+            {{ Session::get('success') }}
+        </x-success-toast>
     @endif
 
 </x-layouts.app>
