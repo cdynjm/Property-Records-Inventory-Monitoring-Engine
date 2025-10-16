@@ -106,8 +106,8 @@ document.addEventListener("scroll", () => {
     const header = document.getElementById("app-header");
     if (!header) return;
     if (window.scrollY > 10) {
-        header.classList.add("border-b");
+        header.classList.add("shadow-sm");
     } else {
-        header.classList.remove("border-b");
+        header.classList.remove("shadow-sm");
     }
 });

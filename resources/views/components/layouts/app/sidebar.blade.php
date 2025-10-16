@@ -208,10 +208,10 @@
 
     <!-- Mobile User Menu -->
     <flux:header id="app-header"
-        class="fixed top-0 left-0 lg:left-64 lg:w-[calc(100%-16rem)] w-full bg-white transition-all duration-300">
+        class="fixed top-0 left-0 lg:left-64 lg:w-[calc(100%-16rem)] w-full bg-white">
 
         <flux:sidebar.toggle class="lg:hidden" icon="bars-2" inset="left" />
-        <div>
+        <div class="hidden lg:block">
             <flux:breadcrumbs>
                 <flux:breadcrumbs.item href="#" icon="home" />
                 <flux:breadcrumbs.item href="#" class="capitalize">{{ auth()->user()->role }}
@@ -219,12 +219,19 @@
                 <flux:breadcrumbs.item>{{ $title }}</flux:breadcrumbs.item>
             </flux:breadcrumbs>
         </div>
+        <di class="flex items-center lg:hidden gap-2">
+            <img src="{{ asset('/img/PRIME.png?new') }}" class="h-auto w-8" alt="" draggable="false">
+            <div class="text-gray-300">|</div>
+            <div class="font-bold text-[14px] text-gray-600">
+                PRIME
+            </div>
+        </di>
         <flux:spacer />
 
         <flux:dropdown position="top" align="end">
 
             <div class="flex items-center gap-2">
-                <span class="hidden sm:inline font-medium text-sm">
+                <span class=" font-medium text-sm">
                     {{ auth()->user()->name }}
                 </span>
                 <flux:profile avatar="{{ asset('/img/user.png') }}" :initials="auth()->user()->initials()" circle
@@ -235,10 +242,10 @@
                     <div class="p-0 text-sm font-normal">
                         <div class="flex items-center gap-2 px-1 py-1.5 text-start text-sm">
                             <span class="relative flex h-8 w-8 shrink-0 overflow-hidden rounded-lg">
-                                <span33333333
+                                <span
                                     class="flex h-full w-full items-center justify-center rounded-full bg-transparent text-black dark:bg-neutral-700 dark:text-white">
                                     <img src="{{ asset('/img/user.png') }}" alt="">
-                                    </span333333>
+                                    </span>
                             </span>
 
                             <div class="grid flex-1 text-start text-sm leading-tight">
