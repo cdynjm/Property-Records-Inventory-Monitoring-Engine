@@ -3,7 +3,7 @@
     'description',
 ])
 
-<div class="flex w-full items-center gap-4">
+<div class="flex w-full items-center justify-center gap-4">
     <!-- Logo -->
     <img src="{{ asset('/img/PRIME.png?new') }}" class="h-auto w-10" alt="" draggable="false">
 

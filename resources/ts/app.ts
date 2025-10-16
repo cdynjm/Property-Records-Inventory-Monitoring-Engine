@@ -1,6 +1,6 @@
 import "iconify-icon";
 
-import './components/chart'
+import "./components/chart";
 
 import "./admin";
 import "./office";
@@ -62,7 +62,8 @@ interface SkeletonEvent extends Event {
 }
 
 function handleSkeleton(event: SkeletonEvent): void {
-    const loader: HTMLElement | null = document.getElementById("skeleton-loader");
+    const loader: HTMLElement | null =
+        document.getElementById("skeleton-loader");
     const currentUrl: string = window.location.pathname;
 
     if (currentUrl === "/login" || !loader) {
@@ -71,7 +72,9 @@ function handleSkeleton(event: SkeletonEvent): void {
         return;
     }
 
-    let visitedPages: string[] = JSON.parse(localStorage.getItem("visitedPages") || "[]");
+    let visitedPages: string[] = JSON.parse(
+        localStorage.getItem("visitedPages") || "[]"
+    );
     const fromLivewire: boolean = event.type === "livewire:navigated";
 
     if (!visitedPages.includes(currentUrl)) {
@@ -99,3 +102,12 @@ function handleSkeleton(event: SkeletonEvent): void {
 document.addEventListener("DOMContentLoaded", handleSkeleton);
 document.addEventListener("livewire:navigated", handleSkeleton);
 
+document.addEventListener("scroll", () => {
+    const header = document.getElementById("app-header");
+    if (!header) return;
+    if (window.scrollY > 10) {
+        header.classList.add("border-b");
+    } else {
+        header.classList.remove("border-b");
+    }
+});

@@ -8,8 +8,8 @@
 <body class="min-h-screen flex flex-col bg-zinc-100 antialiased">
 
     <!-- Main container -->
-    <div class="flex flex-1 items-center justify-center px-4 py-12">
-        <div class="bg-white shadow-none rounded-lg flex flex-col lg:flex-row overflow-hidden w-full max-w-4xl">
+    <div class="flex flex-1 items-center justify-center px-4 py-12 mt-4">
+        <div class="bg-white rounded-lg flex flex-col lg:flex-row overflow-hidden w-full max-w-4xl">
 
             <!-- Left Illustration -->
             <div class="hidden lg:flex w-1/2 bg-gray-50 items-center justify-start p-8 flex-col">
@@ -63,53 +63,51 @@
                         ensuring consistent efficiency and reliability throughout!
                     </span>
                 </div>
-
-
-                <!-- Help Desk Image & Text for small screens only -->
-                <div class="lg:hidden mt-6 flex flex-col items-center justify-center p-6">
-
-                    <!-- Image on top -->
-                    <img src="{{ asset('/img/help-desk.png') }}" alt="Login Illustration" draggable="false"
-                        class="max-h-[200px] object-contain mb-4">
-
-                    <!-- Text below image -->
-                    <h6 class="mb-1 text-gray-800 flex items-center text-[15px] justify-center">
-                        Need technical assistance? Chat
-                        <iconify-icon icon="marketeq:chat-4" width="27" height="27"
-                            class="ml-1"></iconify-icon>
-                    </h6>
-
-                    <h3 class="text-green-600 font-bold text-[20px] mb-1 text-center">JEMUEL CADAYONA</h3>
-
-                    <div class="mb-2 text-center">
-                        <small class="text-[14px]">Software Developer</small>
-                    </div>
-
-                    <hr class="my-2 w-full">
-
-                    <a href="/messenger/120"
-                        class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded uppercase text-[11px] inline-block mt-2">
-                        Click to Chat
-                    </a>
-
-                    <div class="mb-4 mt-2 text-center">
-                        <a href="https://jemcdyn.vercel.app/" target="_blank"
-                            class="text-gray-600 underline flex items-center justify-center">
-                            <iconify-icon icon="logos:webkit" width="25" height="25"
-                                class="mr-2"></iconify-icon>
-                            https://jemcdyn.vercel.app/
-                        </a>
-                    </div>
-
-                </div>
             </div>
 
         </div>
     </div>
 
-    <div class=" px-0 md:px-50 mb-10">
+    <div class=" px-0 md:px-50 mb-0 md:mb-10">
         <x-guest-footer />
     </div>
+
+    <!-- Help Desk Image & Text for small screens only -->
+    <div class="lg:hidden flex flex-col items-center justify-center p-6">
+
+        <!-- Image on top -->
+        <img src="{{ asset('/img/help-desk.png') }}" alt="Login Illustration" draggable="false"
+            class="max-h-[200px] object-contain mb-4">
+
+        <!-- Text below image -->
+        <h6 class="mb-1 text-gray-800 flex items-center text-[15px] justify-center">
+            Need technical assistance? Chat
+            <iconify-icon icon="marketeq:chat-4" width="27" height="27" class="ml-1"></iconify-icon>
+        </h6>
+
+        <h3 class="text-green-600 font-bold text-[20px] mb-1 text-center">JEMUEL CADAYONA</h3>
+
+        <div class="mb-2 text-center">
+            <small class="text-[14px]">Software Developer</small>
+        </div>
+
+        <hr class="my-2 w-full">
+
+        <a href="/messenger/120"
+            class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded uppercase text-[11px] inline-block mt-2">
+            Click to Chat
+        </a>
+
+        <div class="mb-4 mt-2 text-center">
+            <a href="https://jemcdyn.vercel.app/" target="_blank"
+                class="text-gray-600 underline flex items-center justify-center">
+                <iconify-icon icon="logos:webkit" width="25" height="25" class="mr-2"></iconify-icon>
+                https://jemcdyn.vercel.app/
+            </a>
+        </div>
+
+    </div>
+
 
     @fluxScripts
 </body>

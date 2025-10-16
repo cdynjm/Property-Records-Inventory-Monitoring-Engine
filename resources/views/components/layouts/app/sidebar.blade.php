@@ -207,7 +207,9 @@
     </flux:sidebar>
 
     <!-- Mobile User Menu -->
-    <flux:header class="">
+    <flux:header id="app-header"
+        class="fixed top-0 left-0 lg:left-64 lg:w-[calc(100%-16rem)] w-full bg-white z-50 transition-all duration-300">
+
         <flux:sidebar.toggle class="lg:hidden" icon="bars-2" inset="left" />
         <div>
             <flux:breadcrumbs>
