@@ -16,17 +16,21 @@
                         rowspan="{{ count($ic->information) }}">
                         {{ $index + 1 }}
                     </td>
-                    <td class="border border-gray-200 py-2 align-middle text-nowrap" rowspan="{{ count($ic->information) }}">
+                    <td class="border border-gray-200 py-2 align-middle text-nowrap"
+                        rowspan="{{ count($ic->information) }}">
                         <div class="flex items-center justify-between px-4 pt-4 mb-4">
-                    <p class="font-bold flex items-center gap-2 text-[13px]">
-                        <iconify-icon icon="fluent-color:document-text-28" width="20" height="20"></iconify-icon>
-                        {{ $ic->icsNumber }}
-                    </p>
-                   
-                </div>
+                            <a wire:navigate
+                                href="{{ route('admin.ics-print', ['encrypted_id' => $ic->encrypted_id]) }}">
+                                <p class="font-bold flex items-center gap-2 text-[13px]">
+                                    <iconify-icon icon="fluent-color:document-text-28" width="20"
+                                        height="20"></iconify-icon>
+                                    {{ $ic->icsNumber }}
+                                </p>
+                            </a>
+                        </div>
                     </td>
                 @endif
-                    
+
                 {{-- Item Description --}}
                 <td class="border border-gray-200 px-4 py-2 align-middle text-nowrap xl:text-wrap">
                     <div class="flex items-start gap-2">
@@ -72,33 +76,31 @@
 
                     <td class="border border-gray-200 px-4 py-2 align-middle whitespace-nowrap"
                         rowspan="{{ count($ic->information) }}">
-                        <div class="flex items-center justify-around gap-2">
+                        <div class="flex items-center justify-center gap-2">
                             <div class="flex flex-col items-center">
                                 <a wire:navigate
                                     href="{{ route('admin.edit-ics', ['encrypted_id' => $ic->encrypted_id]) }}">
-                                    <iconify-icon icon="lets-icons:edit-duotone" width="22" height="22"
-                                        class="text-gray-500"></iconify-icon>
+                                   <small class="text-gray-500">Edit</small>
                                 </a>
-                                <span class="text-[11px] text-gray-600">Edit</span>
+                                
                             </div>
-
+                            <span class="text-gray-300">|</span>
                             <div class="flex flex-col items-center">
                                 <a wire:navigate
                                     href="{{ route('admin.ics-print', ['encrypted_id' => $ic->encrypted_id]) }}">
-                                    <iconify-icon icon="lets-icons:print-duotone" width="22" height="22"
-                                        class="text-gray-500"></iconify-icon>
+                                    <small class="text-blue-500">Print</small>
                                 </a>
-                                <span class="text-[11px] text-gray-600">Print</span>
+                                
                             </div>
-
+                          
                             <div class="flex flex-col items-center text-red-500">
                                 <flux:modal.trigger name="delete-ics">
-                                    <a href="javascript:;" data-id="{{ $ic->encrypted_id }}" id="delete-ics">
+                                    <a href="javascript:;" data-id="{{ $ic->encrypted_id }}" id="delete-ics" class="mt-1">
                                         <iconify-icon icon="lets-icons:trash-duotone" width="22"
                                             height="22"></iconify-icon>
                                     </a>
                                 </flux:modal.trigger>
-                                <span class="text-[11px] text-red-500">Delete</span>
+                               
                             </div>
                         </div>
                     </td>
@@ -109,7 +111,7 @@
 </x-table>
 
 @if ($ics->isEmpty())
-    <div class="grid grid-cols-1 gap-6">
+    <div class="grid grid-cols-1 gap-6 mt-4">
         <div class="bg-white border rounded-lg transition p-4 flex flex-col">
             <iconify-icon icon="solar:sad-square-line-duotone" width="24" height="24"
                 class="mb-3"></iconify-icon>
@@ -137,4 +139,3 @@
         {{ Session::get('success') }}
     </x-success-toast>
 @endif
-

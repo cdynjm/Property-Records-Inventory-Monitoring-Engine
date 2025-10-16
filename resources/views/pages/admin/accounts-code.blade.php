@@ -32,53 +32,65 @@
 
             <x-table>
                 <x-slot:head>
-                    <th class="px-4 py-2 text-[13px]">#</th>
-                    <th class="px-4 py-2 text-[13px] text-start">Description</th>
-                    <th class="px-4 py-2 text-[13px] text-center whitespace-nowrap">Year Inventory
+                    <th class="border border-gray-200 px-4 py-2 text-[13px]">#</th>
+                    <th class="border border-gray-200 px-4 py-2 text-[13px] text-start">Description</th>
+                    <th class="border border-gray-200 px-4 py-2 text-[13px] text-center whitespace-nowrap">Year Inventory
                         ({{ session('year') }})</th>
-                    <th class="px-4 py-2 text-[13px] text-center whitespace-nowrap">PPE sub-major account group</th>
-                    <th class="px-4 py-2 text-[13px] text-center whitespace-nowrap">General Ledger Account</th>
-                    <th class="px-4 py-2 text-[13px]">Actions</th>
+                    <th class="border border-gray-200 px-4 py-2 text-[13px] text-center whitespace-nowrap">PPE sub-major account group</th>
+                    <th class="border border-gray-200 px-4 py-2 text-[13px] text-center whitespace-nowrap">General Ledger Account</th>
+                    <th class="border border-gray-200 px-4 py-2 text-[13px]">Actions</th>
                 </x-slot:head>
 
                 @foreach ($accountsCode as $index => $ac)
                     <x-table-row class="">
-                        <td class="border-b border-gray-100 px-4 py-2 text-center whitespace-nowrap">{{ $index + 1 }}
+                        <td class="border border-gray-200 px-4 py-2 text-center whitespace-nowrap">{{ $index + 1 }}
                         </td>
-                        <td class="border-b border-gray-100 px-4 py-2 whitespace-nowrap">
+                        <td class="border border-gray-200 px-4 py-2 whitespace-nowrap">
                             <a wire:navigate
                                 href="{{ route('admin.accounts-code-property-inventory-records', ['encrypted_id' => $ac->encrypted_id]) }}">
                                 {{ $ac->description }}
                             </a>
                         </td>
                         <td
-                            class="border-b border-gray-100 text-center px-4 py-2 whitespace-nowrap font-bold text-[17px] text-green-600">
+                            class="border border-gray-200 text-center px-4 py-2 whitespace-nowrap font-bold text-[17px] text-green-600">
                             {{ $ac->areInformation->count() }}</td>
-                        <td class="border-b border-gray-100 text-center px-4 py-2 whitespace-nowrap">
+                        <td class="border border-gray-200 text-center px-4 py-2 whitespace-nowrap">
                             {{ $ac->propertyCode }}</td>
-                        <td class="border-b border-gray-100 text-center px-4 py-2 whitespace-nowrap">
+                        <td class="border border-gray-200 text-center px-4 py-2 whitespace-nowrap">
                             {{ $ac->propertySubCode }}</td>
-                        <td class="border-b border-gray-100 px-4 py-2 text-center whitespace-nowrap">
-                            <a wire:navigate
-                                href="{{ route('admin.accounts-code-property-inventory-records', ['encrypted_id' => $ac->encrypted_id]) }}">
-                                <iconify-icon icon="lets-icons:view-duotone" width="24"
-                                    height="24" class="text-gray-500"></iconify-icon>
-                            </a>
-                            <flux:modal.trigger name="edit-account">
-                                <a href="javascript:;" id="edit-account" data-id="{{ $ac->encrypted_id }}"
-                                    data-property-code="{{ $ac->propertyCode }}"
-                                    data-property-sub-code="{{ $ac->propertySubCode }}"
-                                    data-description="{{ $ac->description }}">
-                                    <iconify-icon icon="lets-icons:edit-duotone" width="24"
-                                        height="24" class="text-gray-500"></iconify-icon>
-                                </a>
-                            </flux:modal.trigger>
-                            <flux:modal.trigger name="delete-account">
-                                <a href="javascript:;" id="delete-account" data-id="{{ $ac->encrypted_id }}">
-                                    <iconify-icon icon="lets-icons:trash-duotone" width="24"
-                                        height="24" class="text-red-500"></iconify-icon>
-                                </a>
-                            </flux:modal.trigger>
+                        <td class="border border-gray-200 px-4 py-2 text-center whitespace-nowrap">
+                            <div class="flex items-center justify-center gap-2">
+                                <div class="flex flex-col items-center">
+                                    <a wire:navigate
+                                        href="{{ route('admin.accounts-code-property-inventory-records', ['encrypted_id' => $ac->encrypted_id]) }}">
+                                        <small class="text-gray-500">View</small>
+                                    </a>
+                                    
+                                </div>
+                                 <span class="text-gray-300">|</span>
+                                <div class="flex flex-col items-center">
+                                    <flux:modal.trigger name="edit-account">
+                                        <a href="javascript:;" id="edit-account" data-id="{{ $ac->encrypted_id }}"
+                                            data-property-code="{{ $ac->propertyCode }}"
+                                            data-property-sub-code="{{ $ac->propertySubCode }}"
+                                            data-description="{{ $ac->description }}">
+                                             <small class="text-blue-500">Edit</small>
+                                        </a>
+                                    </flux:modal.trigger>
+                                   
+                                </div>
+                              
+                                <div class="flex flex-col items-center text-red-500">
+                                    <flux:modal.trigger name="delete-account">
+                                        <a href="javascript:;" id="delete-account" data-id="{{ $ac->encrypted_id }}" class="mt-1">
+                                            <iconify-icon icon="lets-icons:trash-duotone" width="24"
+                                                height="24"></iconify-icon>
+                                        </a>
+                                    </flux:modal.trigger>
+                                   
+                                </div>
+                            </div>
+
                         </td>
                     </x-table-row>
                 @endforeach
@@ -86,7 +98,7 @@
 
                 @if ($accountsCode->isEmpty())
                     <x-table-row>
-                        <td colspan="5" class="border-b border-gray-100 px-4 py-2 text-center text-gray-500">No
+                        <td colspan="5" class="border border-gray-200 px-4 py-2 text-center text-gray-500">No
                             accounts
                             found.</td>
                     </x-table-row>

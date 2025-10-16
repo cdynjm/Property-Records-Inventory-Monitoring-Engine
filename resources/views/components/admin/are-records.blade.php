@@ -16,17 +16,21 @@
                         rowspan="{{ count($ar->information) }}">
                         {{ $index + 1 }}
                     </td>
-                    <td class="border border-gray-200 py-2 align-middle text-nowrap" rowspan="{{ count($ar->information) }}">
+                    <td class="border border-gray-200 py-2 align-middle text-nowrap"
+                        rowspan="{{ count($ar->information) }}">
                         <div class="flex items-center justify-between px-4 pt-4 mb-4">
-                    <p class="font-bold flex items-center gap-2 text-[13px]">
-                        <iconify-icon icon="fluent-color:document-text-28" width="20" height="20"></iconify-icon>
-                        {{ $ar->areControlNumber }}
-                    </p>
-                   
-                </div>
+                            <a wire:navigate
+                                href="{{ route('admin.are-print', ['encrypted_id' => $ar->encrypted_id]) }}">
+                                <p class="font-bold flex items-center gap-2 text-[13px]">
+                                    <iconify-icon icon="fluent-color:document-text-28" width="20"
+                                        height="20"></iconify-icon>
+                                    {{ $ar->areControlNumber }}
+                                </p>
+                            </a>
+                        </div>
                     </td>
                 @endif
-                    
+
                 {{-- Item Description --}}
                 <td class="border border-gray-200 px-4 py-2 align-middle text-nowrap xl:text-wrap">
                     <div class="flex items-start gap-2">
@@ -76,33 +80,30 @@
 
                     <td class="border border-gray-200 px-4 py-2 align-middle whitespace-nowrap"
                         rowspan="{{ count($ar->information) }}">
-                        <div class="flex items-center justify-around gap-2">
+                        <div class="flex items-center justify-center gap-2">
                             <div class="flex flex-col items-center">
                                 <a wire:navigate
                                     href="{{ route('admin.edit-are', ['encrypted_id' => $ar->encrypted_id]) }}">
-                                    <iconify-icon icon="lets-icons:edit-duotone" width="22" height="22"
-                                        class="text-gray-500"></iconify-icon>
+                                    <small class="text-gray-500">Edit</small>
                                 </a>
-                                <span class="text-[11px] text-gray-600">Edit</span>
+                                
                             </div>
-
+                           <span class="text-gray-300">|</span>
                             <div class="flex flex-col items-center">
                                 <a wire:navigate
                                     href="{{ route('admin.are-print', ['encrypted_id' => $ar->encrypted_id]) }}">
-                                    <iconify-icon icon="lets-icons:print-duotone" width="22" height="22"
-                                        class="text-gray-500"></iconify-icon>
+                                   <small class="text-blue-500">Print</small>
                                 </a>
-                                <span class="text-[11px] text-gray-600">Print</span>
+                                
                             </div>
-
+                           
                             <div class="flex flex-col items-center text-red-500">
                                 <flux:modal.trigger name="delete-are">
-                                    <a href="javascript:;" data-id="{{ $ar->encrypted_id }}" id="delete-are">
+                                    <a href="javascript:;" data-id="{{ $ar->encrypted_id }}" id="delete-are" class="mt-1">
                                         <iconify-icon icon="lets-icons:trash-duotone" width="22"
                                             height="22"></iconify-icon>
                                     </a>
                                 </flux:modal.trigger>
-                                <span class="text-[11px] text-red-500">Delete</span>
                             </div>
                         </div>
                     </td>

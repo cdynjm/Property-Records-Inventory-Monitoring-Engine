@@ -1,6 +1,6 @@
 <x-layouts.app :title="__('Office Records')">
     <div class="flex min-h-screen flex-col">
-        
+
         <div class="flex-1">
             <div class="flex items-center justify-between mb-4">
                 <flux:heading level="3">List of Office Records</flux:heading>
@@ -11,47 +11,63 @@
 
             <x-table>
                 <x-slot:head>
-                    <th class="px-4 py-2 text-[13px]">#</th>
-                    <th class="px-4 py-2 text-[13px] text-start">Office Name</th>
-                    <th class="px-4 py-2 text-[13px] text-start">Code</th>
-                    <th class="px-4 py-2 text-[13px]">Actions</th>
+                    <th class="border border-gray-200 px-4 py-2 text-[13px]">#</th>
+                    <th class="border border-gray-200 px-4 py-2 text-[13px] text-center">Office Name</th>
+                    <th class="border border-gray-200 px-4 py-2 text-[13px] text-center">Code</th>
+                    <th class="border border-gray-200 px-4 py-2 text-[13px]">Actions</th>
                 </x-slot:head>
 
                 @foreach ($offices as $index => $of)
                     <x-table-row class="">
-                        <td class="border-b border-gray-100 px-4 py-2 text-center whitespace-nowrap">{{ $index + 1 }}</td>
-                        <td class="border-b border-gray-100 px-4 py-2 whitespace-nowrap">
-                            <a wire:navigate href="{{ route('admin.office-property-inventory-records', ['encrypted_id' => $of->encrypted_id]) }}">
+                        <td class="border border-gray-200 px-4 py-2 text-center whitespace-nowrap">{{ $index + 1 }}
+                        </td>
+                        <td class="border border-gray-200 px-4 py-2 whitespace-nowrap text-center">
+                            <a wire:navigate
+                                href="{{ route('admin.office-property-inventory-records', ['encrypted_id' => $of->encrypted_id]) }}">
                                 {{ $of->officeName }}
                             </a>
                         </td>
-                        <td class="border-b border-gray-100 px-4 py-2 whitespace-nowrap">{{ $of->officeCode }}</td>
-                        <td class="border-b border-gray-100 px-4 py-2 text-center whitespace-nowrap">
-                            <a wire:navigate href="{{ route('admin.office-property-inventory-records', ['encrypted_id' => $of->encrypted_id]) }}">
-                                <iconify-icon icon="lets-icons:view-duotone" width="24"
-                                    height="24" class="text-gray-500"></iconify-icon>
-                            </a>
-                            <flux:modal.trigger name="edit-office">
-                                <a href="javascript:;" id="admin-edit-office" data-id="{{ $of->encrypted_id }}"
-                                    data-name="{{ $of->officeName }}" data-code="{{ $of->officeCode }}"
-                                    data-username="{{ $of->user->email }}">
-                                    <iconify-icon icon="lets-icons:edit-duotone" width="24"
-                                        height="24" class="text-gray-500"></iconify-icon>
-                                </a>
-                            </flux:modal.trigger>
-                            <flux:modal.trigger name="delete-office">
-                                <a href="javascript:;" id="admin-delete-office" data-id="{{ $of->encrypted_id }}">
-                                    <iconify-icon icon="lets-icons:trash-duotone" width="24"
-                                        height="24" class="text-red-500"></iconify-icon>
-                                </a>
-                            </flux:modal.trigger>
+                        <td class="border border-gray-200 px-4 py-2 whitespace-nowrap text-center">{{ $of->officeCode }}</td>
+                        <td class="border border-gray-200 px-4 py-2 text-center whitespace-nowrap">
+                            <div class="flex items-center justify-center gap-2">
+                                <div class="flex flex-col items-center">
+                                    <a wire:navigate
+                                        href="{{ route('admin.office-property-inventory-records', ['encrypted_id' => $of->encrypted_id]) }}">
+                                       <small class="text-gray-500">View</small>
+                                    </a>
+                                   
+                                </div>
+                                 <span class="text-gray-300">|</span>
+                                <div class="flex flex-col items-center">
+                                    <flux:modal.trigger name="edit-office">
+                                        <a href="javascript:;" id="admin-edit-office" data-id="{{ $of->encrypted_id }}"
+                                            data-name="{{ $of->officeName }}" data-code="{{ $of->officeCode }}"
+                                            data-username="{{ $of->user->email }}">
+                                            <small class="text-blue-500">Edit</small>
+                                        </a>
+                                    </flux:modal.trigger>
+                                    
+                                </div>
+                                
+                                <div class="flex flex-col items-center text-red-500">
+                                    <flux:modal.trigger name="delete-office">
+                                        <a href="javascript:;" id="admin-delete-office"
+                                            data-id="{{ $of->encrypted_id }}" class="mt-1">
+                                            <iconify-icon icon="lets-icons:trash-duotone" width="24"
+                                                height="24"></iconify-icon>
+                                        </a>
+                                    </flux:modal.trigger>
+                                   
+                                </div>
+                            </div>
+
                         </td>
                     </x-table-row>
                 @endforeach
 
                 @if ($offices->isEmpty())
                     <x-table-row>
-                        <td colspan="4" class="border-b border-gray-100 px-4 py-2 text-center text-gray-500">No
+                        <td colspan="4" class="border border-gray-200 px-4 py-2 text-center text-gray-500">No
                             offices
                             found.</td>
                     </x-table-row>
@@ -95,7 +111,8 @@
                 required />
             <flux:input label="Username" placeholder="Username" class="mb-4" id="username" name="username"
                 required />
-            <flux:input label="New Password" type="password" placeholder="Password" class="mb-4" name="password" viewable />
+            <flux:input label="New Password" type="password" placeholder="Password" class="mb-4" name="password"
+                viewable />
 
             <div class="flex">
                 <flux:spacer />
