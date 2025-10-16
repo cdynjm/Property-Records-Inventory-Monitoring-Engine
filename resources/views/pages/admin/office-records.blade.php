@@ -11,24 +11,24 @@
 
             <x-table>
                 <x-slot:head>
-                    <th class="border border-gray-200 px-4 py-2 text-[13px]">#</th>
-                    <th class="border border-gray-200 px-4 py-2 text-[13px] text-center">Office Name</th>
-                    <th class="border border-gray-200 px-4 py-2 text-[13px] text-center">Code</th>
-                    <th class="border border-gray-200 px-4 py-2 text-[13px]">Actions</th>
+                    <th class="  px-4 py-2 text-[13px]">#</th>
+                    <th class="  px-4 py-2 text-[13px] text-center">Office Name</th>
+                    <th class="  px-4 py-2 text-[13px] text-center">Code</th>
+                    <th class="  px-4 py-2 text-[13px]">Actions</th>
                 </x-slot:head>
 
                 @foreach ($offices as $index => $of)
                     <x-table-row class="">
-                        <td class="border border-gray-200 px-4 py-2 text-center whitespace-nowrap">{{ $index + 1 }}
+                        <td class="  px-4 py-2 text-center whitespace-nowrap">{{ $index + 1 }}
                         </td>
-                        <td class="border border-gray-200 px-4 py-2 whitespace-nowrap text-center">
+                        <td class="  px-4 py-2 whitespace-nowrap text-center">
                             <a wire:navigate
                                 href="{{ route('admin.office-property-inventory-records', ['encrypted_id' => $of->encrypted_id]) }}">
                                 {{ $of->officeName }}
                             </a>
                         </td>
-                        <td class="border border-gray-200 px-4 py-2 whitespace-nowrap text-center">{{ $of->officeCode }}</td>
-                        <td class="border border-gray-200 px-4 py-2 text-center whitespace-nowrap">
+                        <td class="  px-4 py-2 whitespace-nowrap text-center">{{ $of->officeCode }}</td>
+                        <td class="  px-4 py-2 text-center whitespace-nowrap">
                             <div class="flex items-center justify-center gap-2">
                                 <div class="flex flex-col items-center">
                                     <a wire:navigate
@@ -67,7 +67,7 @@
 
                 @if ($offices->isEmpty())
                     <x-table-row>
-                        <td colspan="4" class="border border-gray-200 px-4 py-2 text-center text-gray-500">No
+                        <td colspan="4" class="  px-4 py-2 text-center text-gray-500">No
                             offices
                             found.</td>
                     </x-table-row>

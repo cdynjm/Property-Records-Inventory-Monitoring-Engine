@@ -10,17 +10,17 @@
 
             <x-table>
                 <x-slot:head>
-                    <th class="border border-gray-200 px-4 py-2 text-[13px]">#</th>
-                    <th class="border border-gray-200 px-4 py-2 text-[13px] text-start">Unit Name</th>
-                    <th class="border border-gray-200 px-4 py-2 text-[13px]">Actions</th>
+                    <th class="  px-4 py-2 text-[13px]">#</th>
+                    <th class="  px-4 py-2 text-[13px] text-start">Unit Name</th>
+                    <th class="  px-4 py-2 text-[13px]">Actions</th>
                 </x-slot:head>
 
                 @foreach ($units as $index => $un)
                     <x-table-row class="">
-                        <td class="border border-gray-200 px-4 py-2 text-center whitespace-nowrap">{{ $index + 1 }}
+                        <td class="  px-4 py-2 text-center whitespace-nowrap">{{ $index + 1 }}
                         </td>
-                        <td class="border border-gray-200 px-4 py-2 whitespace-nowrap">{{ $un->unit }}</td>
-                        <td class="border border-gray-200 px-4 py-2 text-center whitespace-nowrap">
+                        <td class="  px-4 py-2 whitespace-nowrap">{{ $un->unit }}</td>
+                        <td class="  px-4 py-2 text-center whitespace-nowrap">
                             <div class="flex items-center justify-center gap-2">
                                 <div class="flex flex-col items-center">
                                     <flux:modal.trigger name="edit-unit">
@@ -49,7 +49,7 @@
 
                 @if ($units->isEmpty())
                     <x-table-row>
-                        <td colspan="4" class="border border-gray-200 px-4 py-2 text-center text-gray-500">No units
+                        <td colspan="4" class="  px-4 py-2 text-center text-gray-500">No units
                             found.</td>
                     </x-table-row>
                 @endif

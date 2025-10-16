@@ -1,4 +1,4 @@
-<div class="flex flex-col md:flex-row md:items-center gap-3 w-full md:w-auto">
+<div class="flex flex-row items-center gap-3 w-full md:w-auto">
     {{-- Year Filter --}}
     <div class="flex items-center w-full md:w-80 gap-2">
         @if (session('year') != now()->year)
