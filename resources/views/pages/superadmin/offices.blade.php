@@ -19,7 +19,7 @@
                 @foreach ($offices as $index => $of)
                     <x-table-row class="">
                         <td class="  px-4 py-2 text-center whitespace-nowrap">{{ $index + 1 }}</td>
-                        <td class="  px-4 py-2 whitespace-nowrap">{{ $of->officeName }}</td>
+                        <td class="  px-4 py-2 whitespace-nowrap font-bold text-gray-500">{{ $of->officeName }}</td>
                         <td class="  px-4 py-2 whitespace-nowrap">{{ $of->officeCode }}</td>
                         <td class="  px-4 py-2 text-center whitespace-nowrap">
                             <div class="flex items-center justify-center gap-2">

@@ -61,9 +61,15 @@ textarea:focus[data-flux-control],
 select:focus[data-flux-control] {
     @apply outline-hidden ring-2 ring-accent ring-offset-2 ring-offset-accent-foreground;
 }
+
+tr.border-row {
+  @apply hover:bg-gray-100;
+}
+
 tr.border-row td {
   @apply border-b border-gray-200;
 }
+
 
 /* \[:where(&)\]:size-4 {
     @apply size-4;

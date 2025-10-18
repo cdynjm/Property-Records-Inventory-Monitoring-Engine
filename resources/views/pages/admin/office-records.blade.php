@@ -21,7 +21,7 @@
                     <x-table-row class="">
                         <td class="  px-4 py-2 text-center whitespace-nowrap">{{ $index + 1 }}
                         </td>
-                        <td class="  px-4 py-2 whitespace-nowrap text-center">
+                        <td class="  px-4 py-2 whitespace-nowrap text-center font-bold text-gray-500">
                             <a wire:navigate
                                 href="{{ route('admin.office-property-inventory-records', ['encrypted_id' => $of->encrypted_id]) }}">
                                 {{ $of->officeName }}
