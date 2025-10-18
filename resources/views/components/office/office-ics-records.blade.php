@@ -4,7 +4,7 @@
         <th class="border border-gray-200 px-4 py-2 text-[13px] text-start text-nowrap">ICS Number</th>
         <th class="border border-gray-200 px-4 py-2 text-[13px] text-start text-nowrap">Item Description</th>
         <th class="border border-gray-200 px-4 py-2 text-[13px] text-center text-nowrap">Inventory Item No.</th>
-        <th class="border border-gray-200 px-4 py-2 text-[13px] text-start text-nowrap">Personnel</th>
+        <th class="border border-gray-200 px-4 py-2 text-[13px] text-start text-nowrap">Accountable</th>
         <th class="border border-gray-200 px-4 py-2 text-[13px] text-center text-nowrap">Actions</th>
     </x-slot:head>
 
@@ -12,13 +12,13 @@
         @foreach ($ic->information as $infoIndex => $icsInfo)
             <x-table-row>
                 @if ($infoIndex === 0)
-                    <td class="border border-gray-200 px-4 py-2 text-center align-middle whitespace-nowrap"
+                    <td class="border border-gray-200 px-4 py-2 text-center align-top whitespace-nowrap"
                         rowspan="{{ count($ic->information) }}">
                         {{ $index + 1 }}
                     </td>
-                    <td class="border border-gray-200 py-2 align-middle text-nowrap"
+                    <td class="border border-gray-200 py-2 align-top text-nowrap"
                         rowspan="{{ count($ic->information) }}">
-                        <div class="flex items-center justify-between px-4 pt-4 mb-4">
+                        <div class="flex items-center justify-between px-4 mb-4">
                             <a wire:navigate
                                 href="{{ route('office.ics-print', ['encrypted_id' => $ic->encrypted_id]) }}">
                                 <p class="font-bold flex items-center gap-2 text-[13px]">

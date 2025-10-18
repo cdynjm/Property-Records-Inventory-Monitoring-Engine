@@ -62,7 +62,7 @@ select:focus[data-flux-control] {
     @apply outline-hidden ring-2 ring-accent ring-offset-2 ring-offset-accent-foreground;
 }
 tr.border-row td {
-  @apply border-b border-gray-100;
+  @apply border-b border-gray-200;
 }
 
 /* \[:where(&)\]:size-4 {
