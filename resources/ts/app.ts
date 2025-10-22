@@ -106,8 +106,8 @@ document.addEventListener("scroll", () => {
     const header = document.getElementById("app-header");
     if (!header) return;
     if (window.scrollY > 10) {
-        header.classList.add("shadow-sm");
+        header.classList.add("");
     } else {
-        header.classList.remove("shadow-sm");
+        header.classList.remove("");
     }
 });
