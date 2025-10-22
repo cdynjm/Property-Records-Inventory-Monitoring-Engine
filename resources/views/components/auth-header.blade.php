@@ -5,7 +5,7 @@
 
 <div class="flex w-full items-center justify-center gap-4">
     <!-- Logo -->
-    <img src="{{ asset('/img/PRIME.png?new') }}" class="h-auto w-10" alt="" draggable="false">
+    <img src="{{ asset('/img/prime.png?new') }}" class="h-auto w-10" alt="" draggable="false">
 
     <!-- Text -->
     <div class="flex flex-col text-left">

@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>PRIME ({{ $title ?? 'ICS Form' }})</title>
 
-    <link rel="icon" href="{{ asset('/img/PRIME.png') }}" sizes="any">
+    <link rel="icon" href="{{ asset('/img/prime.png') }}" sizes="any">
 
     <style>
         .page-form {

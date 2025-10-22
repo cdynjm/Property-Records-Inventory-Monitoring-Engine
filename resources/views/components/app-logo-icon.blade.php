@@ -1,1 +1,1 @@
-<img src="{{ asset('/img/PRIME.png?new') }}" alt="">
+<img src="{{ asset('/img/prime.png?new') }}" alt="">

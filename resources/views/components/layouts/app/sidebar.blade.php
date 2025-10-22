@@ -220,7 +220,7 @@
             </flux:breadcrumbs>
         </div>
         <di class="flex items-center lg:hidden gap-2">
-            <img src="{{ asset('/img/PRIME.png?new') }}" class="h-auto w-8" alt="" draggable="false">
+            <img src="{{ asset('/img/prime.png?new') }}" class="h-auto w-8" alt="" draggable="false">
             <div class="text-gray-300">|</div>
             <div class="font-bold text-[14px] text-gray-600">
                 PRIME
