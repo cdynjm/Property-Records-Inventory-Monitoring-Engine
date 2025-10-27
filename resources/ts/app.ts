@@ -62,8 +62,7 @@ interface SkeletonEvent extends Event {
 }
 
 function handleSkeleton(event: SkeletonEvent): void {
-    const loader: HTMLElement | null =
-        document.getElementById("skeleton-loader");
+    const loader: HTMLElement | null = document.getElementById("skeleton-loader");
     const currentUrl: string = window.location.pathname;
 
     if (currentUrl === "/login" || !loader) {
