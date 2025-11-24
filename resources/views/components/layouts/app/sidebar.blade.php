@@ -51,7 +51,6 @@
                 </flux:navlist.group>
             </flux:navlist>
 
-
             <flux:spacer />
         @endif
 
