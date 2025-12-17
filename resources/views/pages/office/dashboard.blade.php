@@ -123,7 +123,7 @@
                 </div>
             </div>
 
-            <div class="flex justify-end mb-4">
+            {{-- <div class="flex justify-end mb-4">
                 <flux:button variant="primary" size="sm" x-data
                     x-on:click="
             const year = '{{ session('year') }}';
@@ -241,7 +241,7 @@
                     </x-table-row>
                 </x-table>
             </div>
-        </div>
+        </div> --}}
 
         <x-footer class="mt-auto" />
     </div>
