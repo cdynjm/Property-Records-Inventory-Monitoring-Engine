@@ -117,6 +117,16 @@
                             ],
                         ],
                     ],
+                    [
+                        'group' => __('Reports'),
+                        'items' => [
+                            [
+                                'icon' => 'printer',
+                                'route' => 'admin.rpcppe-print',
+                                'label' => __('Print RPCPPE'),
+                            ],
+                        ],
+                    ],
                 ];
             @endphp
 

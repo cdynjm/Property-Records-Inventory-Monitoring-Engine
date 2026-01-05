@@ -28,6 +28,8 @@ use App\Http\Controllers\Admin\SearchController;
 use App\Http\Controllers\Admin\AccountsCodeController;
 use App\Http\Controllers\Admin\PersonnelController;
 use App\Http\Controllers\Admin\RPCPPERecordsController;
+use App\Http\Controllers\Admin\RPCPPEPrintController;
+use App\Http\Controllers\Admin\Reports\RPCPPEReportController;
 use App\Http\Controllers\Admin\UnitController as AdminUnitController;
 
 use App\Http\Controllers\Office\DashboardController as OfficeDashboardController;
@@ -99,6 +101,8 @@ Route::middleware(['auth'])->group(function () {
             Route::get('are-form/{encrypted_id}', [AREFormController::class, 'index'])->name('admin.are-form');
             Route::get('are-print/{encrypted_id}', [AREPrintController::class, 'index'])->name('admin.are-print');
 
+
+
             Route::get('are-records', [ARERecordsController::class, 'index'])->name('admin.are-records');
 
             Route::get('office-records', [OfficeRecordsController::class, 'index'])->name('admin.office-records');
@@ -137,6 +141,10 @@ Route::middleware(['auth'])->group(function () {
             Route::delete('delete-unit', [AdminUnitController::class, 'deleteUnit'])->name('admin.delete-unit');
 
             Route::get('search-received-by', [PersonnelController::class, 'searchReceivedBy'])->name('admin.search-received-by');
+        
+            Route::get('rpcppe-print', [RPCPPEPrintController::class, 'index'])->name('admin.rpcppe-print');
+            Route::get('rpcppe-report', [RPCPPEReportController::class, 'index'])->name('admin.rpcppe-report');
+            
         });
 
     });
