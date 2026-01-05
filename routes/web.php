@@ -85,8 +85,8 @@ Route::middleware(['auth'])->group(function () {
             Route::patch('update-ics', [ICSController::class, 'updateICS'])->name('admin.update-ics');
             Route::delete('delete-ics', [ICSController::class, 'deleteICS'])->name('admin.delete-ics');
 
-            Route::get('are', [AREController::class, 'index'])->name('admin.are');
-            Route::get('edit-are/{encrypted_id}', [AREController::class, 'editARE'])->name('admin.edit-are');
+            Route::get('ppe', [AREController::class, 'index'])->name('admin.are');
+            Route::get('edit-ppe/{encrypted_id}', [AREController::class, 'editARE'])->name('admin.edit-are');
             Route::post('create-are', [AREController::class, 'createARE'])->name('admin.create-are');
             Route::patch('update-are', [AREController::class, 'updateARE'])->name('admin.update-are');
             Route::delete('delete-are', [AREController::class, 'deleteARE'])->name('admin.delete-are');

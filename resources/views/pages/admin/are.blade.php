@@ -1,15 +1,15 @@
-<x-layouts.app :title="__('ARE')">
+<x-layouts.app :title="__('PPE')">
     <div class="flex min-h-screen flex-col">
         
         <div class="flex-1">
             <div class="flex items-center justify-center mb-4 gap-2">
                 <img src="{{ asset('/img/document.png') }}" alt="" class="w-8 h-auto" draggable="false">
-                <flux:heading level="1" class="text-[15px]">Acknowledgement Receipt for Equipment</flux:heading>
+                <flux:heading level="1" class="text-[15px]">Property, Plant and Equipment</flux:heading>
             </div>
 
             <div class="border border-gray-200 rounded-lg p-5 mb-10">
                 <form action="" id="create-are-form" class="space-y-4">
-                    <p class="font-bold text-[13px] mb-2">ARE CONTROL NUMBER</p>
+                    <p class="font-bold text-[13px] mb-2">CONTROL NUMBER</p>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
                         <div class="flex flex-col">
                             <label class="mb-1 text-sm font-medium text-gray-700">
@@ -113,7 +113,7 @@
 
                                 <div class="grid grid-cols-1 gap-4 mb-3">
                                     <div class="flex flex-col">
-                                        <label class="mb-1 text-sm font-medium text-gray-700">Description</label>
+                                        <label class="mb-1 text-sm font-medium text-gray-700">Item Description</label>
                                         <flux:textarea class="mb-0 h-50"
                                             x-bind:name="'rows[' + index + '][description]'" />
                                     </div>
