@@ -513,6 +513,43 @@ $(function () {
                 $btn.prop("disabled", false);
             });
     });
+
+    $(document).on("click", "#search-rpcppe-records", function (e) {
+        e.preventDefault();
+        const year = $('#rpcppe-year').val();
+        const accountsCode = $('#rpcppe-accounts-code').val();
+        const office = $('#rpcppe-office').val();
+
+        const formData = new FormData();
+        formData.append('year', year as string)
+        formData.append('office', office as string)
+        formData.append('accountsCode', accountsCode as string)
+        const $btn = $(this);
+        $btn.prop("disabled", true);
+
+        axios
+            .post("/admin/search-rpcppe", formData)
+            .then((response: any) => {
+                window.Livewire.navigate(window.location.pathname) as any;
+            })
+            .catch((error) => {
+                const toast = document.getElementsByClassName("toast-error");
+
+                if (toast.length > 0) {
+                    const messageElem = toast[0].querySelector(
+                        ".toast-error-message"
+                    );
+                    if (messageElem) {
+                        messageElem.textContent = "Error in searching";
+                    }
+                    $(toast[0]).fadeIn(100);
+                    setTimeout(() => $(toast[0]).fadeOut(300), 3000);
+                }
+            })
+            .finally(() => {
+                $btn.prop("disabled", false);
+            });
+    });
 });
 
 //SEARCH RECEIVER FUNCTIONS;

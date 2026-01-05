@@ -126,6 +126,7 @@ Route::middleware(['auth'])->group(function () {
             Route::post('year-clear', [SearchController::class, 'yearClear'])->name('admin.year-clear');
             Route::post('search-receiver', [SearchController::class, 'searchReceiver'])->name('admin.search-receiver');
             Route::post('clear-receiver', [SearchController::class, 'clearReceiver'])->name('admin.search-receiver');
+            Route::post('search-rpcppe', [SearchController::class, 'searchRPCPPE'])->name('admin.search-rpcppe');
 
             Route::get('accounts-code', [AccountsCodeController::class, 'index'])->name('admin.accounts-code');
             Route::get('accounts-code/{encrypted_id}', [AccountsCodeController::class, 'accountsCodePropertyInventoryRecords'])->name('admin.accounts-code-property-inventory-records');

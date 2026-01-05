@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Security\AESCipher;
 
 use App\Models\ARE;
+use App\Models\Office;
+use App\Models\AccountsCode;
+
 
 class RPCPPEPrintController extends Controller
 {
@@ -19,6 +22,20 @@ class RPCPPEPrintController extends Controller
 
     public function index()
     {
-        return view('pages.admin.rpcppe-print');
+        $office = Office::orderBy('officeName', 'asc')->get()->map(function ($of) {
+            $of->encrypted_id = $this->aes->encrypt($of->id);
+            return $of;
+        });
+
+        $accountsCode = AccountsCode::orderBy('propertyCode', 'asc')
+        ->orderBy('propertySubCode', 'asc')->get()->map(function ($ac) {
+            $ac->encrypted_id = $this->aes->encrypt($ac->id);
+            return $ac;
+        });
+
+        return view('pages.admin.rpcppe-print', [
+            'office' => $office,
+            'accountsCode' => $accountsCode
+        ]);
     }
 }

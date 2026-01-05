@@ -61,4 +61,15 @@ class SearchController extends Controller
             'message' => 'success'
         ], 200);
     }
+
+    public function searchRPCPPE(Request $request) 
+    {
+        $request->session()->put('rpcppe-year', $request->year);
+        $request->session()->put('rpcppe-office', $request->office);
+        $request->session()->put('rpcppe-accounts-code', $request->accountsCode);
+
+        return response()->json([
+            'message' => 'success'
+        ], 200);
+    }
 }

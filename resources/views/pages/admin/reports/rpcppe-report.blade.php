@@ -53,7 +53,7 @@
     <div class="no-print" style="margin-bottom: 20px; display: flex; gap: 10px;">
         <button onclick="window.print()"
             style="background-color: #54aa7a; color: white; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer; font-size: 12px;">
-            Print Form
+            Print Report
         </button>
     </div>
 
@@ -77,23 +77,28 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($are as $index => $ar)
+                    @forelse ($are as $index => $ar)
                         @foreach ($ar->information as $infoIndex => $areInfo)
                             <tr>
                                 @if ($infoIndex === 0)
                                     <td style="text-align: center">{{ $index + 1 }}</td>
                                 @endif
+
                                 <td>{{ $areInfo->description }}</td>
                                 <td style="white-space: nowrap">{{ $areInfo->propertyNumber }}</td>
                                 <td style="text-align: center">{{ $areInfo->unit }}</td>
                                 <td style="text-align: center">{{ number_format($areInfo->unitCost, 2) }}</td>
+
                                 @if ($infoIndex === 0)
                                     <td style="text-align: center">
                                         {{ $ar->receivedBy }}
                                     </td>
                                 @endif
-                                <td style="text-align: center">{{ date('m/d/Y', strtotime($areInfo->dateAcquired)) }}
+
+                                <td style="text-align: center">
+                                    {{ date('m/d/Y', strtotime($areInfo->dateAcquired)) }}
                                 </td>
+
                                 @if ($infoIndex === 0)
                                     <td style="text-align: center">
                                         {{ $ar->remarks }}
@@ -101,7 +106,14 @@
                                 @endif
                             </tr>
                         @endforeach
-                    @endforeach
+                    @empty
+                        <tr>
+                            <td colspan="10" style="text-align: center; padding: 1rem;">
+                                <p>No data found</p>
+                            </td>
+                        </tr>
+                    @endforelse
+
                 </tbody>
             </table>
         </div>
