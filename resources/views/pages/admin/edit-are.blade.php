@@ -242,6 +242,18 @@
                         </div>
                     </div>
 
+                    <hr />
+
+                    <div class="grid grid-cols-1 gap-4 mb-6">
+
+                        <div class="flex flex-col">
+                            <label class="mb-1 text-sm font-medium text-gray-700">
+                                Remarks
+                            </label>
+                            <flux:input class="mb-0" name="remarks" value="{{ $are->remarks }}" required/>
+                        </div>
+                    </div>
+
                     <div class="flex items-center gap-4">
                         <flux:button type="submit" variant="primary" class="save-are-btn">Save changes</flux:button>
                         <a wire:navigate href="{{ route('admin.are-print', ['encrypted_id' => $are->encrypted_id]) }}"  id="print-are">

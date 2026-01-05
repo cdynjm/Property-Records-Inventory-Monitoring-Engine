@@ -72,7 +72,7 @@ class AREController extends Controller
             'receivedFrom_id' => $receivedFrom->id,
             'receivedFromPosition' => $request->receivedFromPosition,
             'dateReceivedFrom' => $request->dateReceivedFrom,
-            'remarks' => 'active'
+            'remarks' => $request->remarks
         ];
 
         if (!empty($request->receivedBy_id)) {
@@ -192,6 +192,7 @@ class AREController extends Controller
             'receivedFrom_id' => $receivedFrom->id,
             'receivedFromPosition' => $request->receivedFromPosition,
             'dateReceivedFrom' => $request->dateReceivedFrom,
+            'remarks' => $request->remarks
          ];
 
          if (!empty($request->receivedBy_id)) {

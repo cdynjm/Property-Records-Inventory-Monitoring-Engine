@@ -57,7 +57,7 @@
                                 <a wire:navigate href="{{ route('admin.are') }}" class="flex items-center gap-2">
                                     <iconify-icon icon="solar:document-bold-duotone" width="24"
                                         height="24"></iconify-icon>
-                                    Generate PPE
+                                    Add New PPE
                                 </a>
                             </span>
                             <span class="text-xs text-gray-400 mt-1">Year {{ session('year') }}</span>

@@ -3,7 +3,7 @@
         <th class="border border-gray-200 px-4 py-2 text-[13px] text-center text-nowrap">#</th>
         <th class="border border-gray-200 px-4 py-2 text-[13px] text-start text-nowrap">ARE Control Number</th>
         <th class="border border-gray-200 px-4 py-2 text-[13px] text-start text-nowrap">Item Description</th>
-        <th class="border border-gray-200 px-4 py-2 text-[13px] text-center text-nowrap">Property Number</th>
+        <th class="border border-gray-200 px-4 py-2 text-[13px] text-center text-nowrap">Property No. & Remarks</th>
         <th class="border border-gray-200 px-4 py-2 text-[13px] text-start text-nowrap">Accountable</th>
         <th class="border border-gray-200 px-4 py-2 text-[13px] text-center text-nowrap">Actions</th>
     </x-slot:head>
@@ -54,7 +54,8 @@
 
                 {{-- Property Number --}}
                 <td class="border border-gray-200 text-center px-4 py-2 align-middle text-[13px] whitespace-nowrap">
-                    {{ $areInfo->propertyNumber }}
+                    <p>{{ $areInfo->propertyNumber }}</p>
+                    <p class="text-blue-600">{{ $ar->remarks }}</p>
                 </td>
 
                 {{-- Only show personnel and actions once per ARE --}}
