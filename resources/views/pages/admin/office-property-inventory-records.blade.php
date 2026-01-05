@@ -119,6 +119,16 @@
             </div>
 
             <div class="mb-4">
+                <flux:heading class="my-4">RPCPPE Records</flux:heading>
+
+                <x-rpcppe-records :are="$are" />
+
+                <div class="mt-8">
+                    {{ $are->links('vendor.pagination.custom-pagination') }}
+                </div>
+            </div>
+
+            <div class="mb-4">
                 <flux:heading class="my-4">ARE Records</flux:heading>
 
                 <x-are-records :are="$are" />
@@ -127,6 +137,7 @@
                     {{ $are->links('vendor.pagination.custom-pagination') }}
                 </div>
             </div>
+
         </div>
 
         <x-footer class="mt-auto" />

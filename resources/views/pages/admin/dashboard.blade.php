@@ -71,7 +71,8 @@
                                 points="0,16 20,12 40,8 60,10 80,6 100,4"></polyline>
                         </svg>
                     </div>
-                    <small class="text-sm mb-0 text-gray-600 text-start">Physical Count of Property, Plant & Equipment</small>
+                    <small class="text-sm mb-0 text-gray-600 text-start">Physical Count of Property, Plant &
+                        Equipment</small>
                 </div>
 
                 <!-- Stat Card -->
@@ -119,6 +120,30 @@
                     </div>
                     <small class="text-sm mb-0 text-gray-600 text-start">Inventory Custodian Slip</small>
                 </div>
+            </div>
+
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4 gap-3">
+                <flux:heading level="1">RPCPPE Records</flux:heading>
+                <div class="flex items-center w-full md:w-80 gap-2">
+                    @if (session('search'))
+                        <a href="javascript:;" class="me-1 text-red-600 flex items-center gap-1" id="clear-keyword">
+                            <iconify-icon icon="mdi:clear" width="18" height="18"></iconify-icon>
+                            <span class="text-[11px]">Clear</span>
+                        </a>
+                    @endif
+
+                    <flux:input placeholder="Search..." id="search-keyword" size="sm"
+                        value="{{ session('search') }}" class="flex-1 rounded-r-none" />
+                    <flux:button variant="primary" type="button" size="sm" id="search-records">
+                        <iconify-icon icon="lets-icons:search-duotone" width="20" height="20"></iconify-icon>
+                    </flux:button>
+                </div>
+            </div>
+
+            <x-rpcppe-records :are="$are" />
+
+            <div class="mt-8">
+                {{ $are->links('vendor.pagination.custom-pagination') }}
             </div>
 
             {{-- <div class="flex justify-end mb-4">
@@ -241,7 +266,6 @@
             </div>
         </div> --}}
 
-        <x-footer class="mt-auto" />
-    </div>
+            <x-footer class="mt-auto" />
+        </div>
 </x-layouts.app>
-

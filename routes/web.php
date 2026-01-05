@@ -27,6 +27,7 @@ use App\Http\Controllers\Admin\AREPrintController;
 use App\Http\Controllers\Admin\SearchController;
 use App\Http\Controllers\Admin\AccountsCodeController;
 use App\Http\Controllers\Admin\PersonnelController;
+use App\Http\Controllers\Admin\RPCPPERecordsController;
 use App\Http\Controllers\Admin\UnitController as AdminUnitController;
 
 use App\Http\Controllers\Office\DashboardController as OfficeDashboardController;
@@ -127,6 +128,8 @@ Route::middleware(['auth'])->group(function () {
             Route::post('create-accounts-code', [AccountsCodeController::class, 'createAccountsCode'])->name('admin.create-accounts-code');
             Route::patch('update-accounts-code', [AccountsCodeController::class, 'updateAccountsCode'])->name('admin.update-accounts-code');
             Route::delete('delete-accounts-code', [AccountsCodeController::class, 'deleteAccountsCode'])->name('admin.delete-accounts-code');
+
+            Route::get('rpcppe-records', [RPCPPERecordsController::class, 'index'])->name('admin.rpcppe-records');
 
             Route::get('units', [AdminUnitController::class, 'index'])->name('admin.units');
             Route::post('create-unit', [AdminUnitController::class, 'createUnit'])->name('admin.create-unit');

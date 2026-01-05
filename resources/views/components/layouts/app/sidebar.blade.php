@@ -68,11 +68,6 @@
                         'label' => __('Dashboard'),
                     ],
                     [
-                        'icon' => 'document-text',
-                        'route' => 'admin.accounts-code',
-                        'label' => __('Accounts Code'),
-                    ],
-                    [
                         'icon' => 'clipboard-document-list',
                         'route' => 'admin.units',
                         'label' => __('Unit'),
@@ -94,6 +89,16 @@
                                 'icon' => 'briefcase',
                                 'route' => 'admin.office-records',
                                 'label' => __('Office Records'),
+                            ],
+                            [
+                                'icon' => 'document-text',
+                                'route' => 'admin.accounts-code',
+                                'label' => __('Accounts Code'),
+                            ],
+                            [
+                                'icon' => 'clipboard-document-check',
+                                'route' => 'admin.rpcppe-records',
+                                'label' => __('RPCPPE Records'),
                             ],
                         ],
                     ],
