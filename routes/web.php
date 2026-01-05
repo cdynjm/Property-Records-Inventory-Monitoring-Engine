@@ -101,7 +101,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('are-records', [ARERecordsController::class, 'index'])->name('admin.are-records');
 
             Route::get('office-records', [OfficeRecordsController::class, 'index'])->name('admin.office-records');
-            Route::get('office-records/{encrypted_id}', [OfficeRecordsController::class, 'officePropetryInventoryRecords'])->name('admin.office-property-inventory-records');
+            Route::get('office-records/{encrypted_id}', [OfficeRecordsController::class, 'officePropertyInventoryRecords'])->name('admin.office-property-inventory-records');
             Route::post('create-office', [OfficeRecordsController::class, 'createOffice'])->name('admin.create-office');
             Route::patch('update-office', [OfficeRecordsController::class, 'updateOffice'])->name('admin.update-office');
             Route::delete('delete-office', [OfficeRecordsController::class, 'deleteOffice'])->name('admin.delete-office');

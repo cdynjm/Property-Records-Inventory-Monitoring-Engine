@@ -39,7 +39,7 @@ class OfficeRecordsController extends Controller
         ]);
     }
 
-    public function officePropetryInventoryRecords(Request $request)
+    public function officePropertyInventoryRecords(Request $request)
     {
         $year = session('year');
         $search = session('search');
@@ -67,7 +67,7 @@ class OfficeRecordsController extends Controller
 
         $office = Office::where('id', $officeID)->first();
 
-        return view('pages.admin.office-propery-inventory-records', [
+        return view('pages.admin.office-property-inventory-records', [
             'ics' => $ics,
             'are' => $are,
             'office' => $office

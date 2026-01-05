@@ -32,7 +32,7 @@
 
                             <!-- stat text -->
                             <div>
-                                <p class="text-xs font-semibold text-gray-500">Total ARE</p>
+                                <p class="text-xs font-semibold text-gray-500">Physical Count of PPE</p>
                                 <p class="text-2xl font-bold text-gray-900">{{ $are->count() }}</p>
                             </div>
                         </div>
@@ -44,7 +44,7 @@
                                 <a wire:navigate href="{{ route('admin.are') }}" class="flex items-center gap-2">
                                     <iconify-icon icon="solar:document-bold-duotone" width="24"
                                         height="24"></iconify-icon>
-                                    Generate ARE
+                                    Add New PPE
                                 </a>
                             </span>
                             <span class="text-xs text-gray-400 mt-1">Year {{ session('year') }}</span>
@@ -58,7 +58,7 @@
                                 points="0,16 20,12 40,8 60,10 80,6 100,4"></polyline>
                         </svg>
                     </div>
-                    <small class="text-sm mb-0 text-gray-600 text-start">Acknowledgement Receipt for Equipment</small>
+                    <small class="text-sm mb-0 text-gray-600 text-start">Physical Count of Property, Plant & Equipment</small>
                 </div>
 
                 <!-- Stat Card -->

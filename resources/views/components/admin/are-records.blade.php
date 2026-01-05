@@ -127,8 +127,8 @@
 <x-modal name="delete-are" class="w-auto md:m-auto mx-4">
     <x-slot name="header">
         <flux:modal.close class="text-gray-500 hover:text-gray-700" />
-        <flux:heading size="lg">Delete ARE Record</flux:heading>
-        <flux:text class="mt-2">Are you sure you want to delete this ARE Record?</flux:text>
+        <flux:heading size="lg">Delete ARE and PPE Record</flux:heading>
+        <flux:text class="mt-2">Are you sure you want to delete this ARE and PPE Record?</flux:text>
     </x-slot>
     <div class="flex">
         <flux:spacer />
