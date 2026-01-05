@@ -68,31 +68,6 @@
                         'label' => __('Dashboard'),
                     ],
                     [
-                        'icon' => 'clipboard-document-check',
-                        'route' => 'admin.are-records',
-                        'label' => __('ARE Records'),
-                    ],
-                    [
-                        'icon' => 'clipboard-document',
-                        'route' => 'admin.ics-records',
-                        'label' => __('ICS Records'),
-                    ],
-                    [
-                        'icon' => 'briefcase',
-                        'route' => 'admin.office-records',
-                        'label' => __('Office Records'),
-                    ],
-                    [
-                        'icon' => 'identification',
-                        'route' => 'admin.issuers',
-                        'label' => __('Issuers'),
-                    ],
-                    [
-                        'icon' => 'user-circle',
-                        'route' => 'admin.receivers',
-                        'label' => __('Receivers'),
-                    ],
-                    [
                         'icon' => 'document-text',
                         'route' => 'admin.accounts-code',
                         'label' => __('Accounts Code'),
@@ -102,19 +77,73 @@
                         'route' => 'admin.units',
                         'label' => __('Unit'),
                     ],
+                    [
+                        'group' => __('Records'),
+                        'items' => [
+                            [
+                                'icon' => 'clipboard-document-check',
+                                'route' => 'admin.are-records',
+                                'label' => __('ARE Records'),
+                            ],
+                            [
+                                'icon' => 'clipboard-document',
+                                'route' => 'admin.ics-records',
+                                'label' => __('ICS Records'),
+                            ],
+                            [
+                                'icon' => 'briefcase',
+                                'route' => 'admin.office-records',
+                                'label' => __('Office Records'),
+                            ],
+                        ],
+                    ],
+                    [
+                        'group' => __('Accountable'),
+                        'items' => [
+                            [
+                                'icon' => 'identification',
+                                'route' => 'admin.issuers',
+                                'label' => __('Issuers'),
+                            ],
+                            [
+                                'icon' => 'user-circle',
+                                'route' => 'admin.receivers',
+                                'label' => __('Receivers'),
+                            ],
+                        ],
+                    ],
                 ];
             @endphp
 
+
             <flux:navlist variant="outline">
                 <flux:navlist.group :heading="__('Pages')" class="grid">
+
                     @foreach ($navItems as $item)
-                        <flux:navlist.item :icon="$item['icon']" class="mb-1" :href="route($item['route'])"
-                            :current="request()->routeIs($item['route'])" wire:navigate>
-                            {{ $item['label'] }}
-                        </flux:navlist.item>
+                        {{-- GROUPED RECORDS --}}
+                        @if (isset($item['group']))
+                            <flux:navlist.group :heading="$item['group']" open class="mt-2 space-y-1">
+                                @foreach ($item['items'] as $sub)
+                                    <flux:navlist.item :icon="$sub['icon']" class="ml-2"
+                                        :href="route($sub['route'])" :current="request()->routeIs($sub['route'])"
+                                        wire:navigate>
+                                        {{ $sub['label'] }}
+                                    </flux:navlist.item>
+                                @endforeach
+                            </flux:navlist.group>
+
+                            {{-- NORMAL ITEM --}}
+                        @else
+                            <flux:navlist.item :icon="$item['icon']" class="mb-1" :href="route($item['route'])"
+                                :current="request()->routeIs($item['route'])" wire:navigate>
+                                {{ $item['label'] }}
+                            </flux:navlist.item>
+                        @endif
                     @endforeach
+
                 </flux:navlist.group>
             </flux:navlist>
+
 
 
             <flux:spacer />
@@ -206,8 +235,7 @@
     </flux:sidebar>
 
     <!-- Mobile User Menu -->
-    <flux:header id="app-header"
-        class="fixed top-0 left-0 lg:left-64 lg:w-[calc(100%-16rem)] w-full bg-white">
+    <flux:header id="app-header" class="fixed top-0 left-0 lg:left-64 lg:w-[calc(100%-16rem)] w-full bg-white">
 
         <flux:sidebar.toggle class="lg:hidden" icon="bars-2" inset="left" />
         <div class="hidden lg:block">
@@ -244,7 +272,7 @@
                                 <span
                                     class="flex h-full w-full items-center justify-center rounded-full bg-transparent text-black dark:bg-neutral-700 dark:text-white">
                                     <img src="{{ asset('/img/user.png') }}" alt="">
-                                    </span>
+                                </span>
                             </span>
 
                             <div class="grid flex-1 text-start text-sm leading-tight">
