@@ -122,10 +122,10 @@ class AREController extends Controller
             ]);
         }
 
-         $request->session()->flash('success', 'ARE created successfully.');
+         $request->session()->flash('success', 'ARE and PPE created successfully.');
 
          return response()->json([
-            'message' => 'ARE created successfully.'
+            'message' => 'ARE and PPE created successfully.'
         ], 200);
     }
 
@@ -278,10 +278,10 @@ class AREController extends Controller
             }
         }
 
-        $request->session()->flash('success', 'ARE updated successfully.');
+        $request->session()->flash('success', 'PPE updated successfully.');
 
         return response()->json([
-            'message' => 'ARE updated successfully.'
+            'message' => 'ARE and PPE updated successfully.'
         ], 200);
     }
 
@@ -292,10 +292,10 @@ class AREController extends Controller
         AREInformation::where('are_id', $areId)->delete();
         ARE::where('id', $areId)->delete();
 
-        $request->session()->flash('success', 'ARE deleted successfully.');
+        $request->session()->flash('success', 'ARE and PPE deleted successfully.');
 
         return response()->json([
-            'message' => 'ARE deleted successfully.'
+            'message' => 'ARE and PPE deleted successfully.'
         ], 200);
     }
 }
