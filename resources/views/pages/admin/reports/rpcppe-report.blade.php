@@ -33,7 +33,7 @@
         table tr td {
             border: 1px solid black;
             padding: 5px;
-            font-size: 12px;
+            font-size: 12.5px;
         }
 
         @media print {
