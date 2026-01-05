@@ -18,7 +18,6 @@
 
         .header {
             text-align: center;
-            margin-bottom: 20px;
         }
 
         table {
@@ -59,11 +58,15 @@
 
     <div class="page-form">
         <div class="header">
-            <h5>REPORT ON THE PHYSICAL COUNT OF PROPERTY, PLANT AND EQUIPMENT</h5>
+            <h5 style="margin-bottom: 10px;">REPORT ON THE PHYSICAL COUNT OF PROPERTY, PLANT AND EQUIPMENT</h5>
+        </div>
+
+         <div style="text-align: center; font-size: 12.5px; margin-bottom: 10px;">
+             As of {{ strtoupper(date('F Y')) }}
         </div>
 
         <div style="text-align: center; font-size: 12.5px; margin-bottom: 10px;">
-             As of {{ session('rpcppe-year') }} {{ session('accounts-code-description') != '' ? '| ' . session('accounts-code-description') : '' }} {{ session('office-name') != '' ? '| ' . session('office-name') : '' }}
+             Year {{ session('rpcppe-year') }} {{ session('accounts-code-description') != '' ? '| ' . session('accounts-code-description') : '' }} {{ session('office-name') != '' ? '| ' . session('office-name') : '' }}
         </div>
 
         <div class="table">
