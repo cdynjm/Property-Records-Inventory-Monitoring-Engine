@@ -32,7 +32,7 @@
         table tr td {
             border: 1px solid black;
             padding: 5px;
-            font-size: 12.5px;
+            font-size: 12px;
         }
 
         @media print {
@@ -41,8 +41,9 @@
             }
 
             @page {
-                size: landscape;
+                size: legal landscape;
                 margin: 50px 30px 30px;
+                
             }
         }
     </style>
@@ -61,22 +62,24 @@
             <h5 style="margin-bottom: 10px;">REPORT ON THE PHYSICAL COUNT OF PROPERTY, PLANT AND EQUIPMENT</h5>
         </div>
 
-         <div style="text-align: center; font-size: 12.5px; margin-bottom: 10px;">
-             As of {{ strtoupper(date('F Y')) }}
+        <div style="text-align: center; font-size: 12px; margin-bottom: 10px;">
+            As of {{ strtoupper(date('F Y')) }}
         </div>
 
-        <div style="text-align: center; font-size: 12.5px; margin-bottom: 10px;">
-             Year {{ session('rpcppe-year') }} {{ session('accounts-code-description') != '' ? '| ' . session('accounts-code-description') : '' }} {{ session('office-name') != '' ? '| ' . session('office-name') : '' }}
+        <div style="text-align: center; font-size: 12px; margin-bottom: 10px;">
+            Year {{ session('rpcppe-year') }}
+            {{ session('accounts-code-description') != '' ? '| ' . session('accounts-code-description') : '' }}
+            {{ session('office-name') != '' ? '| ' . session('office-name') : '' }}
         </div>
 
         <div class="table">
             <table>
                 <thead>
                     <tr>
-                        <td style="text-align: center">ARTICLE NO.</td>
+                        <td style="text-align: center">ARTICLE <br> NO.</td>
                         <td style="text-align: center">ITEM DESCRIPTION</td>
                         <td style="text-align: center">NEW PROPERTY NUMBER</td>
-                        <td style="text-align: center">UNIT MEASURE</td>
+                        <td style="text-align: center">UNIT <br> MEASURE</td>
                         <td style="text-align: center">UNIT VALUE</td>
                         <td style="text-align: center">ACCOUNTABLE OFFICER</td>
                         <td style="text-align: center">DATE ACQUIRED</td>
@@ -91,8 +94,12 @@
                                     <td style="text-align: center">{{ $index + 1 }}</td>
                                 @endif
 
-                                <td>{{ $areInfo->description }}</td>
-                                <td style="white-space: nowrap">{{ $areInfo->propertyNumber }}</td>
+                                <td
+                                    style="max-width: 500px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                    {{ $areInfo->description }}
+                                </td>
+
+                                <td style="text-align: center; white-space: nowrap">{{ $areInfo->propertyNumber }}</td>
                                 <td style="text-align: center">{{ $areInfo->unit }}</td>
                                 <td style="text-align: center">{{ number_format($areInfo->unitCost, 2) }}</td>
 
