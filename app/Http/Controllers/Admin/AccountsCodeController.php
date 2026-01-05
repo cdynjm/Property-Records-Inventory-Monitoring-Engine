@@ -16,7 +16,7 @@ use App\Models\ARE;
 
 class AccountsCodeController extends Controller
 {
-     use HasKeywordSearch;
+    use HasKeywordSearch;
     protected AESCipher $aes;
 
     public function __construct(AESCipher $aes)
