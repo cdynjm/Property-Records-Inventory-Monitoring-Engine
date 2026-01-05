@@ -42,8 +42,7 @@
 
             @page {
                 size: legal landscape;
-                margin: 50px 30px 30px;
-                
+                margin: 25px;
             }
         }
     </style>
