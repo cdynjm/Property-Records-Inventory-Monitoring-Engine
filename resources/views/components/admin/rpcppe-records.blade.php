@@ -57,7 +57,7 @@
                         </div>
                     </td>
                 @endif
-                <td class="border border-gray-200 px-4 py-2 align-middle whitespace-nowrap">
+                <td class="border border-gray-200 px-4 py-2 align-middle whitespace-nowrap text-center">
                     <p>{{ date('M d, Y', strtotime($areInfo->dateAcquired)) }}</p>
                 </td>
                 @if ($infoIndex === 0)
