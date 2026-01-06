@@ -84,7 +84,7 @@
                             <div class="flex flex-col items-center">
                                 <a wire:navigate
                                     href="{{ route('office.are-print', ['encrypted_id' => $ar->encrypted_id]) }}">
-                                    <small class="text-blue-500">Print</small>
+                                    <small class="text-blue-500">View</small>
                                 </a>
                                 
                             </div>

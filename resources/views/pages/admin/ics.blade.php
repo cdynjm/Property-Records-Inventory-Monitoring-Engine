@@ -101,7 +101,7 @@
 
                                     <div class="flex flex-col">
                                         <label class="mb-1 text-sm font-medium text-gray-700">Unit Cost</label>
-                                        <flux:input class="mb-0" type="number" min="0" step="0.1"
+                                        <flux:input class="mb-0" type="number" min="0" step="any"
                                             x-bind:name="'rows[' + index + '][unitCost]'" />
                                     </div>
                                 </div>

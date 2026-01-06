@@ -15,7 +15,7 @@
                             <label class="mb-1 text-sm font-medium text-gray-700">
                                 Office
                             </label>
-                            <flux:select variant="default" name="offices_id" placeholder="Choose Office..." required>
+                            <flux:select variant="default" name="offices_id" placeholder="Choose Office...">
                                 @foreach ($offices as $office)
                                     <option value="{{ $office->encrypted_id }}">{{ $office->officeName }}</option>
                                 @endforeach
@@ -26,7 +26,7 @@
                             <label class="mb-1 text-sm font-medium text-gray-700">
                                 Year
                             </label>
-                            <flux:select name="areYear" required class="mb-0" placeholder="Select Year...">
+                            <flux:select name="areYear" class="mb-0" placeholder="Select Year...">
                                 @php
                                     $currentYear = date('y');
                                     $years = [];
@@ -48,7 +48,7 @@
                             <label class="mb-1 text-sm font-medium text-gray-700">
                                 Code
                             </label>
-                            <flux:input class="mb-0" name="areCode" required />
+                            <flux:input class="mb-0" name="areCode" />
                         </div>
                     </div>
 
@@ -93,13 +93,13 @@
 
                                     <div class="flex flex-col">
                                         <label class="mb-1 text-sm font-medium text-gray-700">Unit Cost</label>
-                                        <flux:input class="mb-0" type="number" min="0" step="0.1"
+                                        <flux:input class="mb-0" type="number" min="0" step="any"
                                             x-bind:name="'rows[' + index + '][unitCost]'" />
                                     </div>
 
                                     <div class="flex flex-col">
                                         <label class="mb-1 text-sm font-medium text-gray-700">Total Value</label>
-                                        <flux:input class="mb-0" type="number" min="0" step="0.1" 
+                                        <flux:input class="mb-0" type="number" min="0" step="any" 
                                             x-bind:name="'rows[' + index + '][totalValue]'" />
                                     </div>
 

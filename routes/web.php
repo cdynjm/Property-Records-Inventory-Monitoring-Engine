@@ -40,6 +40,9 @@ use App\Http\Controllers\Office\Forms\ICSFormController as OfficeICSFormControll
 use App\Http\Controllers\Office\ICSPrintController as OfficeICSPrintController;
 use App\Http\Controllers\Office\Forms\AREFormController as OfficeAREFormController;
 use App\Http\Controllers\Office\AREPrintController as OfficeAREPrintController;
+use App\Http\Controllers\Office\RPCPPEPrintController as OfficeRPCPPEPrintController;
+use App\Http\Controllers\Office\Reports\RPCPPEReportController as OfficeRPCPPEReportController;
+use App\Http\Controllers\Office\RPCPPERecordsController as OfficeRPCPPERecordsController;
 
 Route::get('/', [RedirectIfAuthenticated::class, 'index'])->name('home');
 
@@ -160,6 +163,7 @@ Route::middleware(['auth'])->group(function () {
             Route::post('search-clear', [OfficeSearchController::class, 'searchClear'])->name('office.search-clear');
             Route::post('year', [OfficeSearchController::class, 'year'])->name('office.year');
             Route::post('year-clear', [OfficeSearchController::class, 'yearClear'])->name('office.year-clear');
+            Route::post('search-rpcppe', [OfficeSearchController::class, 'searchRPCPPE'])->name('office.search-rpcppe');
 
             Route::get('ics-records', [OfficeICSRecordsController::class, 'index'])->name('office.ics-records');
             Route::get('are-records', [OfficeARERecordsController::class, 'index'])->name('office.are-records');
@@ -168,6 +172,11 @@ Route::middleware(['auth'])->group(function () {
             Route::get('ics-print/{encrypted_id}', [OfficeICSPrintController::class, 'index'])->name('office.ics-print');
             Route::get('are-form/{encrypted_id}', [OfficeAREFormController::class, 'index'])->name('office.are-form');
             Route::get('are-print/{encrypted_id}', [OfficeAREPrintController::class, 'index'])->name('office.are-print');
+
+            Route::get('rpcppe-records', [OfficeRPCPPERecordsController::class, 'index'])->name('office.rpcppe-records');
+
+            Route::get('rpcppe-print', [OfficeRPCPPEPrintController::class, 'index'])->name('office.rpcppe-print');
+            Route::get('rpcppe-report', [OfficeRPCPPEReportController::class, 'index'])->name('office.rpcppe-report');
         });
 
     });

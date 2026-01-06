@@ -122,13 +122,13 @@
 
                                     <div class="flex flex-col">
                                         <label class="mb-1 text-sm font-medium text-gray-700">Unit Cost</label>
-                                        <flux:input class="mb-0" type="number" x-model="row.unitCost" min="0" step="0.1"
+                                        <flux:input class="mb-0" type="number" x-model="row.unitCost" min="0" step="any"
                                             x-bind:name="'rows[' + index + '][unitCost]'" />
                                     </div>
 
                                     <div class="flex flex-col">
                                         <label class="mb-1 text-sm font-medium text-gray-700">Total Value</label>
-                                        <flux:input class="mb-0" type="number" x-model="row.totalValue" min="0" step="0.1" 
+                                        <flux:input class="mb-0" type="number" x-model="row.totalValue" min="0" step="any" 
                                             x-bind:name="'rows[' + index + '][totalValue]'" />
                                     </div>
 

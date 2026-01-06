@@ -16,7 +16,7 @@
             </a>
 
             @php
-                $superadminNavItems = [
+                $navItems = [
                     [
                         'icon' => 'home',
                         'route' => 'superadmin.dashboard',
@@ -42,12 +42,29 @@
 
             <flux:navlist variant="outline">
                 <flux:navlist.group :heading="__('Pages')" class="grid">
-                    @foreach ($superadminNavItems as $item)
-                        <flux:navlist.item :icon="$item['icon']" class="mb-1" :href="route($item['route'])"
-                            :current="request()->routeIs($item['route'])" wire:navigate>
-                            {{ $item['label'] }}
-                        </flux:navlist.item>
+
+                    @foreach ($navItems as $item)
+                        {{-- GROUPED RECORDS --}}
+                        @if (isset($item['group']))
+                            <flux:navlist.group :heading="$item['group']" open class="mt-2 space-y-1">
+                                @foreach ($item['items'] as $sub)
+                                    <flux:navlist.item :icon="$sub['icon']" class="ml-2"
+                                        :href="route($sub['route'])" :current="request()->routeIs($sub['route'])"
+                                        wire:navigate>
+                                        {{ $sub['label'] }}
+                                    </flux:navlist.item>
+                                @endforeach
+                            </flux:navlist.group>
+
+                            {{-- NORMAL ITEM --}}
+                        @else
+                            <flux:navlist.item :icon="$item['icon']" class="mb-1" :href="route($item['route'])"
+                                :current="request()->routeIs($item['route'])" wire:navigate>
+                                {{ $item['label'] }}
+                            </flux:navlist.item>
+                        @endif
                     @endforeach
+
                 </flux:navlist.group>
             </flux:navlist>
 
@@ -159,8 +176,6 @@
                 </flux:navlist.group>
             </flux:navlist>
 
-
-
             <flux:spacer />
         @endif
 
@@ -171,33 +186,70 @@
             </a>
 
             @php
-                $officeNavItems = [
+                $navItems = [
                     [
                         'icon' => 'home',
                         'route' => 'office.dashboard',
                         'label' => __('Dashboard'),
                     ],
                     [
-                        'icon' => 'clipboard-document-check',
-                        'route' => 'office.are-records',
-                        'label' => __('ARE Records'),
+                        'group' => __('Records'),
+                        'items' => [
+                            [
+                                'icon' => 'clipboard-document-check',
+                                'route' => 'office.are-records',
+                                'label' => __('ARE Records'),
+                            ],
+                            [
+                                'icon' => 'clipboard-document',
+                                'route' => 'office.ics-records',
+                                'label' => __('ICS Records'),
+                            ],
+                            [
+                                'icon' => 'clipboard-document-check',
+                                'route' => 'office.rpcppe-records',
+                                'label' => __('RPCPPE Records'),
+                            ],
+                        ],
                     ],
                     [
-                        'icon' => 'clipboard-document',
-                        'route' => 'office.ics-records',
-                        'label' => __('ICS Records'),
+                        'group' => __('Reports'),
+                        'items' => [
+                            [
+                                'icon' => 'printer',
+                                'route' => 'office.rpcppe-print',
+                                'label' => __('Print RPCPPE'),
+                            ],
+                        ],
                     ],
                 ];
             @endphp
 
             <flux:navlist variant="outline">
                 <flux:navlist.group :heading="__('Pages')" class="grid">
-                    @foreach ($officeNavItems as $item)
-                        <flux:navlist.item :icon="$item['icon']" class="mb-1" :href="route($item['route'])"
-                            :current="request()->routeIs($item['route'])" wire:navigate>
-                            {{ $item['label'] }}
-                        </flux:navlist.item>
+
+                    @foreach ($navItems as $item)
+                        {{-- GROUPED RECORDS --}}
+                        @if (isset($item['group']))
+                            <flux:navlist.group :heading="$item['group']" open class="mt-2 space-y-1">
+                                @foreach ($item['items'] as $sub)
+                                    <flux:navlist.item :icon="$sub['icon']" class="ml-2"
+                                        :href="route($sub['route'])" :current="request()->routeIs($sub['route'])"
+                                        wire:navigate>
+                                        {{ $sub['label'] }}
+                                    </flux:navlist.item>
+                                @endforeach
+                            </flux:navlist.group>
+
+                            {{-- NORMAL ITEM --}}
+                        @else
+                            <flux:navlist.item :icon="$item['icon']" class="mb-1" :href="route($item['route'])"
+                                :current="request()->routeIs($item['route'])" wire:navigate>
+                                {{ $item['label'] }}
+                            </flux:navlist.item>
+                        @endif
                     @endforeach
+
                 </flux:navlist.group>
             </flux:navlist>
 
