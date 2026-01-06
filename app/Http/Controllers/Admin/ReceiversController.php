@@ -44,21 +44,19 @@ class ReceiversController extends Controller
         $receivedByID = $this->aes->decrypt($request->encrypted_id);
 
         $ics = $this->searchICS(
-            ICS::where('receivedBy_id', $receivedByID)
-                ->where('dateReceivedFrom', 'like', '%'.$year.'%'),
-            $search
-        )
-        ->orderBy('updated_at', 'desc')->paginate(15)->through(function ($ics) {
+            ICS::where('receivedBy_id', $receivedByID),
+            $search,
+            $year
+        )->paginate(15)->through(function ($ics) {
             $ics->encrypted_id = $this->aes->encrypt($ics->id);
             return $ics;
         });
 
         $are = $this->searchARE(
-            ARE::where('receivedBy_id', $receivedByID)
-                ->where('dateReceivedFrom', 'like', '%'.$year.'%'),
-            $search
-        )
-        ->orderBy('updated_at', 'desc')->paginate(15) ->through(function ($are) {
+            ARE::where('receivedBy_id', $receivedByID),
+            $search,
+            $year
+        )->paginate(15) ->through(function ($are) {
             $are->encrypted_id = $this->aes->encrypt($are->id);
             return $are;
         });

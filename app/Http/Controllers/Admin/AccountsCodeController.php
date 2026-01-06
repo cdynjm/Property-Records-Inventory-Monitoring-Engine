@@ -79,8 +79,9 @@ class AccountsCodeController extends Controller
         $are = $this->searchARE(
             ARE::whereHas('information', function ($query) use ($accountCodeID) {
                 $query->where('account_codes_id', $accountCodeID);
-            })->where('dateReceivedFrom', 'like', '%'.$year.'%'),
-            $search
+            }),
+            $search,
+            $year
         )
             ->orderBy('updated_at', 'desc')
             ->with(['information' => function ($query) use ($accountCodeID) {

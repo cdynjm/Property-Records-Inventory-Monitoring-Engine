@@ -26,11 +26,10 @@ class RPCPPERecordsController extends Controller
         $search = session('search');
 
         $are = $this->searchARE(
-            ARE::where('dateReceivedFrom', 'like', "%{$year}%")
-                ->where('offices_id', auth()->user()->office->id),
-            $search
-        )
-        ->orderBy('updated_at', 'desc')->paginate(15) ->through(function ($are) {
+            ARE::where('offices_id', auth()->user()->office->id),
+            $search,
+            $year
+        )->paginate(15) ->through(function ($are) {
             $are->encrypted_id = $this->aes->encrypt($are->id);
             return $are;
         });

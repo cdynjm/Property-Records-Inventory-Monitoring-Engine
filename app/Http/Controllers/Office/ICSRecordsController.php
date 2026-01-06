@@ -26,11 +26,10 @@ class ICSRecordsController extends Controller
         $search = session('search');
 
         $ics = $this->searchICS(
-            ICS::where('offices_id', auth()->user()->office->id)
-                ->where('dateReceivedFrom', 'like', '%'.$year.'%'),
-            $search
-        )
-        ->orderBy('updated_at', 'desc')->paginate(15) ->through(function ($ics) {
+            ICS::where('offices_id', auth()->user()->office->id),
+            $search,
+            $year
+        )->paginate(15) ->through(function ($ics) {
             $ics->encrypted_id = $this->aes->encrypt($ics->id);
             return $ics;
         });

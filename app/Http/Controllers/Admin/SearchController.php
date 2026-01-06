@@ -57,7 +57,7 @@ class SearchController extends Controller
 
     public function yearClear(Request $request)
     {
-        $request->session()->put('year', now()->year);
+        $request->session()->put('year', '');
 
         return response()->json([
             'message' => 'success'

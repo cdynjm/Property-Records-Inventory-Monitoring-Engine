@@ -27,10 +27,15 @@ class DashboardController extends Controller
         $year = session('year');
         $search = session('search');
 
-        $icsTotal = ICS::whereYear('dateReceivedFrom', $year)->count();
-        $areTotal = ARE::whereYear('dateReceivedFrom', $year)->count();
+        $icsTotal = ICS::whereHas('information', function ($query) use ($year) {
+                $query->where('dateAcquired', 'like', "{$year}%");
+            })->count();
 
-        $icsMonthly = ICS::select(DB::raw('MONTH(dateReceivedFrom) as month'), DB::raw('count(*) as total'))
+        $areTotal = ARE::whereHas('information', function ($query) use ($year) {
+                $query->where('dateAcquired', 'like', "{$year}%");
+            })->count();
+
+       /* $icsMonthly = ICS::select(DB::raw('MONTH(dateReceivedFrom) as month'), DB::raw('count(*) as total'))
             ->whereYear('dateReceivedFrom', $year)
             ->groupBy('month')
             ->pluck('total', 'month')
@@ -44,11 +49,12 @@ class DashboardController extends Controller
 
         $months = range(1, 12);
         $icsData = array_map(fn($m) => $icsMonthly[$m] ?? 0, $months);
-        $areData = array_map(fn($m) => $areMonthly[$m] ?? 0, $months);
+        $areData = array_map(fn($m) => $areMonthly[$m] ?? 0, $months); */
 
         $are = $this->searchARE(
-            ARE::where('dateReceivedFrom', 'like', "%{$year}%"),
-            $search
+            ARE::query(),
+            $search,
+            $year
         )
         ->orderBy('updated_at', 'desc')->paginate(15) ->through(function ($are) {
             $are->encrypted_id = $this->aes->encrypt($are->id);
@@ -58,8 +64,8 @@ class DashboardController extends Controller
         return view('pages.admin.dashboard', [
             'icsTotal' => $icsTotal,
             'areTotal' => $areTotal,
-            'icsData' => json_encode($icsData),
-            'areData' => json_encode($areData),
+           // 'icsData' => json_encode($icsData),
+           // 'areData' => json_encode($areData),
             'are' => $are
         ]);
     }

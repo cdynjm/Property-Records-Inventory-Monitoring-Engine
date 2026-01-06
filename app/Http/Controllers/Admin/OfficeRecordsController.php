@@ -49,28 +49,37 @@ class OfficeRecordsController extends Controller
             ICS::where('offices_id', $officeID)
                 ->where('dateReceivedFrom', 'like', '%'.$year.'%'),
             $search
-        )
-        ->orderBy('updated_at', 'desc')->paginate(15)->through(function ($ics) {
+        )->paginate(15)->through(function ($ics) {
             $ics->encrypted_id = $this->aes->encrypt($ics->id);
             return $ics;
         });
 
         $are = $this->searchARE(
-            ARE::where('offices_id', $officeID)
-                ->where('dateReceivedFrom', 'like', '%'.$year.'%'),
-            $search
-        )
-        ->orderBy('updated_at', 'desc')->paginate(15) ->through(function ($are) {
+            ARE::where('offices_id', $officeID),
+            $search,
+            $year
+        )->paginate(15) ->through(function ($are) {
             $are->encrypted_id = $this->aes->encrypt($are->id);
             return $are;
         });
+
+        $icsTotal = ICS::where('offices_id', $officeID)->whereHas('information', function ($query) use ($year) {
+                $query->where('dateAcquired', 'like', "{$year}%");
+            })->count();
+        
+        $areTotal = ARE::where('offices_id', $officeID)->whereHas('information', function ($query) use ($year) {
+                $query->where('dateAcquired', 'like', "{$year}%");
+            })->count();
 
         $office = Office::where('id', $officeID)->first();
 
         return view('pages.admin.office-property-inventory-records', [
             'ics' => $ics,
             'are' => $are,
-            'office' => $office
+            'office' => $office,
+            'icsTotal' => $icsTotal,
+            'areTotal' => $areTotal,
+            
         ]);
     }
 

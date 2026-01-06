@@ -33,7 +33,7 @@
                             <!-- stat text -->
                             <div>
                                 <p class="text-xs font-semibold text-gray-500">Physical Count of PPE</p>
-                                <p class="text-2xl font-bold text-gray-900">{{ $are->count() }}</p>
+                                <p class="text-2xl font-bold text-gray-900">{{ $areTotal }}</p>
                             </div>
                         </div>
 
@@ -79,7 +79,7 @@
                             <!-- stat text -->
                             <div>
                                 <p class="text-xs font-semibold text-gray-500">Total ICS</p>
-                                <p class="text-2xl font-bold text-gray-900">{{ $ics->count() }}</p>
+                                <p class="text-2xl font-bold text-gray-900">{{ $icsTotal }}</p>
                             </div>
                         </div>
 

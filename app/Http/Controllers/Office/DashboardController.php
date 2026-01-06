@@ -28,12 +28,16 @@ class DashboardController extends Controller
         $search = session('search');
 
         $icsTotal = ICS::where('offices_id', auth()->user()->office->id)
-            ->whereYear('dateReceivedFrom', $year)->count();
+            ->whereHas('information', function ($query) use ($year) {
+                $query->where('dateAcquired', 'like', "{$year}%");
+            })->count();
 
         $areTotal = ARE::where('offices_id', auth()->user()->office->id)
-            ->whereYear('dateReceivedFrom', $year)->count();
+            ->whereHas('information', function ($query) use ($year) {
+                $query->where('dateAcquired', 'like', "{$year}%");
+            })->count();
 
-        $icsMonthly = ICS::select(DB::raw('MONTH(dateReceivedFrom) as month'), DB::raw('count(*) as total'))
+       /* $icsMonthly = ICS::select(DB::raw('MONTH(dateReceivedFrom) as month'), DB::raw('count(*) as total'))
             ->where('offices_id', auth()->user()->office->id)
             ->whereYear('dateReceivedFrom', $year)
             ->groupBy('month')
@@ -49,14 +53,13 @@ class DashboardController extends Controller
 
         $months = range(1, 12);
         $icsData = array_map(fn($m) => $icsMonthly[$m] ?? 0, $months);
-        $areData = array_map(fn($m) => $areMonthly[$m] ?? 0, $months);
+        $areData = array_map(fn($m) => $areMonthly[$m] ?? 0, $months); */
 
          $are = $this->searchARE(
-            ARE::where('dateReceivedFrom', 'like', "%{$year}%")
-                ->where('offices_id', auth()->user()->office->id),
-            $search
-        )
-        ->orderBy('updated_at', 'desc')->paginate(15) ->through(function ($are) {
+            ARE::where('offices_id', auth()->user()->office->id),
+            $search,
+            $year
+        )->paginate(15) ->through(function ($are) {
             $are->encrypted_id = $this->aes->encrypt($are->id);
             return $are;
         });
@@ -64,8 +67,8 @@ class DashboardController extends Controller
         return view('pages.office.dashboard', [
             'icsTotal' => $icsTotal,
             'areTotal' => $areTotal,
-            'icsData' => json_encode($icsData),
-            'areData' => json_encode($areData),
+           // 'icsData' => json_encode($icsData),
+           // 'areData' => json_encode($areData),
             'are' => $are
         ]);
     }
