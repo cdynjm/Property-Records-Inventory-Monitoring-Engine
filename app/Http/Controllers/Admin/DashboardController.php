@@ -12,6 +12,9 @@ use App\Traits\HasKeywordSearch;
 use App\Models\ICS;
 use App\Models\ARE;
 
+use App\Models\ICSInformation;
+use App\Models\AREInformation;
+
 class DashboardController extends Controller
 {
     use HasKeywordSearch;
@@ -27,13 +30,11 @@ class DashboardController extends Controller
         $year = session('year');
         $search = session('search');
 
-        $icsTotal = ICS::whereHas('information', function ($query) use ($year) {
-                $query->where('dateAcquired', 'like', "{$year}%");
-            })->count();
+        $icsTotal = ICSInformation::where('dateAcquired', 'like', "{$year}%")
+            ->count();
 
-        $areTotal = ARE::whereHas('information', function ($query) use ($year) {
-                $query->where('dateAcquired', 'like', "{$year}%");
-            })->count();
+        $areTotal = AREInformation::where('dateAcquired', 'like', "{$year}%")
+            ->count();
 
        /* $icsMonthly = ICS::select(DB::raw('MONTH(dateReceivedFrom) as month'), DB::raw('count(*) as total'))
             ->whereYear('dateReceivedFrom', $year)

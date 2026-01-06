@@ -16,6 +16,9 @@ use App\Models\ICS;
 use App\Models\ARE;
 use App\Models\User;
 
+use App\Models\ICSInformation;
+use App\Models\AREInformation;
+
 class OfficeRecordsController extends Controller
 {
     use HasKeywordSearch;
@@ -46,9 +49,9 @@ class OfficeRecordsController extends Controller
         $officeID = $this->aes->decrypt($request->encrypted_id);
 
         $ics = $this->searchICS(
-            ICS::where('offices_id', $officeID)
-                ->where('dateReceivedFrom', 'like', '%'.$year.'%'),
-            $search
+            ICS::where('offices_id', $officeID),
+            $search,
+            $year
         )->paginate(15)->through(function ($ics) {
             $ics->encrypted_id = $this->aes->encrypt($ics->id);
             return $ics;
@@ -63,13 +66,17 @@ class OfficeRecordsController extends Controller
             return $are;
         });
 
-        $icsTotal = ICS::where('offices_id', $officeID)->whereHas('information', function ($query) use ($year) {
-                $query->where('dateAcquired', 'like', "{$year}%");
-            })->count();
-        
-        $areTotal = ARE::where('offices_id', $officeID)->whereHas('information', function ($query) use ($year) {
-                $query->where('dateAcquired', 'like', "{$year}%");
-            })->count();
+        $icsTotal = ICSInformation::whereHas('ics', function ($q) use($officeID) {
+                $q->where('offices_id', $officeID);
+            })
+            ->where('dateAcquired', 'like', "{$year}%")
+            ->count();
+
+        $areTotal = AREInformation::whereHas('are', function ($q) use($officeID) {
+                $q->where('offices_id', $officeID);
+            })
+            ->where('dateAcquired', 'like', "{$year}%")
+            ->count();
 
         $office = Office::where('id', $officeID)->first();
 

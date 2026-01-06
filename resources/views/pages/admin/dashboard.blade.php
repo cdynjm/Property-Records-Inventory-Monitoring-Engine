@@ -92,7 +92,7 @@
 
                             <!-- stat text -->
                             <div>
-                                <p class="text-xs font-semibold text-gray-500">Total ICS</p>
+                                <p class="text-xs font-semibold text-gray-500">Total Items</p>
                                 <p class="text-2xl font-bold text-gray-900">{{ $icsTotal }}</p>
                             </div>
                         </div>
