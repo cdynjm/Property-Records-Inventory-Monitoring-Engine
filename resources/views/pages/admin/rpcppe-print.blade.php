@@ -5,9 +5,10 @@
                 <div class="flex flex-col">
                     <label for="" class="text-[12px] mb-1 ms-1">Select Year</label>
                     <flux:select id="rpcppe-year" size="sm">
+                        <option value="">All</option>
                         @for ($year = now()->year; $year >= 2000; $year--)
                             <option value="{{ $year }}"
-                                {{ session('rpcppe-year', now()->year) == $year ? 'selected' : '' }}>
+                                {{ session('rpcppe-year') == $year ? 'selected' : '' }}>
                                 {{ $year }}
                             </option>
                         @endfor

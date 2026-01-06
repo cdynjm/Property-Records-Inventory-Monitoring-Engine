@@ -10,7 +10,7 @@
         <flux:select id="search-year" size="sm">
             <option value="">All</option>
             @for ($year = now()->year; $year >= 2000; $year--)
-                <option value="{{ $year }}" {{ session('year', now()->year) == $year ? 'selected' : '' }}>
+                <option value="{{ $year }}" {{ session('year') == $year ? 'selected' : '' }}>
                     {{ $year }}
                 </option>
             @endfor

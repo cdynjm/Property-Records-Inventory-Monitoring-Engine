@@ -64,14 +64,14 @@ trait HasKeywordSearch
 
         ->whereHas('information', function ($infoQuery) use ($year, $accountsCode) {
 
-            $infoQuery->whereYear('dateAcquired', $year);
+            $infoQuery->where('dateAcquired', 'like', "{$year}%");
 
             if (!empty($accountsCode)) {
                 $infoQuery->where('account_codes_id', $accountsCode);
             }
 
         })
-        ->orderByDesc(
+        ->orderBy(
             AREInformation::select('dateAcquired')
                 ->whereColumn('are_information.are_id', 'are.id')
                 ->limit(1)

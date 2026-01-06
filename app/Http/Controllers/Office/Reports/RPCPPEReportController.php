@@ -34,7 +34,7 @@ class RPCPPEReportController extends Controller
 
         $are = $this->searchRPCPPE(
             ARE::query(),
-            $year != '' ? $year : date('Y'),
+            $year != '' ? $year : '',
             $office,
             $accountsCode != '' ? $this->aes->decrypt($accountsCode) : $accountsCode
         )->get();

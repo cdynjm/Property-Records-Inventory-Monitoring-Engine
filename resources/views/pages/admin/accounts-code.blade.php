@@ -5,17 +5,17 @@
                 <flux:heading level="3">List of Accounts Code</flux:heading>
                 <div class="flex flex-row items-center gap-3 w-full md:w-auto">
                     <div class="flex items-center w-full md:w-80 gap-2">
-                        @if (session('year') != now()->year)
+                        @if (session('year') != '')
                             <a href="javascript:;" class="me-1 text-red-600 flex items-center gap-1" id="clear-year">
                                 <iconify-icon icon="mdi:clear" width="18" height="18"></iconify-icon>
                                 <span class="text-[11px]">Clear</span>
                             </a>
                         @endif
                         <flux:select id="search-year" size="sm">
-                            <option value="">Select Year</option>
+                            <option value="">All</option>
                             @for ($year = now()->year; $year >= 2000; $year--)
                                 <option value="{{ $year }}"
-                                    {{ session('year', now()->year) == $year ? 'selected' : '' }}>
+                                    {{ session('year') == $year ? 'selected' : '' }}>
                                     {{ $year }}
                                 </option>
                             @endfor

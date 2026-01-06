@@ -66,9 +66,8 @@
         </div>
 
         <div style="text-align: center; font-size: 12px; margin-bottom: 10px;">
-            Year {{ session('rpcppe-year') != '' ? session('rpcppe-year') : date('Y')  }}
-            {{ session('accounts-code-description') != '' ? '| ' . session('accounts-code-description') : '' }}
-            {{ session('office-name') != '' ? '| ' . session('office-name') : '' }}
+            {{ session('accounts-code-description') != '' ? session('accounts-code-description') . ' | ' : '' }}
+            {{ session('office-name') != '' ? session('office-name') : 'CONSOLIDATED' }}
         </div>
 
         <div class="table">
