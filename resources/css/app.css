@@ -64,7 +64,7 @@ select:focus[data-flux-control] {
 
 
 
-tr.border-row td {
+tr.border-row td:not(.no-border) {
   @apply border-b border-gray-200;
 }
 

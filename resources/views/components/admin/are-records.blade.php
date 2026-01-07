@@ -12,13 +12,13 @@
         @foreach ($ar->information as $infoIndex => $areInfo)
             <x-table-row>
                 @if ($infoIndex === 0)
-                    <td class="border-b border-b-gray-200 px-4 py-2 text-center align-top whitespace-nowrap"
+                    <td class="border-b border-b-gray-200 px-4 py-2 text-center align-middle whitespace-nowrap"
                         rowspan="{{ count($ar->information) }}">
                         {{ $index + 1 }}
                     </td>
-                    <td class="border-b border-b-gray-200 py-2 align-top text-nowrap"
+                    <td class="border-b border-b-gray-200 py-2 align-middle text-nowrap"
                         rowspan="{{ count($ar->information) }}">
-                        <div class="flex items-center justify-between px-4 mb-4">
+                        <div class="flex items-center justify-between px-4">
                             <a wire:navigate
                                 href="{{ route('admin.are-print', ['encrypted_id' => $ar->encrypted_id]) }}">
                                 <p class="font-bold flex items-center gap-2 text-[13px]">
@@ -32,28 +32,39 @@
                 @endif
 
                 {{-- Item Description --}}
-                <td class="border-b border-b-gray-200 px-4 py-2 align-middle text-nowrap xl:text-wrap">
-                    <div class="flex items-start gap-2">
-                        <iconify-icon icon="solar:bag-check-line-duotone" class="text-green-500" width="18"
-                            height="18"></iconify-icon>
-                        <p class="text-[13px] leading-snug">{!! nl2br(e($areInfo->description)) !!}</p>
-                    </div>
-                    <p class="text-[12px] mt-1">
-                        <span class="font-semibold mr-1">Quantity:</span>
-                        {{ $areInfo->quantity }} {{ $areInfo->unit }}
-                    </p>
-                    <p class="text-[12px]">
-                        <span class="font-semibold mr-1">PPE:</span>
-                        {{ $areInfo->accountsCode->description }}
-                    </p>
-                    <p class="text-[12px]">
-                        <span class="font-semibold mr-1">Date Acquired:</span>
-                        {{ $areInfo->dateAcquired ? date('M d, Y', strtotime($areInfo->dateAcquired)) : '-' }}
-                    </p>
+                <td class="{{ $loop->last ? 'border-b border-b-gray-200' : 'no-border' }}px-4 py-2 align-middle max-w-[350px]">
+                    <flux:heading class="flex items-center">
+                        <flux:tooltip toggleable>
+                            <flux:button size="sm" variant="ghost">
+                                <iconify-icon icon="duo-icons:info" width="20" height="20"
+                                    class="text-green-600"></iconify-icon>
+                            </flux:button>
+                            <flux:tooltip.content class="max-w-[20rem] space-y-2">
+                                {!! nl2br(e($areInfo->description)) !!}
+
+                                <p class="text-[12px] mt-4">
+                                    <span class="font-semibold mr-1">Quantity:</span>
+                                    {{ $areInfo->quantity }} {{ $areInfo->unit }}
+                                </p>
+                                <p class="text-[12px]">
+                                    <span class="font-semibold mr-1">PPE:</span>
+                                    {{ $areInfo->accountsCode->description }}
+                                </p>
+                                <p class="text-[12px]">
+                                    <span class="font-semibold mr-1">Date Acquired:</span>
+                                    {{ $areInfo->dateAcquired ? date('M d, Y', strtotime($areInfo->dateAcquired)) : '-' }}
+                                </p>
+                            </flux:tooltip.content>
+                        </flux:tooltip>
+
+                        <p class="text-[13px] leading-snug truncate min-w-0">
+                            {{ $areInfo->description }}
+                        </p>
+                    </flux:heading>
                 </td>
 
                 {{-- Property Number --}}
-                <td class="border-b border-b-gray-200 text-center px-4 py-2 align-middle text-[13px] whitespace-nowrap">
+                <td class="{{ $loop->last ? 'border-b border-b-gray-200' : 'no-border' }} text-center px-4 py-2 align-middle text-[13px] whitespace-nowrap">
                     <p>{{ $areInfo->propertyNumber }}</p>
                     <p class="text-blue-600">{{ $ar->remarks }}</p>
                 </td>
@@ -87,20 +98,21 @@
                                     href="{{ route('admin.edit-are', ['encrypted_id' => $ar->encrypted_id]) }}">
                                     <small class="text-gray-500">Edit</small>
                                 </a>
-                                
+
                             </div>
-                           <span class="text-gray-300">|</span>
+                            <span class="text-gray-300">|</span>
                             <div class="flex flex-col items-center">
                                 <a wire:navigate
                                     href="{{ route('admin.are-print', ['encrypted_id' => $ar->encrypted_id]) }}">
-                                   <small class="text-blue-500">Print</small>
+                                    <small class="text-blue-500">Print</small>
                                 </a>
-                                
+
                             </div>
-                           
+
                             <div class="flex flex-col items-center text-red-500">
                                 <flux:modal.trigger name="delete-are">
-                                    <a href="javascript:;" data-id="{{ $ar->encrypted_id }}" id="delete-are" class="mt-1">
+                                    <a href="javascript:;" data-id="{{ $ar->encrypted_id }}" id="delete-are"
+                                        class="mt-1">
                                         <iconify-icon icon="lets-icons:trash-duotone" width="22"
                                             height="22"></iconify-icon>
                                     </a>

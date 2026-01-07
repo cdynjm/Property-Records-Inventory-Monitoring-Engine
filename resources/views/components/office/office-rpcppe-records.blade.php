@@ -15,30 +15,39 @@
             <x-table-row>
 
                 @if ($infoIndex === 0)
-                    <td class="border-b border-b-gray-200 px-4 py-2 text-center align-top whitespace-nowrap"
+                    <td class="border-b border-b-gray-200 px-4 py-2 text-center align-middle whitespace-nowrap"
                         rowspan="{{ count($ar->information) }}">
                         {{ $index + 1 }}
                     </td>
                 @endif
                 {{-- Item Description --}}
-                <td class="border-b border-b-gray-200 px-4 py-2 align-middle text-nowrap xl:text-wrap">
-                    <div class="flex items-start gap-2">
-                        <iconify-icon icon="solar:bag-check-line-duotone" class="text-green-500" width="18"
-                            height="18"></iconify-icon>
-                        <p class="text-[13px] leading-snug">{!! nl2br(e($areInfo->description)) !!}</p>
-                    </div>
+                <td class="{{ $loop->last ? 'border-b border-b-gray-200' : 'no-border' }} px-4 py-2 align-middle max-w-[350px]">
+                    <flux:heading class="flex items-center">
+                        <flux:tooltip toggleable>
+                            <flux:button size="sm" variant="ghost">
+                                <iconify-icon icon="duo-icons:info" width="20" height="20"
+                                    class="text-green-600"></iconify-icon>
+                            </flux:button>
+                            <flux:tooltip.content class="max-w-[20rem] space-y-2">
+                                {!! nl2br(e($areInfo->description)) !!}
+                            </flux:tooltip.content>
+                        </flux:tooltip>
 
+                         <p class="text-[13px] leading-snug truncate min-w-0">
+                            {{ $areInfo->description }}
+                        </p>
+                    </flux:heading>
                 </td>
 
-                <td class="border-b border-b-gray-200 text-center px-4 py-2 align-middle text-[13px] whitespace-nowrap">
+                <td class="{{ $loop->last ? 'border-b border-b-gray-200' : 'no-border' }} text-center px-4 py-2 align-middle text-[13px] whitespace-nowrap">
                     <p>{{ $areInfo->propertyNumber }}</p>
                 </td>
 
-                <td class="border-b border-b-gray-200 text-center px-4 py-2 align-middle text-[13px] whitespace-nowrap">
+                <td class="{{ $loop->last ? 'border-b border-b-gray-200' : 'no-border' }} text-center px-4 py-2 align-middle text-[13px] whitespace-nowrap">
                     <p>{{ $areInfo->unit }}</p>
                 </td>
 
-                <td class="border-b border-b-gray-200 text-center px-4 py-2 align-middle text-[13px] whitespace-nowrap">
+                <td class="{{ $loop->last ? 'border-b border-b-gray-200' : 'no-border' }} text-center px-4 py-2 align-middle text-[13px] whitespace-nowrap">
                     <p>{{ number_format($areInfo->unitCost, 2) }}</p>
                 </td>
 
@@ -57,7 +66,7 @@
                         </div>
                     </td>
                 @endif
-                <td class="border-b border-b-gray-200 px-4 py-2 align-middle whitespace-nowrap">
+                <td class="{{ $loop->last ? 'border-b border-b-gray-200' : 'no-border' }} px-4 py-2 align-middle whitespace-nowrap">
                     <p>{{ date('M d, Y', strtotime($areInfo->dateAcquired)) }}</p>
                 </td>
                 @if ($infoIndex === 0)
