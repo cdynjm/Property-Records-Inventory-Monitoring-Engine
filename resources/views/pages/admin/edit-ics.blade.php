@@ -254,7 +254,7 @@
                             </label>
 
                             @if ($ics->scannedDocument)
-                                <a href="{{ asset('storage/scanned-documents/' . $ics->scannedDocument) }}"
+                                <a href="{{ route('admin.view-ics-file', ['filename' => $ics->scannedDocument]) }}"
                                     target="_blank">
                                     <div class="flex items-center gap-2">
                                         <iconify-icon icon="material-icon-theme:folder-pdf-open" width="22" height="22"></iconify-icon>

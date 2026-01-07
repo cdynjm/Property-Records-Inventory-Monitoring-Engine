@@ -29,6 +29,7 @@ use App\Http\Controllers\Admin\AccountsCodeController;
 use App\Http\Controllers\Admin\PersonnelController;
 use App\Http\Controllers\Admin\RPCPPERecordsController;
 use App\Http\Controllers\Admin\RPCPPEPrintController;
+use App\Http\Controllers\Admin\FileViewingController;
 use App\Http\Controllers\Admin\Reports\RPCPPEReportController;
 use App\Http\Controllers\Admin\UnitController as AdminUnitController;
 
@@ -43,13 +44,6 @@ use App\Http\Controllers\Office\AREPrintController as OfficeAREPrintController;
 use App\Http\Controllers\Office\RPCPPEPrintController as OfficeRPCPPEPrintController;
 use App\Http\Controllers\Office\Reports\RPCPPEReportController as OfficeRPCPPEReportController;
 use App\Http\Controllers\Office\RPCPPERecordsController as OfficeRPCPPERecordsController;
-
-use Illuminate\Support\Facades\Artisan;
-
-Route::get('/storage-link', function () {
-    Artisan::call('storage:link');
-    return 'Storage link created!';
-});
 
 Route::get('/', [RedirectIfAuthenticated::class, 'index'])->name('home');
 
@@ -155,6 +149,9 @@ Route::middleware(['auth'])->group(function () {
         
             Route::get('rpcppe-print', [RPCPPEPrintController::class, 'index'])->name('admin.rpcppe-print');
             Route::get('rpcppe-report', [RPCPPEReportController::class, 'index'])->name('admin.rpcppe-report');
+
+            Route::get('ics-scanned-document/{filename}', [FileViewingController::class, 'viewICS'])->name('admin.view-ics-file');
+            Route::get('are-scanned-document/{filename}', [FileViewingController::class, 'viewARE'])->name('admin.view-are-file');
             
         });
 
