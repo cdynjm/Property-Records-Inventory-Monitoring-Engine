@@ -34,8 +34,8 @@
                 <x-slot:head>
                     <th class="  px-4 py-2 text-[13px]">#</th>
                     <th class="  px-4 py-2 text-[13px] text-start">Description</th>
-                    <th class="  px-4 py-2 text-[13px] text-center whitespace-nowrap">Year Inventory
-                        ({{ session('year') }})</th>
+                    <th class="  px-4 py-2 text-[13px] text-center whitespace-nowrap">Inventory
+                        ({{ session('year') != '' ? session('year') : 'CONSOLIDATED' }})</th>
                     <th class="  px-4 py-2 text-[13px] text-center whitespace-nowrap">PPE sub-major account group</th>
                     <th class="  px-4 py-2 text-[13px] text-center whitespace-nowrap">General Ledger Account</th>
                     <th class="  px-4 py-2 text-[13px]">Actions</th>

@@ -1,13 +1,13 @@
 <x-table>
     <x-slot:head>
-        <th class="border border-gray-200 px-4 py-2 text-[13px] text-center text-nowrap">#</th>
-        <th class="border border-gray-200 px-4 py-2 text-[13px] text-start text-nowrap">Item Description</th>
-        <th class="border border-gray-200 px-4 py-2 text-[13px] text-center text-nowrap">Property Number</th>
-        <th class="border border-gray-200 px-4 py-2 text-[13px] text-center text-nowrap">Unit Measure</th>
-        <th class="border border-gray-200 px-4 py-2 text-[13px] text-center text-nowrap">Unit Value</th>
-        <th class="border border-gray-200 px-4 py-2 text-[13px] text-center text-nowrap">Accountable Officer</th>
-        <th class="border border-gray-200 px-4 py-2 text-[13px] text-center text-nowrap">Date Acquired</th>
-        <th class="border border-gray-200 px-4 py-2 text-[13px] text-center text-nowrap">Remarks</th>
+        <th class="border-b border-b-gray-200 px-4 py-2 text-[13px] text-center text-nowrap">#</th>
+        <th class="border-b border-b-gray-200 px-4 py-2 text-[13px] text-start text-nowrap">Item Description</th>
+        <th class="border-b border-b-gray-200 px-4 py-2 text-[13px] text-center text-nowrap">Property Number</th>
+        <th class="border-b border-b-gray-200 px-4 py-2 text-[13px] text-center text-nowrap">Unit Measure</th>
+        <th class="border-b border-b-gray-200 px-4 py-2 text-[13px] text-center text-nowrap">Unit Value</th>
+        <th class="border-b border-b-gray-200 px-4 py-2 text-[13px] text-center text-nowrap">Accountable Officer</th>
+        <th class="border-b border-b-gray-200 px-4 py-2 text-[13px] text-center text-nowrap">Date Acquired</th>
+        <th class="border-b border-b-gray-200 px-4 py-2 text-[13px] text-center text-nowrap">Remarks</th>
     </x-slot:head>
 
     @foreach ($are as $index => $ar)
@@ -15,13 +15,13 @@
             <x-table-row>
 
                 @if ($infoIndex === 0)
-                    <td class="border border-gray-200 px-4 py-2 text-center align-top whitespace-nowrap"
+                    <td class="border-b border-b-gray-200 px-4 py-2 text-center align-top whitespace-nowrap"
                         rowspan="{{ count($ar->information) }}">
                         {{ $index + 1 }}
                     </td>
                 @endif
                 {{-- Item Description --}}
-                <td class="border border-gray-200 px-4 py-2 align-middle text-nowrap xl:text-wrap">
+                <td class="border-b border-b-gray-200 px-4 py-2 align-middle text-nowrap xl:text-wrap">
                     <div class="flex items-start gap-2">
                         <iconify-icon icon="solar:bag-check-line-duotone" class="text-green-500" width="18"
                             height="18"></iconify-icon>
@@ -30,21 +30,21 @@
 
                 </td>
 
-                <td class="border border-gray-200 text-center px-4 py-2 align-middle text-[13px] whitespace-nowrap">
+                <td class="border-b border-b-gray-200 text-center px-4 py-2 align-middle text-[13px] whitespace-nowrap">
                     <p>{{ $areInfo->propertyNumber }}</p>
                 </td>
 
-                <td class="border border-gray-200 text-center px-4 py-2 align-middle text-[13px] whitespace-nowrap">
+                <td class="border-b border-b-gray-200 text-center px-4 py-2 align-middle text-[13px] whitespace-nowrap">
                     <p>{{ $areInfo->unit }}</p>
                 </td>
 
-                <td class="border border-gray-200 text-center px-4 py-2 align-middle text-[13px] whitespace-nowrap">
+                <td class="border-b border-b-gray-200 text-center px-4 py-2 align-middle text-[13px] whitespace-nowrap">
                     <p>{{ number_format($areInfo->unitCost, 2) }}</p>
                 </td>
 
                 {{-- Only show personnel and actions once per ARE --}}
                 @if ($infoIndex === 0)
-                    <td class="border border-gray-200 px-4 py-2 align-middle text-center whitespace-nowrap"
+                    <td class="border-b border-b-gray-200 px-4 py-2 align-middle text-center whitespace-nowrap"
                         rowspan="{{ count($ar->information) }}">
                         <div class="text-[13px]">
                             <div>
@@ -57,11 +57,11 @@
                         </div>
                     </td>
                 @endif
-                <td class="border border-gray-200 px-4 py-2 align-middle whitespace-nowrap">
+                <td class="border-b border-b-gray-200 px-4 py-2 align-middle whitespace-nowrap">
                     <p>{{ date('M d, Y', strtotime($areInfo->dateAcquired)) }}</p>
                 </td>
                 @if ($infoIndex === 0)
-                    <td class="border border-gray-200 px-4 py-2 align-middle text-center whitespace-nowrap"
+                    <td class="border-b border-b-gray-200 px-4 py-2 align-middle text-center whitespace-nowrap"
                         rowspan="{{ count($ar->information) }}">
                         <div class="text-[13px]">
                             <div>

@@ -14,6 +14,7 @@ class AccountsCode extends Model
 
     public function areInformation()
     {
-        return $this->hasMany(AREInformation::class, 'account_codes_id')->where('propertyYear', session('year'));
+        $year = session('year');
+        return $this->hasMany(AREInformation::class, 'account_codes_id')->where('dateAcquired', 'like', "{$year}%");
     }
 }
