@@ -8,7 +8,7 @@
             </div>
 
             <div class="border border-gray-200 rounded-lg p-5 mb-10">
-                <form action="" id="update-are-form" class="space-y-4">
+                <form action="" id="update-are-form" class="space-y-4" enctype="multipart/form-data">
                     <flux:input class="mb-0" name="areID" autocomplete="off" type="hidden"
                         value="{{ $are->encrypted_id }}" />
                     <p class="font-bold text-[13px] mb-2">CONTROL NUMBER</p>
@@ -251,6 +251,35 @@
                                 Remarks
                             </label>
                             <flux:input class="mb-0" name="remarks" value="{{ $are->remarks }}" required/>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                        <div class="flex flex-col">
+                            <label class="mb-1 text-sm font-medium text-gray-700">
+                                Upload Scanned Document
+                            </label>
+                            <flux:input class="mb-0" type="file" name="scannedDocument" />
+                        </div>
+                        <div class="flex flex-col">
+                            <label class="mb-1 text-sm font-medium text-gray-700">
+                                Uploaded File
+                            </label>
+
+                            @if ($are->scannedDocument)
+                                <a href="{{ asset('storage/scanned-documents/' . $are->scannedDocument) }}"
+                                    target="_blank">
+                                    <div class="flex items-center gap-2">
+                                        <iconify-icon icon="material-icon-theme:folder-pdf-open" width="22" height="22"></iconify-icon>
+                                    <span class="text-green-600 text-sm">{{ $are->scannedDocument }}</span>
+                                    </div>
+                                </a>
+                            @else
+                                <div class="flex items-center gap-2">
+                                    <iconify-icon icon="material-icon-theme:folder-pdf-open" width="22" height="22"></iconify-icon>
+                                <span class="text-red-600 text-sm">No file uploaded yet.</span>
+                                </div>
+                            @endif
                         </div>
                     </div>
 

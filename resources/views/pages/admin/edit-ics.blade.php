@@ -268,7 +268,6 @@
                                 </div>
                             @endif
                         </div>
-
                     </div>
 
                     <div class="flex items-center gap-4">

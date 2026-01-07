@@ -179,7 +179,7 @@ class ICSController extends Controller
 
             $extension = $file->getClientOriginalExtension();
 
-            $filename = $office->officeName . '-' . $request->icsYear . '-' . $request->icsCode . date('Ymdhis') . '.' . $extension;
+            $filename = $office->officeName . '-' . $request->icsYear . '-' . $request->icsCode . '-' . date('Ymdhis') . '.' . $extension;
 
             $file->storeAs('scanned-documents', $filename, 'public');
 

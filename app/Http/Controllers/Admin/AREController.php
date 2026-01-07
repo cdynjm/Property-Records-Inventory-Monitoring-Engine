@@ -195,6 +195,21 @@ class AREController extends Controller
             'remarks' => $request->remarks
          ];
 
+        $filename = null;
+
+        if ($request->hasFile('scannedDocument') && $request->file('scannedDocument')->isValid()) {
+
+            $file = $request->file('scannedDocument');
+
+            $extension = $file->getClientOriginalExtension();
+
+            $filename = $office->officeName . '-' . $request->areYear . '-' . $request->areCode . '-' . date('Ymdhis') . '.' . $extension;
+
+            $file->storeAs('scanned-documents', $filename, 'public');
+
+            $data['scannedDocument'] = $filename;
+        }
+
          if (!empty($request->receivedBy_id)) {
             $data['receivedBy_id'] = $this->aes->decrypt($request->receivedBy_id);
         
