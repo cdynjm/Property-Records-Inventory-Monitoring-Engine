@@ -1,22 +1,22 @@
 <x-table>
     <x-slot:head>
-        <th class="border border-gray-200 px-4 py-2 text-[13px] text-center text-nowrap">#</th>
-        <th class="border border-gray-200 px-4 py-2 text-[13px] text-start text-nowrap">ARE Control Number</th>
-        <th class="border border-gray-200 px-4 py-2 text-[13px] text-start text-nowrap">Item Description</th>
-        <th class="border border-gray-200 px-4 py-2 text-[13px] text-center text-nowrap">Property No. & Remarks</th>
-        <th class="border border-gray-200 px-4 py-2 text-[13px] text-start text-nowrap">Accountable</th>
-        <th class="border border-gray-200 px-4 py-2 text-[13px] text-center text-nowrap">Actions</th>
+        <th class="border-b border-b-gray-200 px-4 py-2 text-[13px] text-center text-nowrap">#</th>
+        <th class="border-b border-b-gray-200 px-4 py-2 text-[13px] text-start text-nowrap">ARE Control Number</th>
+        <th class="border-b border-b-gray-200 px-4 py-2 text-[13px] text-start text-nowrap">Item Description</th>
+        <th class="border-b border-b-gray-200 px-4 py-2 text-[13px] text-center text-nowrap">Property No. & Remarks</th>
+        <th class="border-b border-b-gray-200 px-4 py-2 text-[13px] text-start text-nowrap">Accountable</th>
+        <th class="border-b border-b-gray-200 px-4 py-2 text-[13px] text-center text-nowrap">Actions</th>
     </x-slot:head>
 
     @foreach ($are as $index => $ar)
         @foreach ($ar->information as $infoIndex => $areInfo)
             <x-table-row>
                 @if ($infoIndex === 0)
-                    <td class="border border-gray-200 px-4 py-2 text-center align-top whitespace-nowrap"
+                    <td class="border-b border-b-gray-200 px-4 py-2 text-center align-top whitespace-nowrap"
                         rowspan="{{ count($ar->information) }}">
                         {{ $index + 1 }}
                     </td>
-                    <td class="border border-gray-200 py-2 align-top text-nowrap"
+                    <td class="border-b border-b-gray-200 py-2 align-top text-nowrap"
                         rowspan="{{ count($ar->information) }}">
                         <div class="flex items-center justify-between px-4 mb-4">
                             <a wire:navigate
@@ -32,7 +32,7 @@
                 @endif
 
                 {{-- Item Description --}}
-                <td class="border border-gray-200 px-4 py-2 align-middle text-nowrap xl:text-wrap">
+                <td class="border-b border-b-gray-200 px-4 py-2 align-middle text-nowrap xl:text-wrap">
                     <div class="flex items-start gap-2">
                         <iconify-icon icon="solar:bag-check-line-duotone" class="text-green-500" width="18"
                             height="18"></iconify-icon>
@@ -53,14 +53,14 @@
                 </td>
 
                 {{-- Property Number --}}
-                <td class="border border-gray-200 text-center px-4 py-2 align-middle text-[13px] whitespace-nowrap">
+                <td class="border-b border-b-gray-200 text-center px-4 py-2 align-middle text-[13px] whitespace-nowrap">
                     <p>{{ $areInfo->propertyNumber }}</p>
                     <p class="text-blue-600">{{ $ar->remarks }}</p>
                 </td>
 
                 {{-- Only show personnel and actions once per ARE --}}
                 @if ($infoIndex === 0)
-                    <td class="border border-gray-200 px-4 py-2 align-middle whitespace-nowrap"
+                    <td class="border-b border-b-gray-200 px-4 py-2 align-middle whitespace-nowrap"
                         rowspan="{{ count($ar->information) }}">
                         <div class="text-[13px]">
                             <div class="mb-4">
@@ -79,7 +79,7 @@
                         </div>
                     </td>
 
-                    <td class="border border-gray-200 px-4 py-2 align-middle whitespace-nowrap"
+                    <td class="border-b border-b-gray-200 px-4 py-2 align-middle whitespace-nowrap"
                         rowspan="{{ count($ar->information) }}">
                         <div class="flex items-center justify-center gap-2">
                             <div class="flex flex-col items-center">
