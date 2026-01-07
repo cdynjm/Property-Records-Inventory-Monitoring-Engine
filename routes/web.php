@@ -44,6 +44,13 @@ use App\Http\Controllers\Office\RPCPPEPrintController as OfficeRPCPPEPrintContro
 use App\Http\Controllers\Office\Reports\RPCPPEReportController as OfficeRPCPPEReportController;
 use App\Http\Controllers\Office\RPCPPERecordsController as OfficeRPCPPERecordsController;
 
+use Illuminate\Support\Facades\Artisan;
+
+Route::get('/storage-link', function () {
+    Artisan::call('storage:link');
+    return 'Storage link created!';
+});
+
 Route::get('/', [RedirectIfAuthenticated::class, 'index'])->name('home');
 
 Route::middleware(['auth'])->group(function () {

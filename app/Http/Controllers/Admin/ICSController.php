@@ -171,6 +171,21 @@ class ICSController extends Controller
             'dateReceivedFrom' => $request->dateReceivedFrom,
         ];
 
+        $filename = null;
+
+        if ($request->hasFile('scannedDocument') && $request->file('scannedDocument')->isValid()) {
+
+            $file = $request->file('scannedDocument');
+
+            $extension = $file->getClientOriginalExtension();
+
+            $filename = $office->officeName . '-' . $request->icsYear . '-' . $request->icsCode . date('Ymdhis') . '.' . $extension;
+
+            $file->storeAs('scanned-documents', $filename, 'public');
+
+            $data['scannedDocument'] = $filename;
+        }
+
         if (!empty($request->receivedBy_id)) {
             $data['receivedBy_id'] = $this->aes->decrypt($request->receivedBy_id);
         

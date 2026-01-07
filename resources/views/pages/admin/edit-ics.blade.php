@@ -3,12 +3,13 @@
 
         <div class="flex-1">
             <div class="flex items-center justify-center mb-4 gap-2">
-               <img src="{{ asset('/img/document.png') }}" alt="" class="w-8 h-auto" draggable="false">
-                <flux:heading level="1" class="text-[15px]">Inventory Custodian Slip <span class="text-blue-500">(Edit)</span></flux:heading>
+                <img src="{{ asset('/img/document.png') }}" alt="" class="w-8 h-auto" draggable="false">
+                <flux:heading level="1" class="text-[15px]">Inventory Custodian Slip <span
+                        class="text-blue-500">(Edit)</span></flux:heading>
             </div>
 
             <div class="border border-gray-200 rounded-lg p-5 mb-10">
-                <form action="" id="update-ics-form" class="space-y-4">
+                <form action="" id="update-ics-form" class="space-y-4" enctype="multipart/form-data">
                     <flux:input class="mb-0" name="icsID" autocomplete="off" type="hidden"
                         value="{{ $ics->encrypted_id }}" />
                     <p class="font-bold text-[13px] mb-2">ICS NUMBER</p>
@@ -20,9 +21,8 @@
                             </label>
                             <flux:select variant="default" name="offices_id" placeholder="Choose Office..." required>
                                 @foreach ($offices as $office)
-                                <option value="{{ $office->encrypted_id }}" @selected($ics->encrypted_offices_id ==
-                                    $office->encrypted_id)>
-                                    {{ $office->officeName }}</option>
+                                    <option value="{{ $office->encrypted_id }}" @selected($ics->encrypted_offices_id == $office->encrypted_id)>
+                                        {{ $office->officeName }}</option>
                                 @endforeach
                             </flux:select>
                         </div>
@@ -44,7 +44,8 @@
                                 @endphp
 
                                 @foreach ($years as $year)
-                                    <option value="{{ $year }}" @selected($ics->icsYear == $year)>{{ $year }}</option>
+                                    <option value="{{ $year }}" @selected($ics->icsYear == $year)>{{ $year }}
+                                    </option>
                                 @endforeach
                             </flux:select>
                         </div>
@@ -79,7 +80,7 @@
                             }@if (!$loop->last),@endif @endforeach
                         ]
                     }" class="">
-                    <!-- no-minify:end -->
+                        <!-- no-minify:end -->
 
                         <template x-for="(row, index) in rows" :key="index">
                             <div class="rows">
@@ -99,7 +100,7 @@
                                         <flux:select variant="default" placeholder="Choose Unit..." x-model="row.unit"
                                             x-bind:name="'rows[' + index + '][unit]'">
                                             @foreach ($units as $unit)
-                                            <option value="{{ $unit->unit }}">{{ $unit->unit }}</option>
+                                                <option value="{{ $unit->unit }}">{{ $unit->unit }}</option>
                                             @endforeach
                                         </flux:select>
                                     </div>
@@ -112,12 +113,14 @@
 
                                     <div class="flex flex-col">
                                         <label class="mb-1 text-sm font-medium text-gray-700">Inventory Item No.</label>
-                                        <flux:input class="mb-0" x-model="row.invItemNumber" x-bind:name="'rows[' + index + '][invItemNumber]'" />
+                                        <flux:input class="mb-0" x-model="row.invItemNumber"
+                                            x-bind:name="'rows[' + index + '][invItemNumber]'" />
                                     </div>
 
                                     <div class="flex flex-col">
                                         <label class="mb-1 text-sm font-medium text-gray-700">Date Acquired</label>
-                                        <flux:input class="mb-0" type="date" x-model="row.dateAcquired" max="{{ now()->toDateString() }}"
+                                        <flux:input class="mb-0" type="date" x-model="row.dateAcquired"
+                                            max="{{ now()->toDateString() }}"
                                             x-bind:name="'rows[' + index + '][dateAcquired]'" />
                                     </div>
 
@@ -129,8 +132,8 @@
 
                                     <div class="flex flex-col">
                                         <label class="mb-1 text-sm font-medium text-gray-700">Unit Cost</label>
-                                        <flux:input class="mb-0" type="number" min="0" step="any" x-model="row.unitCost"
-                                            x-bind:name="'rows[' + index + '][unitCost]'" />
+                                        <flux:input class="mb-0" type="number" min="0" step="any"
+                                            x-model="row.unitCost" x-bind:name="'rows[' + index + '][unitCost]'" />
                                     </div>
                                 </div>
 
@@ -146,7 +149,8 @@
                                     <button type="button"
                                         class="p-1 pb-0 text-sm bg-red-500 text-white rounded-lg hover:bg-red-600"
                                         x-show="rows.length > 1" x-on:click="rows.splice(index, 1)">
-                                        <iconify-icon icon="pajamas:remove" width="16" height="16"></iconify-icon>
+                                        <iconify-icon icon="pajamas:remove" width="16"
+                                            height="16"></iconify-icon>
                                     </button>
                                     <button type="button"
                                         class="p-1 pb-0 text-sm bg-green-500 text-white rounded-lg hover:bg-green-600"
@@ -159,7 +163,8 @@
                         unitCost: '',
                         description: ``
                     })">
-                                        <iconify-icon icon="basil:add-outline" width="24" height="24"></iconify-icon>
+                                        <iconify-icon icon="basil:add-outline" width="24"
+                                            height="24"></iconify-icon>
                                     </button>
                                 </div>
                             </div>
@@ -178,9 +183,9 @@
                             <flux:select variant="default" name="receivedFrom_id" id="received-from"
                                 placeholder="Choose Personnel..." required>
                                 @foreach ($receivedFrom as $rf)
-                                <option value="{{ $rf->encrypted_id }}" data-position="{{ $rf->position }}"
-                                    @selected($ics->encrypted_receivedFrom_id == $rf->encrypted_id)>
-                                    {{ $rf->name }}</option>
+                                    <option value="{{ $rf->encrypted_id }}" data-position="{{ $rf->position }}"
+                                        @selected($ics->encrypted_receivedFrom_id == $rf->encrypted_id)>
+                                        {{ $rf->name }}</option>
                                 @endforeach
                             </flux:select>
                         </div>
@@ -197,8 +202,8 @@
                             <label class="mb-1 text-sm font-medium text-gray-700">
                                 Date
                             </label>
-                            <flux:input class="mb-0" type="date" name="dateReceivedFrom" max="{{ now()->toDateString() }}"
-                                value="{{ $ics->dateReceivedFrom }}" required />
+                            <flux:input class="mb-0" type="date" name="dateReceivedFrom"
+                                max="{{ now()->toDateString() }}" value="{{ $ics->dateReceivedFrom }}" required />
                         </div>
                     </div>
 
@@ -231,16 +236,48 @@
                             <label class="mb-1 text-sm font-medium text-gray-700">
                                 Date
                             </label>
-                            <flux:input class="mb-0" type="date" name="dateReceivedBy" max="{{ now()->toDateString() }}"
-                                value="{{ $ics->dateReceivedBy }}" />
+                            <flux:input class="mb-0" type="date" name="dateReceivedBy"
+                                max="{{ now()->toDateString() }}" value="{{ $ics->dateReceivedBy }}" />
                         </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                        <div class="flex flex-col">
+                            <label class="mb-1 text-sm font-medium text-gray-700">
+                                Upload Scanned Document
+                            </label>
+                            <flux:input class="mb-0" type="file" name="scannedDocument" />
+                        </div>
+                        <div class="flex flex-col">
+                            <label class="mb-1 text-sm font-medium text-gray-700">
+                                Uploaded File
+                            </label>
+
+                            @if ($ics->scannedDocument)
+                                <a href="{{ asset('storage/scanned-documents/' . $ics->scannedDocument) }}"
+                                    target="_blank">
+                                    <div class="flex items-center gap-2">
+                                        <iconify-icon icon="material-icon-theme:folder-pdf-open" width="22" height="22"></iconify-icon>
+                                    <span class="text-green-600 text-sm">{{ $ics->scannedDocument }}</span>
+                                    </div>
+                                </a>
+                            @else
+                                <div class="flex items-center gap-2">
+                                    <iconify-icon icon="material-icon-theme:folder-pdf-open" width="22" height="22"></iconify-icon>
+                                <span class="text-red-600 text-sm">No file uploaded yet.</span>
+                                </div>
+                            @endif
+                        </div>
+
                     </div>
 
                     <div class="flex items-center gap-4">
                         <flux:button type="submit" variant="primary" class="save-ics-btn">Save changes</flux:button>
-                        <a wire:navigate href="{{ route('admin.ics-print', ['encrypted_id' => $ics->encrypted_id]) }}" id="print-ics">
+                        <a wire:navigate href="{{ route('admin.ics-print', ['encrypted_id' => $ics->encrypted_id]) }}"
+                            id="print-ics">
                             <flux:button type="button" variant="ghost">
-                                <iconify-icon icon="lets-icons:print-duotone" width="24" height="24"></iconify-icon>
+                                <iconify-icon icon="lets-icons:print-duotone" width="24"
+                                    height="24"></iconify-icon>
                                 Print
                             </flux:button>
                         </a>
@@ -254,8 +291,8 @@
     </div>
 
     @if (Session::get('success'))
-    <x-success-toast>
-        {{ Session::get('success') }}
-    </x-success-toast>
+        <x-success-toast>
+            {{ Session::get('success') }}
+        </x-success-toast>
     @endif
 </x-layouts.app>
