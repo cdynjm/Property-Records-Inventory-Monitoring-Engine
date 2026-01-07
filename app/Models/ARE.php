@@ -14,7 +14,7 @@ class ARE extends Model
         'offices_id', 'areOffice', 'areYear', 'areCode', 'areControlNumber',
         'receivedFrom_id', 'receivedFromPosition', 'dateReceivedFrom',
         'receivedBy_id', 'receivedBy', 'receivedByPosition', 'dateReceivedBy',
-        'furnishedBy', 'remarks'
+        'furnishedBy', 'remarks', 'scannedDocument'
     ];
 
     public function receivedFrom()

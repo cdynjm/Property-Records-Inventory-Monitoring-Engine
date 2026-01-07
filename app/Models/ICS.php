@@ -14,7 +14,7 @@ class ICS extends Model
         'offices_id', 'icsOffice', 'icsYear', 'icsCode', 'icsNumber',
         'receivedBy_id','receivedBy', 'receivedByPosition', 'dateReceivedBy',
         'receivedFrom_id', 'receivedFromPosition', 'dateReceivedFrom',
-        'furnishedBy', 'remarks'
+        'furnishedBy', 'remarks', 'scannedDocument'
     ];
 
     public function receivedBy()
