@@ -9,7 +9,7 @@
                 </label>
 
                 @if ($are->scannedDocument)
-                    <a href="{{ route('admin.view-ics-file', ['filename' => $are->scannedDocument]) }}" target="_blank"
+                    <a href="{{ route('admin.view-are-file', ['filename' => $are->scannedDocument]) }}" target="_blank"
                         class="flex items-center justify-center gap-2">
                         <iconify-icon icon="material-icon-theme:folder-pdf-open" width="22"
                             height="22"></iconify-icon>
