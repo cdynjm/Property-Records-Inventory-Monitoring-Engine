@@ -15,8 +15,11 @@ use App\Models\AccountsCode;
 use App\Models\ARE;
 use App\Models\AREInformation;
 
+use App\Traits\ScannedDocument;
+
 class AREController extends Controller
 {
+    use ScannedDocument;
     protected AESCipher $aes;
 
     public function __construct(AESCipher $aes)
@@ -175,6 +178,10 @@ class AREController extends Controller
 
     public function updateARE(Request $request)
     {
+        if ($response = $this->ValidateScannedDocument($request)) {
+            return $response;
+        }
+
          $office = Office::where('id', $this->aes->decrypt($request->offices_id))->first();
          $receivedFrom = ReceivedFrom::where('id', $this->aes->decrypt($request->receivedFrom_id))->first();
 

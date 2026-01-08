@@ -259,7 +259,7 @@
                             <label class="mb-1 text-sm font-medium text-gray-700">
                                 Upload Scanned Document
                             </label>
-                            <flux:input class="mb-0" type="file" name="scannedDocument" />
+                            <flux:input class="mb-0" type="file" name="scannedDocument" accept=".pdf" />
                         </div>
                         <div class="flex flex-col">
                             <label class="mb-1 text-sm font-medium text-gray-700">
@@ -304,5 +304,11 @@
     <x-success-toast>
         {{ Session::get('success') }}
     </x-success-toast>
+    @endif
+
+    @if (Session::get('error'))
+        <x-validation-error-toast>
+            {{ Session::get('error') }}
+        </x-validation-error-toast>
     @endif
 </x-layouts.app>

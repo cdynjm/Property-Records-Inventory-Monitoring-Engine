@@ -14,8 +14,11 @@ use App\Models\ReceivedBy;
 use App\Models\ICS;
 use App\Models\ICSInformation;
 
+use App\Traits\ScannedDocument;
+
 class ICSController extends Controller
 {
+    use ScannedDocument;
     protected AESCipher $aes;
 
     public function __construct(AESCipher $aes)
@@ -152,6 +155,10 @@ class ICSController extends Controller
 
     public function updateICS(Request $request)
     {
+        if ($response = $this->ValidateScannedDocument($request)) {
+            return $response;
+        }
+
         $office = Office::where('id', $this->aes->decrypt($request->offices_id))->first();
         $receivedFrom = ReceivedFrom::where('id', $this->aes->decrypt($request->receivedFrom_id))->first();
 

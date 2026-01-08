@@ -174,18 +174,7 @@ $(function () {
                 window.Livewire.navigate(window.location.pathname) as any;
             })
             .catch((error) => {
-                const toast = document.getElementsByClassName("toast-error");
-
-                if (toast.length > 0) {
-                    const messageElem = toast[0].querySelector(
-                        ".toast-error-message"
-                    );
-                    if (messageElem) {
-                        messageElem.textContent = "Error in saving ICS";
-                    }
-                    $(toast[0]).fadeIn(100);
-                    setTimeout(() => $(toast[0]).fadeOut(300), 3000);
-                }
+                window.Livewire.navigate(window.location.pathname) as any;
             })
             .finally(() => {
                 $btn.prop("disabled", false).text("Save changes");
@@ -271,18 +260,7 @@ $(function () {
                 window.Livewire.navigate(window.location.pathname) as any;
             })
             .catch((error) => {
-                const toast = document.getElementsByClassName("toast-error");
-
-                if (toast.length > 0) {
-                    const messageElem = toast[0].querySelector(
-                        ".toast-error-message"
-                    );
-                    if (messageElem) {
-                        messageElem.textContent = "Error in saving ARE";
-                    }
-                    $(toast[0]).fadeIn(100);
-                    setTimeout(() => $(toast[0]).fadeOut(300), 3000);
-                }
+                window.Livewire.navigate(window.location.pathname) as any;
             })
             .finally(() => {
                 $btn.prop("disabled", false).text("Save changes");
