@@ -26,7 +26,7 @@ class AREPrintController extends Controller
     public function index(Request $request)
     {
         $areID = $this->aes->decrypt($request->encrypted_id);
-        $are = ARE::where('id', $areID)->select('areControlNumber')->first();
+        $are = ARE::where('id', $areID)->select('areControlNumber', 'scannedDocument')->first();
         return view('pages.admin.are-print', [
             'encrypted_id' => $request->encrypted_id,
             'are' => $are

@@ -203,7 +203,7 @@ class AREController extends Controller
 
             $extension = $file->getClientOriginalExtension();
 
-            $filename = $office->officeName . '-' . $request->areYear . '-' . $request->areCode . '-' . date('Ymdhis') . '.' . $extension;
+            $filename = $office->officeName . '-' . $request->areYear . '-' . $request->areCode . '-ARE-' . date('Ymdhi') . '.' . $extension;
 
             $file->storeAs('scanned-documents', $filename, 'local');
 
