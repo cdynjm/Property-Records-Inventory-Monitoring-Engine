@@ -36,4 +36,4 @@
 
         <x-footer class="mt-auto" />
     </div>
-</x-layouts.app>
+</x-layouts.app> 
